@@ -6,7 +6,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 export const metadata = constructMetadata({
   title: "Privacy Policy – Grade Calculator",
   description:
-    "Privacy Policy for Grade Calculator (gradecalculator.click). Learn how your data is protected through client-side calculations and privacy standards.",
+    "Privacy Policy for Grade Calculator (gradecalculator.dev). Learn how your data is protected through client-side calculations and privacy standards.",
   path: "/privacy-policy",
 });
 
@@ -31,7 +31,7 @@ export default function PrivacyPolicyPage() {
         <section className="space-y-2">
           <h2 className="text-base font-bold text-slate-900">1. Client-Side Data & Academic Privacy</h2>
           <p>
-            At <strong>Grade Calculator</strong> (accessible at <a href="https://gradecalculator.click" className="text-indigo-600 underline">https://gradecalculator.click</a>), one of our main priorities is the privacy of our visitors. Our calculators are designed to execute <strong>entirely in your browser's JavaScript engine</strong>. No assignment names, numerical grades, percentages, or GPA records you type into the calculators are transmitted to our servers or stored in any database.
+            At <strong>Grade Calculator</strong> (accessible at <a href="https://gradecalculator.dev" className="text-indigo-600 underline">https://gradecalculator.dev</a>), one of our main priorities is the privacy of our visitors. Our calculators are designed to execute <strong>entirely in your browser's JavaScript engine</strong>. No assignment names, numerical grades, percentages, or GPA records you type into the calculators are transmitted to our servers or stored in any database.
           </p>
         </section>
 
@@ -62,7 +62,7 @@ export default function PrivacyPolicyPage() {
         <section className="space-y-2">
           <h2 className="text-base font-bold text-slate-900">5. Contact Us</h2>
           <p>
-            If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us at <strong>privacy@gradecalculator.click</strong>.
+            If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us at <strong>privacy@gradecalculator.dev</strong>.
           </p>
         </section>
       </div>

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const SITE_NAME = "Grade Calculator";
-export const SITE_URL = "https://gradecalculator.click";
+export const SITE_URL = "https://gradecalculator.dev";
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 interface PageMetaParams {

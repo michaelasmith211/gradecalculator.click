@@ -29,7 +29,7 @@ export default function SocialShare({
   compact = false,
 }: SocialShareProps) {
   const [copied, setCopied] = useState(false);
-  const [currentUrl, setCurrentUrl] = useState(url || "https://gradecalculator.click");
+  const [currentUrl, setCurrentUrl] = useState(url || "https://gradecalculator.dev");
 
   useEffect(() => {
     if (typeof window !== "undefined" && !url) {

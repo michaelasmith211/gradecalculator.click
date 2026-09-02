@@ -123,7 +123,7 @@ export default function ContactPage() {
               We respond to inquiries regarding calculation discrepancies, school scale requests, and partnership proposals.
             </p>
             <div className="pt-2 text-xs font-mono text-indigo-700 font-semibold">
-              support@gradecalculator.click
+              support@gradecalculator.dev
             </div>
           </div>
 

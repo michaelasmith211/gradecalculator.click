@@ -41,14 +41,14 @@ export default function FinalGradeCalculator({
 
   const handleShareResult = async () => {
     if (!result) return;
-    const shareText = `I need a ${result.requiredScore}% on my final exam to finish with a ${result.desiredGrade}%! Calculate yours at https://gradecalculator.click/final-grade-calculator/`;
+    const shareText = `I need a ${result.requiredScore}% on my final exam to finish with a ${result.desiredGrade}%! Calculate yours at https://gradecalculator.dev/final-grade-calculator/`;
 
     if (navigator.share) {
       try {
         await navigator.share({
           title: "My Final Exam Score Needed",
           text: shareText,
-          url: "https://gradecalculator.click/final-grade-calculator/",
+          url: "https://gradecalculator.dev/final-grade-calculator/",
         });
         trackEvent("share_result_native", { tool: "final_grade" });
         return;

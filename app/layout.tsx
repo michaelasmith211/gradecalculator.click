@@ -14,7 +14,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://gradecalculator.click"),
+  metadataBase: new URL("https://gradecalculator.dev"),
   title: {
     template: "%s | Grade Calculator",
     default: "Grade Calculator – Calculate Your Grade & GPA Instantly",

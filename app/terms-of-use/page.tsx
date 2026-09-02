@@ -6,7 +6,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 export const metadata = constructMetadata({
   title: "Terms of Use – Grade Calculator",
   description:
-    "Terms of Use for Grade Calculator (gradecalculator.click). Read our terms and conditions for using our educational calculation tools.",
+    "Terms of Use for Grade Calculator (gradecalculator.dev). Read our terms and conditions for using our educational calculation tools.",
   path: "/terms-of-use",
 });
 
@@ -31,7 +31,7 @@ export default function TermsOfUsePage() {
         <section className="space-y-2">
           <h2 className="text-base font-bold text-slate-900">1. Acceptance of Terms</h2>
           <p>
-            By accessing and using <strong>Grade Calculator</strong> (gradecalculator.click), you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use this service.
+            By accessing and using <strong>Grade Calculator</strong> (gradecalculator.dev), you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use this service.
           </p>
         </section>
 

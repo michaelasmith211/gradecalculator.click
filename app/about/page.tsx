@@ -37,7 +37,7 @@ export default function AboutPage() {
       <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-4">
         <h2 className="text-2xl font-bold text-slate-900">Our Mission</h2>
         <p className="text-sm text-slate-600 leading-relaxed">
-          At <strong>Grade Calculator</strong> (gradecalculator.click), we believe that every student deserves clear, transparent insight into their academic performance. Calculating semester averages, final exam targets, and GPA should not require confusing spreadsheets or ad-cluttered websites that lag on mobile devices.
+          At <strong>Grade Calculator</strong> (gradecalculator.dev), we believe that every student deserves clear, transparent insight into their academic performance. Calculating semester averages, final exam targets, and GPA should not require confusing spreadsheets or ad-cluttered websites that lag on mobile devices.
         </p>
         <p className="text-sm text-slate-600 leading-relaxed">
           Our suite of 15+ calculators is built on modern web technologies to ensure lightning-fast responsiveness, 100% browser-side data privacy, and mathematical rigor across every formula.
