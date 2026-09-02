@@ -1,17 +1,24 @@
 import React from "react";
 import { constructMetadata } from "@/lib/seo/metadata";
-import { generateWebApplicationSchema, generateFAQSchema, generateBreadcrumbSchema } from "@/lib/seo/schema";
+import {
+  generateWebApplicationSchema,
+  generateFAQSchema,
+  generateBreadcrumbSchema,
+  generateHowToSchema,
+} from "@/lib/seo/schema";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import GPACalculator from "@/components/calculators/GPACalculator";
 import FAQAccordion, { FAQItem } from "@/components/FAQAccordion";
 import RelatedCalculators from "@/components/RelatedCalculators";
 import SocialShare from "@/components/SocialShare";
+import SeoSummaryBox from "@/components/SeoSummaryBox";
+import TableOfContents from "@/components/TableOfContents";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export const metadata = constructMetadata({
-  title: "GPA Calculator – Calculate Your GPA on a 4.0 Scale",
+  title: "GPA Calculator – Calculate 4.0 & Cumulative GPA",
   description:
     "Free GPA Calculator for high school and college students. Calculate semester GPA, cumulative GPA, and quality points on standard 4.0 and weighted 5.0 scales.",
   path: "/gpa-calculator",
@@ -22,6 +29,8 @@ export const metadata = constructMetadata({
     "college gpa calculator",
     "cumulative gpa calculator",
     "grade point average calculator",
+    "semester gpa calculator",
+    "unweighted gpa calculator",
   ],
 });
 
@@ -60,11 +69,47 @@ export default function GPACalculatorPage() {
   const faqSchema = generateFAQSchema(faqs);
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
 
+  const howToSchema = generateHowToSchema({
+    name: "How to Calculate Your Grade Point Average (GPA) on a 4.0 Scale",
+    description:
+      "Step-by-step method to convert letter grades to grade points, calculate quality points per credit, and determine term and cumulative GPA.",
+    path: "/gpa-calculator",
+    steps: [
+      {
+        name: "Convert Letter Grades to Points",
+        text: "Translate each grade to numerical values: A=4.0, A-=3.7, B+=3.3, B=3.0, B-=2.7, C+=2.3, C=2.0, D=1.0, F=0.0.",
+      },
+      {
+        name: "Calculate Course Quality Points",
+        text: "Multiply each course's grade point value by its number of credit hours (e.g., 4 credits × 4.0 = 16.0 quality points).",
+      },
+      {
+        name: "Sum Quality Points and Total Credits",
+        text: "Add up all quality points across every class, and sum all credit hours attempted.",
+      },
+      {
+        name: "Divide Quality Points by Total Credits",
+        text: "Divide the total quality points by total credits attempted to determine your exact Grade Point Average.",
+      },
+    ],
+  });
+
+  const tocItems = [
+    { id: "calculator", label: "Interactive 4.0 GPA Calculator" },
+    { id: "specialized-tools", label: "Specialized GPA Tools" },
+    { id: "how-gpa-works", label: "How GPA is Calculated" },
+    { id: "point-values", label: "4.0 Grade Point Chart" },
+    { id: "cumulative-gpa", label: "Cumulative GPA Math" },
+    { id: "faqs", label: "Frequently Asked Questions" },
+  ];
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+      {/* Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
 
       <Breadcrumbs items={breadcrumbs} />
 
@@ -77,12 +122,30 @@ export default function GPACalculatorPage() {
         </p>
       </div>
 
-      <GPACalculator type="standard" />
+      {/* Tool */}
+      <div id="calculator">
+        <GPACalculator type="standard" />
+      </div>
+
+      {/* SEO Snippet Box */}
+      <SeoSummaryBox
+        title="GPA Calculation Summary"
+        quickAnswer="GPA (Grade Point Average) measures academic performance on a 4.0 scale by dividing total quality points earned by the total number of credit hours attempted."
+        formula="GPA = Total Quality Points ÷ Total Credit Hours Attempted"
+        keyTakeaways={[
+          "Calculates unweighted 4.0 GPA and weighted 5.0 Honors/AP GPA simultaneously",
+          "Includes cumulative GPA recalculation with prior completed credits",
+          "Real-time Dean's List and Latin Honors academic standing badges",
+          "Supports college courses (1–5 credits per class) and high school terms",
+        ]}
+      />
+
+      <TableOfContents items={tocItems} />
 
       <AdPlaceholder format="horizontal" slotId="gpa-mid-ad" />
 
       {/* GPA Types Navigation Cards */}
-      <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <section id="specialized-tools" className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Link
           href="/semester-gpa-calculator"
           className="p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 hover:shadow-md transition-all block"
@@ -116,7 +179,7 @@ export default function GPACalculatorPage() {
       </section>
 
       {/* Educational Guide */}
-      <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6">
+      <section id="how-gpa-works" className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6">
         <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
           How GPA and Quality Points Are Calculated
         </h2>
@@ -130,20 +193,35 @@ export default function GPACalculatorPage() {
           Where Quality Points for a course = (Credit Hours &times; Grade Point Value)
         </div>
 
-        <h3 className="text-lg font-bold text-slate-900">4.0 Scale Grade Point Values</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-          <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">A+ / A = <strong>4.0</strong></div>
-          <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">A- = <strong>3.7</strong></div>
-          <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">B+ = <strong>3.3</strong></div>
-          <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">B = <strong>3.0</strong></div>
-          <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">B- = <strong>2.7</strong></div>
-          <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">C+ = <strong>2.3</strong></div>
-          <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">C = <strong>2.0</strong></div>
-          <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">D = <strong>1.0</strong>, F = <strong>0.0</strong></div>
+        <div id="point-values" className="space-y-3 pt-2">
+          <h3 className="text-lg font-bold text-slate-900">4.0 Scale Grade Point Values</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+            <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">A+ / A = <strong>4.0</strong></div>
+            <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">A- = <strong>3.7</strong></div>
+            <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">B+ = <strong>3.3</strong></div>
+            <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">B = <strong>3.0</strong></div>
+            <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">B- = <strong>2.7</strong></div>
+            <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">C+ = <strong>2.3</strong></div>
+            <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">C = <strong>2.0</strong></div>
+            <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 font-medium">D = <strong>1.0</strong>, F = <strong>0.0</strong></div>
+          </div>
+        </div>
+
+        <div id="cumulative-gpa" className="space-y-2 pt-4 border-t border-slate-100">
+          <h3 className="text-lg font-bold text-slate-900">Calculating Cumulative GPA Across Semesters</h3>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Your cumulative GPA combines past completed terms with your current term:
+          </p>
+          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 font-mono text-xs text-slate-800">
+            Cumulative GPA = (Prior Quality Points + Term Quality Points) &divide; (Prior Credits + Term Credits)
+          </div>
         </div>
       </section>
 
-      <FAQAccordion faqs={faqs} />
+      {/* FAQs */}
+      <section id="faqs">
+        <FAQAccordion faqs={faqs} />
+      </section>
 
       {/* Social Share */}
       <SocialShare

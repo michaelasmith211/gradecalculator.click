@@ -3,7 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
-import { generateWebSiteSchema } from "@/lib/seo/schema";
+import { generateWebSiteSchema, generateOrganizationSchema } from "@/lib/seo/schema";
 
 const GA_MEASUREMENT_ID = "G-HT87NWEHNT";
 
@@ -58,6 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const websiteSchema = generateWebSiteSchema();
+  const orgSchema = generateOrganizationSchema();
 
   return (
     <html lang="en" className="scroll-smooth">
@@ -70,10 +71,14 @@ export default function RootLayout({
         {/* Dynamic Route & SPA Google Analytics 4 */}
         <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
 
-        {/* Structured Data */}
+        {/* Structured Data: WebSite & Organization */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
       </head>
       <body className="font-sans antialiased text-slate-900 bg-slate-50/40 flex flex-col min-h-screen selection:bg-indigo-500 selection:text-white">

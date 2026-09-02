@@ -1,10 +1,18 @@
 import React from "react";
 import { constructMetadata } from "@/lib/seo/metadata";
-import { generateWebApplicationSchema, generateFAQSchema, generateBreadcrumbSchema } from "@/lib/seo/schema";
+import {
+  generateWebApplicationSchema,
+  generateFAQSchema,
+  generateBreadcrumbSchema,
+  generateHowToSchema,
+} from "@/lib/seo/schema";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import GPACalculator from "@/components/calculators/GPACalculator";
 import FAQAccordion, { FAQItem } from "@/components/FAQAccordion";
 import RelatedCalculators from "@/components/RelatedCalculators";
+import SocialShare from "@/components/SocialShare";
+import SeoSummaryBox from "@/components/SeoSummaryBox";
+import TableOfContents from "@/components/TableOfContents";
 import AdPlaceholder from "@/components/AdPlaceholder";
 
 export const metadata = constructMetadata({
@@ -18,6 +26,7 @@ export const metadata = constructMetadata({
     "quarter gpa calculator",
     "term grade point average",
     "semester credit calculator",
+    "calculate my semester gpa",
   ],
 });
 
@@ -54,11 +63,39 @@ export default function SemesterGPACalculatorPage() {
   const faqSchema = generateFAQSchema(faqs);
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
 
+  const howToSchema = generateHowToSchema({
+    name: "How to Calculate Your Semester GPA",
+    description: "Step-by-step instructions for computing semester grade point averages with credit hours.",
+    path: "/semester-gpa-calculator",
+    steps: [
+      {
+        name: "Enter Term Courses",
+        text: "Input each class name, expected letter grade, and credit hour weighting for this semester.",
+      },
+      {
+        name: "Calculate Term Quality Points",
+        text: "Multiply each class grade's 4.0 point equivalent by its credit count.",
+      },
+      {
+        name: "Determine Term GPA",
+        text: "Sum all term quality points and divide by total semester credits.",
+      },
+    ],
+  });
+
+  const tocItems = [
+    { id: "calculator", label: "Semester GPA Tool" },
+    { id: "credit-math", label: "Credit Hours & Quality Points" },
+    { id: "faqs", label: "Frequently Asked Questions" },
+  ];
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+      {/* Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
 
       <Breadcrumbs items={breadcrumbs} />
 
@@ -71,11 +108,36 @@ export default function SemesterGPACalculatorPage() {
         </p>
       </div>
 
-      <GPACalculator type="semester" title="Semester GPA Calculator" subtitle="Enter your current term classes to compute your semester GPA." />
+      <div id="calculator">
+        <GPACalculator type="semester" title="Semester GPA Calculator" subtitle="Enter your current term classes to compute your semester GPA." />
+      </div>
+
+      {/* SEO Snippet Box */}
+      <SeoSummaryBox
+        title="Semester GPA Quick Summary"
+        quickAnswer="Semester GPA is calculated by multiplying each course's grade point value by its credit hours to get quality points, then dividing total term quality points by total term credits."
+        formula="Semester GPA = (Sum of Term Quality Points) ÷ (Total Term Credits)"
+        keyTakeaways={[
+          "Computes single-term GPA for fall, spring, summer, or quarterly terms",
+          "Optional cumulative GPA updater (input prior GPA and credits to view new career GPA)",
+          "Instant academic honors and Dean's List eligibility indicators",
+        ]}
+      />
+
+      <TableOfContents items={tocItems} />
 
       <AdPlaceholder format="horizontal" slotId="sem-gpa-mid-ad" />
 
-      <FAQAccordion faqs={faqs} />
+      {/* FAQs */}
+      <section id="faqs">
+        <FAQAccordion faqs={faqs} />
+      </section>
+
+      {/* Social Share */}
+      <SocialShare
+        title="Semester GPA Calculator – Calculate Term Grade Point Average"
+        description="Calculate your current semester or quarterly GPA instantly with credit hour weighting."
+      />
 
       <RelatedCalculators currentKey="semester-gpa-calculator" recommendedKeys={["gpa-calculator", "college-gpa-calculator", "high-school-gpa-calculator", "final-grade-calculator"]} />
     </div>

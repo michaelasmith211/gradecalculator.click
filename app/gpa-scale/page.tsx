@@ -1,10 +1,17 @@
 import React from "react";
 import Link from "next/link";
 import { constructMetadata } from "@/lib/seo/metadata";
-import { generateBreadcrumbSchema, generateFAQSchema } from "@/lib/seo/schema";
+import {
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+  generateArticleSchema,
+} from "@/lib/seo/schema";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import FAQAccordion, { FAQItem } from "@/components/FAQAccordion";
 import RelatedCalculators from "@/components/RelatedCalculators";
+import SocialShare from "@/components/SocialShare";
+import SeoSummaryBox from "@/components/SeoSummaryBox";
+import TableOfContents from "@/components/TableOfContents";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import { Award, GraduationCap, ArrowRight } from "lucide-react";
 
@@ -21,6 +28,7 @@ export const metadata = constructMetadata({
     "weighted gpa scale",
     "quality points chart",
     "gpa scale chart",
+    "unweighted vs weighted gpa",
   ],
 });
 
@@ -51,10 +59,25 @@ export default function GPAScalePage() {
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
   const faqSchema = generateFAQSchema(faqs);
 
+  const articleSchema = generateArticleSchema({
+    headline: "GPA Scale Guide: 4.0 Unweighted vs 5.0 Weighted Quality Points",
+    description:
+      "Comprehensive breakdown of GPA scales, letter grade point conversions, honors weights, and Latin Honors tiers.",
+    path: "/gpa-scale",
+  });
+
+  const tocItems = [
+    { id: "quality-points-table", label: "1. GPA Quality Points Table" },
+    { id: "latin-honors", label: "2. Latin Honors Standings" },
+    { id: "faqs", label: "3. Frequently Asked Questions" },
+  ];
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+      {/* Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
 
       <Breadcrumbs items={breadcrumbs} />
 
@@ -67,8 +90,22 @@ export default function GPAScalePage() {
         </p>
       </header>
 
+      {/* SEO Snippet Box */}
+      <SeoSummaryBox
+        title="GPA Scale Quick Reference"
+        quickAnswer="An unweighted GPA is calculated on a 4.0 maximum scale (A=4.0, B=3.0, C=2.0, D=1.0, F=0.0). A weighted GPA adds +0.5 for Honors (up to 4.5) and +1.0 for AP/IB (up to 5.0)."
+        keyTakeaways={[
+          "Unweighted GPA reflects grades only; weighted GPA factors course difficulty",
+          "College Latin Honors: Summa Cum Laude (≥3.80), Magna Cum Laude (≥3.50), Cum Laude (≥3.20)",
+          "Quality points = Course credit hours × Grade point value",
+          "Try our interactive GPA Calculator to compute your term and cumulative standing",
+        ]}
+      />
+
+      <TableOfContents items={tocItems} />
+
       {/* Main Table: Quality Points by Course Level */}
-      <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6">
+      <section id="quality-points-table" className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6">
         <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
           Complete GPA Quality Points Table
         </h2>
@@ -80,11 +117,11 @@ export default function GPAScalePage() {
           <table className="w-full text-left text-xs sm:text-sm">
             <thead className="bg-slate-100 text-slate-700 uppercase tracking-wider text-[11px] font-bold">
               <tr>
-                <th className="px-4 py-2.5">Letter Grade</th>
-                <th className="px-4 py-2.5">Percentage</th>
-                <th className="px-4 py-2.5">Regular (4.0)</th>
-                <th className="px-4 py-2.5">Honors (+0.5)</th>
-                <th className="px-4 py-2.5">AP / IB / College (+1.0)</th>
+                <th scope="col" className="px-4 py-2.5">Letter Grade</th>
+                <th scope="col" className="px-4 py-2.5">Percentage</th>
+                <th scope="col" className="px-4 py-2.5">Regular (4.0)</th>
+                <th scope="col" className="px-4 py-2.5">Honors (+0.5)</th>
+                <th scope="col" className="px-4 py-2.5">AP / IB / College (+1.0)</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">
@@ -171,7 +208,7 @@ export default function GPAScalePage() {
       </section>
 
       {/* College Academic Standing & Honors Reference */}
-      <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-4">
+      <section id="latin-honors" className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-4">
         <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
           College Academic Standings & Latin Honors
         </h2>
@@ -196,7 +233,16 @@ export default function GPAScalePage() {
 
       <AdPlaceholder format="horizontal" slotId="gpa-scale-mid-ad" />
 
-      <FAQAccordion faqs={faqs} />
+      {/* FAQs */}
+      <section id="faqs">
+        <FAQAccordion faqs={faqs} />
+      </section>
+
+      {/* Social Share */}
+      <SocialShare
+        title="GPA Scale Reference – 4.0 vs 5.0 Weighted Scale Guide"
+        description="Complete guide to the 4.0 GPA scale, quality points, honors weighting (+0.5), and AP/IB weighting (+1.0)."
+      />
 
       <RelatedCalculators currentKey="gpa-scale" recommendedKeys={["gpa-calculator", "college-gpa-calculator", "high-school-gpa-calculator", "grade-scale"]} />
     </div>

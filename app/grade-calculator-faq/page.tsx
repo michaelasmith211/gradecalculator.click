@@ -1,10 +1,17 @@
 import React from "react";
 import Link from "next/link";
 import { constructMetadata } from "@/lib/seo/metadata";
-import { generateBreadcrumbSchema, generateFAQSchema } from "@/lib/seo/schema";
+import {
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+  generateArticleSchema,
+} from "@/lib/seo/schema";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import FAQAccordion, { FAQItem } from "@/components/FAQAccordion";
 import RelatedCalculators from "@/components/RelatedCalculators";
+import SocialShare from "@/components/SocialShare";
+import SeoSummaryBox from "@/components/SeoSummaryBox";
+import TableOfContents from "@/components/TableOfContents";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import { HelpCircle, Calculator, Target, Award, Percent } from "lucide-react";
 
@@ -18,6 +25,7 @@ export const metadata = constructMetadata({
     "frequently asked grading questions",
     "how do grades work",
     "grading formula questions",
+    "gpa scale questions",
   ],
 });
 
@@ -83,10 +91,23 @@ export default function FAQPage() {
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
   const faqSchema = generateFAQSchema(allFaqs);
 
+  const articleSchema = generateArticleSchema({
+    headline: "Academic Grading & Grade Calculator Frequently Asked Questions",
+    description: "Authoritative answers to popular questions on grading formulas, GPA points, exam weights, and curves.",
+    path: "/grade-calculator-faq",
+  });
+
+  const tocItems = [
+    { id: "quick-tools", label: "1. Calculator Tools Directory" },
+    { id: "all-faqs", label: "2. Complete FAQ Knowledge Base" },
+  ];
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+      {/* Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
 
       <Breadcrumbs items={breadcrumbs} />
 
@@ -103,8 +124,21 @@ export default function FAQPage() {
         </p>
       </header>
 
+      {/* SEO Snippet Box */}
+      <SeoSummaryBox
+        title="Grading FAQ Highlights"
+        quickAnswer="Everything you need to know about calculating course percentages, final exam targets, weighted categories, quality points, and 4.0 GPA conversions."
+        keyTakeaways={[
+          "All formulas are verified against standard US higher education and secondary guidelines",
+          "Calculators update live client-side with 100% privacy",
+          "Includes conversion charts for Plus/Minus, 10-point, and 7-point scales",
+        ]}
+      />
+
+      <TableOfContents items={tocItems} />
+
       {/* Quick Navigation Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <section id="quick-tools" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Link
           href="/grade-calculator"
           className="p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 hover:shadow-sm transition-all"
@@ -133,11 +167,19 @@ export default function FAQPage() {
           <div className="font-bold text-slate-900 text-sm mb-1">4.0 GPA Calculator</div>
           <div className="text-xs text-slate-500">Cumulative & term GPA</div>
         </Link>
+      </section>
+
+      <div id="all-faqs">
+        <FAQAccordion faqs={allFaqs} title="All Frequently Asked Questions" subtitle="Click any question to view its detailed answer and calculation formula." />
       </div>
 
-      <FAQAccordion faqs={allFaqs} title="All Frequently Asked Questions" subtitle="Click any question to view its detailed answer and calculation formula." />
-
       <AdPlaceholder format="horizontal" slotId="faq-mid-ad" />
+
+      {/* Social Share */}
+      <SocialShare
+        title="Grade Calculator FAQ – Answers to All Grading Questions"
+        description="Find answers to frequently asked questions about grade calculations, percentage formulas, and GPA scales."
+      />
 
       <RelatedCalculators currentKey="grade-calculator-faq" />
     </div>

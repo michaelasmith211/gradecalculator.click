@@ -1,10 +1,18 @@
 import React from "react";
 import { constructMetadata } from "@/lib/seo/metadata";
-import { generateWebApplicationSchema, generateFAQSchema, generateBreadcrumbSchema } from "@/lib/seo/schema";
+import {
+  generateWebApplicationSchema,
+  generateFAQSchema,
+  generateBreadcrumbSchema,
+  generateHowToSchema,
+} from "@/lib/seo/schema";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import PercentageGradeCalculator from "@/components/calculators/PercentageGradeCalculator";
 import FAQAccordion, { FAQItem } from "@/components/FAQAccordion";
 import RelatedCalculators from "@/components/RelatedCalculators";
+import SocialShare from "@/components/SocialShare";
+import SeoSummaryBox from "@/components/SeoSummaryBox";
+import TableOfContents from "@/components/TableOfContents";
 import AdPlaceholder from "@/components/AdPlaceholder";
 
 export const metadata = constructMetadata({
@@ -18,6 +26,7 @@ export const metadata = constructMetadata({
     "points to percentage",
     "fraction to percentage grade",
     "score percentage calculator",
+    "calculate percentage grade",
   ],
 });
 
@@ -51,11 +60,39 @@ export default function PercentageGradeCalculatorPage() {
   const faqSchema = generateFAQSchema(faqs);
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
 
+  const howToSchema = generateHowToSchema({
+    name: "How to Convert Scores into Percentage Grades",
+    description: "Step-by-step method to convert fraction scores to percentages.",
+    path: "/percentage-grade-calculator",
+    steps: [
+      {
+        name: "Enter Score Earned",
+        text: "Input the number of points you achieved on the assignment or exam.",
+      },
+      {
+        name: "Enter Total Points Possible",
+        text: "Input the maximum possible points available for that coursework item.",
+      },
+      {
+        name: "View Percentage and Letter Grade",
+        text: "The tool computes the decimal fraction, percentage score, letter grade, and 4.0 GPA points.",
+      },
+    ],
+  });
+
+  const tocItems = [
+    { id: "calculator", label: "Percentage Converter Tool" },
+    { id: "percentage-formulas", label: "Score Conversion Math" },
+    { id: "faqs", label: "Frequently Asked Questions" },
+  ];
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+      {/* Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
 
       <Breadcrumbs items={breadcrumbs} />
 
@@ -68,11 +105,36 @@ export default function PercentageGradeCalculatorPage() {
         </p>
       </div>
 
-      <PercentageGradeCalculator />
+      <div id="calculator">
+        <PercentageGradeCalculator />
+      </div>
+
+      {/* SEO Snippet Box */}
+      <SeoSummaryBox
+        title="Percentage Conversion Quick Guide"
+        quickAnswer="To convert any test score into a percentage, divide the points earned by total possible points and multiply by 100."
+        formula="Percentage (%) = (Score Earned ÷ Total Possible) × 100"
+        keyTakeaways={[
+          "Instant two-way conversion (Points &rarr; Percentage, and Target % &rarr; Points Needed)",
+          "Matches standard US Plus/Minus, 10-point, and 7-point letter grade scales",
+          "Calculates quality points on a standard 4.0 GPA scale",
+        ]}
+      />
+
+      <TableOfContents items={tocItems} />
 
       <AdPlaceholder format="horizontal" slotId="pct-grade-mid-ad" />
 
-      <FAQAccordion faqs={faqs} />
+      {/* FAQs */}
+      <section id="faqs">
+        <FAQAccordion faqs={faqs} />
+      </section>
+
+      {/* Social Share */}
+      <SocialShare
+        title="Percentage Grade Calculator – Score & Fraction Converter"
+        description="Convert points earned into exact percentages, letter grades, and calculate raw points required for any goal."
+      />
 
       <RelatedCalculators currentKey="percentage-grade-calculator" />
     </div>

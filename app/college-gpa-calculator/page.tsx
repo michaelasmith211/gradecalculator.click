@@ -1,10 +1,18 @@
 import React from "react";
 import { constructMetadata } from "@/lib/seo/metadata";
-import { generateWebApplicationSchema, generateFAQSchema, generateBreadcrumbSchema } from "@/lib/seo/schema";
+import {
+  generateWebApplicationSchema,
+  generateFAQSchema,
+  generateBreadcrumbSchema,
+  generateHowToSchema,
+} from "@/lib/seo/schema";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import GPACalculator from "@/components/calculators/GPACalculator";
 import FAQAccordion, { FAQItem } from "@/components/FAQAccordion";
 import RelatedCalculators from "@/components/RelatedCalculators";
+import SocialShare from "@/components/SocialShare";
+import SeoSummaryBox from "@/components/SeoSummaryBox";
+import TableOfContents from "@/components/TableOfContents";
 import AdPlaceholder from "@/components/AdPlaceholder";
 
 export const metadata = constructMetadata({
@@ -18,6 +26,7 @@ export const metadata = constructMetadata({
     "calculate college gpa",
     "quality points calculator",
     "deans list gpa calculator",
+    "college grade point average",
   ],
 });
 
@@ -54,11 +63,39 @@ export default function CollegeGPACalculatorPage() {
   const faqSchema = generateFAQSchema(faqs);
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
 
+  const howToSchema = generateHowToSchema({
+    name: "How to Calculate College GPA and Quality Points",
+    description: "Step-by-step instructions for computing undergraduate and graduate grade point averages.",
+    path: "/college-gpa-calculator",
+    steps: [
+      {
+        name: "List University Courses",
+        text: "Input all registered courses for the term along with their assigned credit hours (e.g., 3 or 4 credits).",
+      },
+      {
+        name: "Input Final Letter Grades",
+        text: "Select your letter grades (A, A-, B+, etc.) according to your university's official scale.",
+      },
+      {
+        name: "Review Quality Points & Dean's List Eligibility",
+        text: "Check your total quality points, term GPA, and academic standing classification.",
+      },
+    ],
+  });
+
+  const tocItems = [
+    { id: "calculator", label: "College GPA Calculator" },
+    { id: "quality-points", label: "Quality Points Explained" },
+    { id: "faqs", label: "Frequently Asked Questions" },
+  ];
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+      {/* Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
 
       <Breadcrumbs items={breadcrumbs} />
 
@@ -71,11 +108,36 @@ export default function CollegeGPACalculatorPage() {
         </p>
       </div>
 
-      <GPACalculator type="college" title="College GPA & Quality Points Calculator" subtitle="Enter your university courses, credit hours (1-5 credits), and grades." />
+      <div id="calculator">
+        <GPACalculator type="college" title="College GPA & Quality Points Calculator" subtitle="Enter your university courses, credit hours (1-5 credits), and grades." />
+      </div>
+
+      {/* SEO Snippet Box */}
+      <SeoSummaryBox
+        title="College GPA Quick Reference"
+        quickAnswer="College GPA is calculated by dividing total quality points (Credit Hours × Grade Points) by total attempted credit hours."
+        formula="College GPA = Total Quality Points ÷ Total Attempted Credit Hours"
+        keyTakeaways={[
+          "Calculates credit hours, total quality points, and term GPA simultaneously",
+          "Automated Dean's List and Latin Honors qualification checks",
+          "Includes cumulative GPA recalculation for past semesters",
+        ]}
+      />
+
+      <TableOfContents items={tocItems} />
 
       <AdPlaceholder format="horizontal" slotId="college-gpa-mid-ad" />
 
-      <FAQAccordion faqs={faqs} />
+      {/* FAQs */}
+      <section id="faqs">
+        <FAQAccordion faqs={faqs} />
+      </section>
+
+      {/* Social Share */}
+      <SocialShare
+        title="College GPA Calculator – Quality Points & Academic Standing"
+        description="Free College GPA Calculator. Calculate university Grade Point Average and quality points on a 4.0 scale."
+      />
 
       <RelatedCalculators currentKey="college-gpa-calculator" recommendedKeys={["gpa-calculator", "semester-gpa-calculator", "final-grade-calculator", "weighted-grade-calculator"]} />
     </div>

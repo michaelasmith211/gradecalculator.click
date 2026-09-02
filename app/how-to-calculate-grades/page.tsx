@@ -1,12 +1,19 @@
 import React from "react";
 import Link from "next/link";
 import { constructMetadata } from "@/lib/seo/metadata";
-import { generateBreadcrumbSchema, generateFAQSchema } from "@/lib/seo/schema";
+import {
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+  generateHowToSchema,
+  generateArticleSchema,
+} from "@/lib/seo/schema";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import RelatedCalculators from "@/components/RelatedCalculators";
 import GradeScaleTable from "@/components/GradeScaleTable";
 import FAQAccordion, { FAQItem } from "@/components/FAQAccordion";
-import RelatedCalculators from "@/components/RelatedCalculators";
 import SocialShare from "@/components/SocialShare";
+import SeoSummaryBox from "@/components/SeoSummaryBox";
+import TableOfContents from "@/components/TableOfContents";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import { BookOpen, CheckCircle2, ArrowRight, Calculator, Award, Lightbulb } from "lucide-react";
 
@@ -22,6 +29,8 @@ export const metadata = constructMetadata({
     "how to find your grade",
     "calculating weighted grades step by step",
     "how to figure out your grade",
+    "how to calculate semester grade",
+    "grade math formulas",
   ],
 });
 
@@ -41,6 +50,11 @@ const faqs: FAQItem[] = [
     answer:
       "Teachers curve grades in various ways: by adding flat points to every student's score (e.g., +5% across the board), setting the highest achieved score as 100%, or fitting scores onto a bell curve distribution.",
   },
+  {
+    question: "How do dropped lowest scores work in grade calculations?",
+    answer:
+      "When an instructor drops your lowest score (e.g., dropping the lowest quiz), remove that lowest score's earned and possible points before calculating your category average. This mathematically boosts your overall percentage.",
+  },
 ];
 
 export default function HowToCalculateGradesPage() {
@@ -52,10 +66,54 @@ export default function HowToCalculateGradesPage() {
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
   const faqSchema = generateFAQSchema(faqs);
 
+  const articleSchema = generateArticleSchema({
+    headline: "How to Calculate Your Class Grade: Complete Mathematical Guide",
+    description:
+      "A comprehensive educational guide covering points systems, weighted syllabus categories, final exam target calculations, and GPA math.",
+    path: "/how-to-calculate-grades",
+  });
+
+  const howToSchema = generateHowToSchema({
+    name: "How to Calculate Your Academic Class Grade",
+    description: "Step-by-step instructions for computing points-based and weighted class grades.",
+    path: "/how-to-calculate-grades",
+    steps: [
+      {
+        name: "Check Your Course Syllabus",
+        text: "Determine whether your teacher uses a Total Points grading system or a Weighted Category system.",
+      },
+      {
+        name: "Gather All Graded Coursework",
+        text: "Collect your scores on quizzes, homework, essays, lab reports, and midterm exams.",
+      },
+      {
+        name: "Apply the Calculation Formula",
+        text: "For points, divide total earned by total possible. For weighted grades, multiply category averages by category weights and sum.",
+      },
+      {
+        name: "Determine Your Letter Grade and GPA Points",
+        text: "Compare your final percentage to your school's grading scale (e.g., 90% = A- = 3.7 GPA).",
+      },
+    ],
+  });
+
+  const tocItems = [
+    { id: "points-system", label: "1. Points-Based Grading" },
+    { id: "weighted-system", label: "2. Weighted Category Grading" },
+    { id: "final-exam-formula", label: "3. Final Exam Score Needed" },
+    { id: "grade-scale", label: "4. Standard Letter Grade Scale" },
+    { id: "advanced-scenarios", label: "5. Curves & Dropped Scores" },
+    { id: "strategies", label: "6. Proven Grade Improvement Tips" },
+    { id: "faqs", label: "7. Frequently Asked Questions" },
+  ];
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+      {/* JSON-LD Schemas */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
 
       <Breadcrumbs items={breadcrumbs} />
 
@@ -73,6 +131,22 @@ export default function HowToCalculateGradesPage() {
         </p>
       </header>
 
+      {/* SEO Summary Box */}
+      <SeoSummaryBox
+        title="Grade Calculation Quick Formulas"
+        quickAnswer="To find your grade in a points system, divide earned points by possible points and multiply by 100. In a weighted system, multiply each category average by its syllabus percentage and add the results together."
+        formula="Points: (Earned ÷ Possible) × 100  |  Weighted: Σ(Category % × Weight %)"
+        keyTakeaways={[
+          "Points systems treat every point equally; weighted systems prioritize specific categories",
+          "A zero on an assignment harms your average more than any other score",
+          "Final exams often carry 20%–40% weight, providing significant leverage to raise your grade",
+          "Interactive calculators eliminate rounding errors and automate 'What-If' scenarios",
+        ]}
+      />
+
+      {/* Table of Contents */}
+      <TableOfContents items={tocItems} />
+
       {/* Quick Tool Banner */}
       <div className="p-6 bg-gradient-to-r from-indigo-900 to-slate-900 text-white rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
         <div>
@@ -88,7 +162,7 @@ export default function HowToCalculateGradesPage() {
       </div>
 
       {/* Section 1: Points-Based Grading */}
-      <section className="space-y-4 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
+      <section id="points-system" className="space-y-4 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
         <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
           Method 1: Points-Based Grading System
         </h2>
@@ -119,7 +193,7 @@ export default function HowToCalculateGradesPage() {
       </section>
 
       {/* Section 2: Weighted Grading */}
-      <section className="space-y-4 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
+      <section id="weighted-system" className="space-y-4 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
         <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
           Method 2: Weighted Grading System
         </h2>
@@ -137,11 +211,11 @@ export default function HowToCalculateGradesPage() {
           <table className="w-full text-xs text-left">
             <thead className="bg-slate-100 text-slate-700 font-bold uppercase text-[11px]">
               <tr>
-                <th className="px-4 py-2">Category</th>
-                <th className="px-4 py-2">Category Score</th>
-                <th className="px-4 py-2">Syllabus Weight</th>
-                <th className="px-4 py-2">Calculation</th>
-                <th className="px-4 py-2">Contribution</th>
+                <th scope="col" className="px-4 py-2">Category</th>
+                <th scope="col" className="px-4 py-2">Category Score</th>
+                <th scope="col" className="px-4 py-2">Syllabus Weight</th>
+                <th scope="col" className="px-4 py-2">Calculation</th>
+                <th scope="col" className="px-4 py-2">Contribution</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">
@@ -186,7 +260,7 @@ export default function HowToCalculateGradesPage() {
       </section>
 
       {/* Section 3: Final Exam Formula */}
-      <section className="space-y-4 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
+      <section id="final-exam-formula" className="space-y-4 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
         <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
           Method 3: Calculating What You Need on Your Final Exam
         </h2>
@@ -204,15 +278,32 @@ export default function HowToCalculateGradesPage() {
       </section>
 
       {/* Grade Scale Reference */}
-      <section className="space-y-4">
+      <section id="grade-scale" className="space-y-4">
         <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
           Standard Letter Grade Scale
         </h2>
         <GradeScaleTable />
       </section>
 
-      {/* Section 4: Proven Strategies to Raise Your Grade */}
-      <section className="p-6 bg-slate-50 border border-slate-200 rounded-2xl space-y-4">
+      {/* Section 4: Advanced Scenarios */}
+      <section id="advanced-scenarios" className="space-y-4 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
+        <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
+          Handling Grade Curves & Dropped Scores
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-700">
+          <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+            <h3 className="font-bold text-slate-900 text-sm">Flat Point Curves</h3>
+            <p>If an instructor adds 5 points to everyone's midterm score, add 5 points directly to your earned score on that assignment.</p>
+          </div>
+          <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+            <h3 className="font-bold text-slate-900 text-sm">Dropped Lowest Quiz</h3>
+            <p>Delete your single lowest quiz score from both earned points and possible points before calculating your category percentage.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 5: Proven Strategies to Raise Your Grade */}
+      <section id="strategies" className="p-6 bg-slate-50 border border-slate-200 rounded-2xl space-y-4">
         <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
           <Lightbulb className="w-5 h-5 text-amber-500" />
           <span>Strategic Tips to Raise Your Course Grade</span>
@@ -227,7 +318,10 @@ export default function HowToCalculateGradesPage() {
 
       <AdPlaceholder format="horizontal" slotId="how-to-calc-mid-ad" />
 
-      <FAQAccordion faqs={faqs} />
+      {/* FAQs */}
+      <section id="faqs">
+        <FAQAccordion faqs={faqs} />
+      </section>
 
       {/* Social Share */}
       <SocialShare

@@ -1,11 +1,18 @@
 import React from "react";
 import Link from "next/link";
 import { constructMetadata } from "@/lib/seo/metadata";
-import { generateBreadcrumbSchema, generateFAQSchema } from "@/lib/seo/schema";
+import {
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+  generateArticleSchema,
+} from "@/lib/seo/schema";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import GradeScaleTable from "@/components/GradeScaleTable";
 import FAQAccordion, { FAQItem } from "@/components/FAQAccordion";
 import RelatedCalculators from "@/components/RelatedCalculators";
+import SocialShare from "@/components/SocialShare";
+import SeoSummaryBox from "@/components/SeoSummaryBox";
+import TableOfContents from "@/components/TableOfContents";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import { DEFAULT_GRADE_SCALE, STANDARD_10_POINT_SCALE, STRICT_7_POINT_SCALE } from "@/lib/calculations/scales";
 
@@ -21,6 +28,8 @@ export const metadata = constructMetadata({
     "standard grading scale",
     "percentage to letter grade",
     "grading system us",
+    "college grade scale",
+    "high school grading scale",
   ],
 });
 
@@ -51,10 +60,25 @@ export default function GradeScalePage() {
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
   const faqSchema = generateFAQSchema(faqs);
 
+  const articleSchema = generateArticleSchema({
+    headline: "Standard Grading Scales: Percentages, Letter Grades, and GPA Equivalents",
+    description: "Detailed comparison and reference tables for standard plus/minus, 10-point, and 7-point academic grading scales.",
+    path: "/grade-scale",
+  });
+
+  const tocItems = [
+    { id: "standard-scale", label: "1. Plus/Minus Grading Scale" },
+    { id: "ten-point-scale", label: "2. Straight 10-Point Scale" },
+    { id: "seven-point-scale", label: "3. Strict 7-Point Scale" },
+    { id: "faqs", label: "4. Frequently Asked Questions" },
+  ];
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+      {/* JSON-LD Schemas */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
 
       <Breadcrumbs items={breadcrumbs} />
 
@@ -67,8 +91,22 @@ export default function GradeScalePage() {
         </p>
       </header>
 
+      {/* SEO Snippet Box */}
+      <SeoSummaryBox
+        title="Grade Scale Key Takeaways"
+        quickAnswer="A standard US grading scale maps 90–100% to an A (4.0 GPA), 80–89% to a B (3.0 GPA), 70–79% to a C (2.0 GPA), 60–69% to a D (1.0 GPA), and below 60% to an F (0.0 GPA)."
+        keyTakeaways={[
+          "Plus/Minus scales offer granular distinctions (A- = 3.7 GPA, B+ = 3.3 GPA, B- = 2.7 GPA)",
+          "10-Point scales do not differentiate + or - modifiers, awarding flat 4.0 for all scores ≥90%",
+          "7-Point scales raise the threshold for an A to 93% and passing (D-) to 70%",
+          "Always confirm your institution's specific syllabus cutoff percentages",
+        ]}
+      />
+
+      <TableOfContents items={tocItems} />
+
       {/* Scale 1: Plus/Minus Standard */}
-      <section className="space-y-4">
+      <section id="standard-scale" className="space-y-4">
         <div>
           <h2 className="text-2xl font-bold text-slate-900">1. Standard Plus/Minus Grading Scale</h2>
           <p className="text-xs text-slate-600">The most widely used grading standard in modern US higher education and secondary schools.</p>
@@ -77,7 +115,7 @@ export default function GradeScalePage() {
       </section>
 
       {/* Scale 2: Straight 10-Point Scale */}
-      <section className="space-y-4">
+      <section id="ten-point-scale" className="space-y-4">
         <div>
           <h2 className="text-2xl font-bold text-slate-900">2. Straight 10-Point Scale (No Plus/Minus)</h2>
           <p className="text-xs text-slate-600">Common in school districts where grades do not utilize + or - modifiers.</p>
@@ -86,7 +124,7 @@ export default function GradeScalePage() {
       </section>
 
       {/* Scale 3: Strict 7-Point Scale */}
-      <section className="space-y-4">
+      <section id="seven-point-scale" className="space-y-4">
         <div>
           <h2 className="text-2xl font-bold text-slate-900">3. Strict 7-Point Grading Scale</h2>
           <p className="text-xs text-slate-600">Used by select private institutions and specialized academic programs.</p>
@@ -96,7 +134,16 @@ export default function GradeScalePage() {
 
       <AdPlaceholder format="horizontal" slotId="grade-scale-mid-ad" />
 
-      <FAQAccordion faqs={faqs} />
+      {/* FAQs */}
+      <section id="faqs">
+        <FAQAccordion faqs={faqs} />
+      </section>
+
+      {/* Social Share */}
+      <SocialShare
+        title="Standard Grade Scale – Percentages, Letter Grades & 4.0 GPA"
+        description="Comprehensive guide to standard US grading scales, plus/minus grading, and GPA conversions."
+      />
 
       <RelatedCalculators currentKey="grade-scale" />
     </div>
