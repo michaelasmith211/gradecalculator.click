@@ -15,9 +15,11 @@ export default function Footer() {
               href="/"
               className="flex items-center gap-2.5 font-bold text-xl text-white hover:text-indigo-400 transition-colors"
             >
-              <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow">
-                <Calculator className="w-5 h-5" />
-              </div>
+              <img
+                src="/favicon.png"
+                alt="Grade Calculator Icon"
+                className="w-9 h-9 rounded-xl shadow object-contain"
+              />
               <span className="tracking-tight text-xl font-black">
                 Grade<span className="text-indigo-400">Calculator</span>
               </span>

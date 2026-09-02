@@ -40,9 +40,11 @@ export default function Header() {
             className="flex items-center gap-2.5 font-bold text-xl text-slate-900 hover:text-indigo-600 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1"
             title="Grade Calculator Home"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-indigo-100">
-              <Calculator className="w-5 h-5" />
-            </div>
+            <img
+              src="/favicon.png"
+              alt="Grade Calculator Icon"
+              className="w-10 h-10 rounded-xl shadow-sm object-contain"
+            />
             <div className="flex flex-col">
               <span className="leading-tight tracking-tight font-extrabold text-slate-900">
                 Grade<span className="text-indigo-600">Calculator</span>
