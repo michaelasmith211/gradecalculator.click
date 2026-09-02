@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { Calculator, Heart, ShieldCheck, Cpu, Globe } from "lucide-react";
+import { ShieldCheck, Cpu } from "lucide-react";
+import CookiePreferencesButton from "./CookiePreferencesButton";
 
 export default function Footer() {
   const currentYear = 2026;
@@ -154,13 +155,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-white transition-colors">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-white transition-colors">
-                  Contact & Feedback
+                <Link href="/cookie-policy" className="hover:text-white transition-colors">
+                  Cookie Policy
                 </Link>
               </li>
               <li>
@@ -173,6 +169,16 @@ export default function Footer() {
                   Terms of Use
                 </Link>
               </li>
+              <li>
+                <Link href="/about" className="hover:text-white transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors">
+                  Contact & Feedback
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -180,18 +186,25 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
-            © {currentYear} Grade Calculator (gradecalculator.click). All rights reserved.
+            © {currentYear} Grade Calculator (gradecalculator.dev). All rights reserved.
           </div>
-          <div className="flex items-center gap-6">
-            <Link href="/privacy-policy" className="hover:text-slate-400 transition-colors">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+            <Link href="/privacy-policy" className="hover:text-slate-300 transition-colors">
               Privacy
             </Link>
-            <Link href="/terms-of-use" className="hover:text-slate-400 transition-colors">
+            <Link href="/cookie-policy" className="hover:text-slate-300 transition-colors">
+              Cookies
+            </Link>
+            <Link href="/terms-of-use" className="hover:text-slate-300 transition-colors">
               Terms
             </Link>
-            <Link href="/contact" className="hover:text-slate-400 transition-colors">
+            <Link href="/contact" className="hover:text-slate-300 transition-colors">
               Support
             </Link>
+            <CookiePreferencesButton
+              className="hover:text-indigo-400 text-slate-400 transition-colors cursor-pointer bg-transparent shadow-none p-0 inline-flex items-center gap-1 font-normal text-xs"
+              label="Cookie Settings"
+            />
           </div>
         </div>
 

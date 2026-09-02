@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
+import CookieConsent from "@/components/CookieConsent";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { generateWebSiteSchema, generateOrganizationSchema } from "@/lib/seo/schema";
 
@@ -87,6 +88,7 @@ export default function RootLayout({
         <main className="flex-grow pb-16 md:pb-0">{children}</main>
         <Footer />
         <MobileBottomNav />
+        <CookieConsent />
       </body>
     </html>
   );
