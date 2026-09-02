@@ -6,6 +6,7 @@ import GradeCalculator from "@/components/calculators/GradeCalculator";
 import GradeScaleTable from "@/components/GradeScaleTable";
 import FAQAccordion, { FAQItem } from "@/components/FAQAccordion";
 import RelatedCalculators from "@/components/RelatedCalculators";
+import SocialShare from "@/components/SocialShare";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import {
   Calculator,
@@ -454,6 +455,12 @@ export default function HomePage() {
 
         {/* FAQs */}
         <FAQAccordion faqs={homeFaqs} />
+
+        {/* Social Sharing Bar */}
+        <SocialShare
+          title="Grade Calculator – Calculate Your Grade & GPA Instantly"
+          description="Free, fast, and 100% private online grade calculator for high school and college students."
+        />
 
         {/* Related Calculators Cross-linking */}
         <RelatedCalculators currentKey="grade-calculator" />

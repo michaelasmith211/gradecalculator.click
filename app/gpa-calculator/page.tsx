@@ -5,6 +5,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import GPACalculator from "@/components/calculators/GPACalculator";
 import FAQAccordion, { FAQItem } from "@/components/FAQAccordion";
 import RelatedCalculators from "@/components/RelatedCalculators";
+import SocialShare from "@/components/SocialShare";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -143,6 +144,12 @@ export default function GPACalculatorPage() {
       </section>
 
       <FAQAccordion faqs={faqs} />
+
+      {/* Social Share */}
+      <SocialShare
+        title="GPA Calculator – Calculate Your GPA on a 4.0 Scale"
+        description="Calculate semester GPA, cumulative GPA, and quality points on standard 4.0 and weighted 5.0 scales."
+      />
 
       <RelatedCalculators currentKey="gpa-calculator" />
     </div>

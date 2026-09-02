@@ -5,6 +5,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import FinalGradeCalculator from "@/components/calculators/FinalGradeCalculator";
 import FAQAccordion, { FAQItem } from "@/components/FAQAccordion";
 import RelatedCalculators from "@/components/RelatedCalculators";
+import SocialShare from "@/components/SocialShare";
 import AdPlaceholder from "@/components/AdPlaceholder";
 
 export const metadata = constructMetadata({
@@ -123,6 +124,12 @@ export default function FinalGradeCalculatorPage() {
       </section>
 
       <FAQAccordion faqs={faqs} />
+
+      {/* Social Share */}
+      <SocialShare
+        title="Final Grade Calculator – What Do I Need on My Final?"
+        description="Calculate the exact score you need on your final exam to pass or achieve your desired class grade."
+      />
 
       <RelatedCalculators currentKey="final-grade-calculator" />
     </div>

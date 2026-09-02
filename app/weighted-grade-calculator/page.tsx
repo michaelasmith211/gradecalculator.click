@@ -5,6 +5,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import WeightedGradeCalculator from "@/components/calculators/WeightedGradeCalculator";
 import FAQAccordion, { FAQItem } from "@/components/FAQAccordion";
 import RelatedCalculators from "@/components/RelatedCalculators";
+import SocialShare from "@/components/SocialShare";
 import AdPlaceholder from "@/components/AdPlaceholder";
 
 export const metadata = constructMetadata({
@@ -139,6 +140,12 @@ export default function WeightedGradeCalculatorPage() {
       </section>
 
       <FAQAccordion faqs={faqs} />
+
+      {/* Social Share */}
+      <SocialShare
+        title="Weighted Grade Calculator – Calculate Your Weighted Grade"
+        description="Calculate course grades when categories carry different percentage weights."
+      />
 
       <RelatedCalculators currentKey="weighted-grade-calculator" />
     </div>

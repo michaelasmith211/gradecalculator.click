@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Calculator, RotateCcw, HelpCircle, CheckCircle2, AlertTriangle, ArrowRight } from "lucide-react";
+import { Calculator, RotateCcw, HelpCircle, CheckCircle2, AlertTriangle, ArrowRight, Share2, Check, Copy } from "lucide-react";
 import { calculateFinalExamNeeded, FinalExamInput } from "@/lib/calculations/finalExam";
 import { trackEvent } from "@/lib/analytics";
 
@@ -17,6 +17,7 @@ export default function FinalGradeCalculator({
   const [currentGrade, setCurrentGrade] = useState<string>("85");
   const [desiredGrade, setDesiredGrade] = useState<string>("90");
   const [examWeight, setExamWeight] = useState<string>("20");
+  const [copiedResult, setCopiedResult] = useState(false);
 
   const result = useMemo(() => {
     return calculateFinalExamNeeded({
@@ -36,6 +37,36 @@ export default function FinalGradeCalculator({
   const handleQuickDesired = (target: number) => {
     setDesiredGrade(target.toString());
     trackEvent("final_grade_calculated", { target });
+  };
+
+  const handleShareResult = async () => {
+    if (!result) return;
+    const shareText = `I need a ${result.requiredScore}% on my final exam to finish with a ${result.desiredGrade}%! Calculate yours at https://gradecalculator.click/final-grade-calculator/`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "My Final Exam Score Needed",
+          text: shareText,
+          url: "https://gradecalculator.click/final-grade-calculator/",
+        });
+        trackEvent("share_result_native", { tool: "final_grade" });
+        return;
+      } catch (err) {
+        // Fallback to clipboard
+      }
+    }
+
+    try {
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(shareText);
+        setCopiedResult(true);
+        trackEvent("share_result_copied", { tool: "final_grade" });
+        setTimeout(() => setCopiedResult(false), 2500);
+      }
+    } catch (err) {
+      // Ignored
+    }
   };
 
   return (
@@ -211,7 +242,7 @@ export default function FinalGradeCalculator({
 
             {/* Prominent Score Output Card */}
             {result ? (
-              <div className="bg-white rounded-2xl p-6 border border-indigo-100 shadow-sm text-center mb-6">
+              <div className="bg-white rounded-2xl p-6 border border-indigo-100 shadow-sm text-center mb-4">
                 <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
                   You Need
                 </div>
@@ -233,6 +264,27 @@ export default function FinalGradeCalculator({
                 {/* Status Message Pill */}
                 <div className="mt-3 p-3 rounded-xl bg-slate-50 text-xs text-slate-600 border border-slate-100">
                   {result.statusMessage}
+                </div>
+
+                {/* Share Result Button */}
+                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-center">
+                  <button
+                    type="button"
+                    onClick={handleShareResult}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 rounded-xl transition-all border border-indigo-200 shadow-sm"
+                  >
+                    {copiedResult ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <span>Result Copied to Clipboard!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Share2 className="w-3.5 h-3.5" />
+                        <span>Share This Result</span>
+                      </>
+                    )}
+                  </button>
                 </div>
               </div>
             ) : (

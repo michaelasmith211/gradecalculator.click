@@ -3,9 +3,10 @@ import Link from "next/link";
 import { constructMetadata } from "@/lib/seo/metadata";
 import { generateBreadcrumbSchema, generateFAQSchema } from "@/lib/seo/schema";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import RelatedCalculators from "@/components/RelatedCalculators";
 import GradeScaleTable from "@/components/GradeScaleTable";
 import FAQAccordion, { FAQItem } from "@/components/FAQAccordion";
+import RelatedCalculators from "@/components/RelatedCalculators";
+import SocialShare from "@/components/SocialShare";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import { BookOpen, CheckCircle2, ArrowRight, Calculator, Award, Lightbulb } from "lucide-react";
 
@@ -227,6 +228,12 @@ export default function HowToCalculateGradesPage() {
       <AdPlaceholder format="horizontal" slotId="how-to-calc-mid-ad" />
 
       <FAQAccordion faqs={faqs} />
+
+      {/* Social Share */}
+      <SocialShare
+        title="How to Calculate Grades – Complete Guide with Formulas & Examples"
+        description="Learn step-by-step how to calculate your current grade, weighted averages, and final exam scores."
+      />
 
       <RelatedCalculators currentKey="how-to-calculate-grades" />
     </div>

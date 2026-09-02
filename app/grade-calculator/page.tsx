@@ -6,6 +6,7 @@ import GradeCalculator from "@/components/calculators/GradeCalculator";
 import GradeScaleTable from "@/components/GradeScaleTable";
 import FAQAccordion, { FAQItem } from "@/components/FAQAccordion";
 import RelatedCalculators from "@/components/RelatedCalculators";
+import SocialShare from "@/components/SocialShare";
 import AdPlaceholder from "@/components/AdPlaceholder";
 
 export const metadata = constructMetadata({
@@ -119,6 +120,12 @@ export default function GradeCalculatorPage() {
 
       {/* FAQs */}
       <FAQAccordion faqs={faqs} />
+
+      {/* Social Share */}
+      <SocialShare
+        title="Standard Grade Calculator – Calculate Course Percentage & Letter Grade"
+        description="Calculate your overall grade percentage, letter grade, and GPA points from assignment scores."
+      />
 
       {/* Related Calculators */}
       <RelatedCalculators currentKey="grade-calculator" />
