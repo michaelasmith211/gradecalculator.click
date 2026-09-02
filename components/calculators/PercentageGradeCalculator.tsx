@@ -25,20 +25,20 @@ export default function PercentageGradeCalculator() {
   const calcPointsNeeded = !isNaN(targetNum) && !isNaN(totalPtsNum) ? (targetNum / 100) * totalPtsNum : null;
 
   return (
-    <div className="w-full bg-white border border-slate-200/90 rounded-2xl shadow-xl shadow-slate-100 overflow-hidden my-6">
+    <div className="w-full bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl shadow-xl shadow-slate-100 overflow-hidden my-4 sm:my-6">
       {/* Header */}
-      <div className="px-6 py-5 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white flex flex-wrap items-center justify-between gap-4">
+      <div className="px-4 sm:px-6 py-4 sm:py-5 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold tracking-tight">Percentage Grade Calculator</h2>
+          <h2 className="text-lg sm:text-xl font-bold tracking-tight">Percentage Grade Calculator</h2>
           <p className="text-xs text-slate-300 mt-0.5">
             Convert assignment fractions to percentages and calculate required points for target percentages.
           </p>
         </div>
       </div>
 
-      <div className="p-6 lg:p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="p-4 sm:p-6 lg:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
         {/* Tool 1: Fraction / Points to Percentage */}
-        <div className="p-6 rounded-2xl border border-slate-200 bg-slate-50/70 flex flex-col justify-between space-y-4">
+        <div className="p-5 sm:p-6 rounded-2xl border border-slate-200 bg-slate-50/70 flex flex-col justify-between space-y-4">
           <div>
             <h3 className="text-base font-bold text-slate-900 mb-1">
               1. Points to Percentage & Letter Grade
@@ -52,6 +52,7 @@ export default function PercentageGradeCalculator() {
                 <label className="block text-xs font-semibold text-slate-600 mb-1">Points Earned</label>
                 <input
                   type="number"
+                  inputMode="decimal"
                   value={earned}
                   onChange={(e) => setEarned(e.target.value)}
                   placeholder="43"
@@ -63,6 +64,7 @@ export default function PercentageGradeCalculator() {
                 <label className="block text-xs font-semibold text-slate-600 mb-1">Total Points</label>
                 <input
                   type="number"
+                  inputMode="decimal"
                   value={total}
                   onChange={(e) => setTotal(e.target.value)}
                   placeholder="50"
@@ -72,7 +74,7 @@ export default function PercentageGradeCalculator() {
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-xl border border-slate-200 text-center">
+          <div className="bg-white p-4 rounded-xl border border-slate-200 text-center shadow-sm">
             <div className="text-xs text-slate-500 font-medium">Resulting Score</div>
             <div className="text-4xl font-black text-indigo-600 mt-1">
               {calcPercent !== null ? `${roundedPercent}%` : "--"}
@@ -84,7 +86,7 @@ export default function PercentageGradeCalculator() {
         </div>
 
         {/* Tool 2: Percentage to Points Value */}
-        <div className="p-6 rounded-2xl border border-slate-200 bg-slate-50/70 flex flex-col justify-between space-y-4">
+        <div className="p-5 sm:p-6 rounded-2xl border border-slate-200 bg-slate-50/70 flex flex-col justify-between space-y-4">
           <div>
             <h3 className="text-base font-bold text-slate-900 mb-1">
               2. Calculate Points for a Target %
@@ -98,6 +100,7 @@ export default function PercentageGradeCalculator() {
                 <label className="block text-xs font-semibold text-slate-600 mb-1">Target %</label>
                 <input
                   type="number"
+                  inputMode="decimal"
                   value={targetPercent}
                   onChange={(e) => setTargetPercent(e.target.value)}
                   placeholder="85"
@@ -106,9 +109,10 @@ export default function PercentageGradeCalculator() {
               </div>
               <span className="text-slate-400 font-bold text-xs pt-5">of</span>
               <div className="flex-1">
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Total Assignment Points</label>
+                <label className="block text-xs font-semibold text-slate-600 mb-1">Total Points</label>
                 <input
                   type="number"
+                  inputMode="decimal"
                   value={totalPoints}
                   onChange={(e) => setTotalPoints(e.target.value)}
                   placeholder="150"
@@ -118,13 +122,13 @@ export default function PercentageGradeCalculator() {
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-xl border border-slate-200 text-center">
+          <div className="bg-white p-4 rounded-xl border border-slate-200 text-center shadow-sm">
             <div className="text-xs text-slate-500 font-medium">Points Required</div>
             <div className="text-4xl font-black text-emerald-600 mt-1">
-              {calcPointsNeeded !== null ? `${Math.round(calcPointsNeeded * 100) / 100} pts` : "--"}
+              {calcPointsNeeded !== null ? `${Math.round(calcPointsNeeded * 100) / 100}` : "--"}
             </div>
-            <div className="text-xs text-slate-500 mt-1">
-              out of {totalPtsNum || 0} total points
+            <div className="text-xs font-medium text-slate-500 mt-1">
+              points needed out of {totalPoints || 0}
             </div>
           </div>
         </div>

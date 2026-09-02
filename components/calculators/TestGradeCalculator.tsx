@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Check, X, RotateCcw, ListFilter } from "lucide-react";
+import { Check, X, RotateCcw, ListFilter, CheckCircle2 } from "lucide-react";
 import { generateTestGradeChart, calculateSingleScore } from "@/lib/calculations/testGrader";
+import { getLetterGrade } from "@/lib/calculations/scales";
 
 interface TestGradeCalculatorProps {
   title?: string;
@@ -25,7 +26,7 @@ export default function TestGradeCalculator({
   }, [correctNum, totalNum]);
 
   const chartRows = useMemo(() => {
-    return generateTestGradeChart(totalNum || 50, 25);
+    return generateTestGradeChart(totalNum || 50, 30);
   }, [totalNum]);
 
   const handleReset = () => {
@@ -33,12 +34,14 @@ export default function TestGradeCalculator({
     setWrongAnswers("4");
   };
 
+  const gpaVal = getLetterGrade(singleScore.percentage).gpaPoint;
+
   return (
-    <div className="w-full bg-white border border-slate-200/90 rounded-2xl shadow-xl shadow-slate-100 overflow-hidden my-6">
+    <div className="w-full bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl shadow-xl shadow-slate-100 overflow-hidden my-4 sm:my-6">
       {/* Header */}
-      <div className="px-6 py-5 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white flex flex-wrap items-center justify-between gap-4">
+      <div className="px-4 sm:px-6 py-4 sm:py-5 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 className="text-xl font-bold tracking-tight">
+          <h2 className="text-lg sm:text-xl font-bold tracking-tight">
             {title || "Test & Quiz Grade Calculator"}
           </h2>
           <p className="text-xs text-slate-300 mt-0.5">
@@ -48,7 +51,7 @@ export default function TestGradeCalculator({
         <button
           type="button"
           onClick={handleReset}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors"
+          className="self-end sm:self-auto flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 active:scale-95 text-white rounded-lg transition-all border border-white/15 touch-manipulation min-h-[36px]"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span>Reset</span>
@@ -56,9 +59,9 @@ export default function TestGradeCalculator({
       </div>
 
       {/* Top Section: Quick Test Score Checker */}
-      <div className="p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-slate-200">
+      <div className="p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 border-b border-slate-200">
         <div className="lg:col-span-6 space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label htmlFor="totalQuestions" className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
                 Total Questions
@@ -66,11 +69,12 @@ export default function TestGradeCalculator({
               <input
                 id="totalQuestions"
                 type="number"
+                inputMode="decimal"
                 min="1"
                 value={totalQuestions}
                 onChange={(e) => setTotalQuestions(e.target.value)}
                 placeholder="50"
-                className="w-full px-4 py-3 text-lg font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 sm:px-4 py-3 text-base sm:text-lg font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
             <div>
@@ -80,83 +84,84 @@ export default function TestGradeCalculator({
               <input
                 id="wrongAnswers"
                 type="number"
+                inputMode="decimal"
                 min="0"
                 value={wrongAnswers}
                 onChange={(e) => setWrongAnswers(e.target.value)}
                 placeholder="4"
-                className="w-full px-4 py-3 text-lg font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 sm:px-4 py-3 text-base sm:text-lg font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
           </div>
 
-          <div className="text-xs text-slate-500 flex items-center gap-4 pt-1">
-            <span>Correct Answers: <strong className="text-slate-800">{correctNum}</strong></span>
-            <span>Total Questions: <strong className="text-slate-800">{totalNum || 0}</strong></span>
+          <div className="text-xs text-slate-500 flex items-center justify-between pt-1">
+            <span>Correct: <strong className="text-slate-800">{correctNum}</strong></span>
+            <span>Total: <strong className="text-slate-800">{totalNum || 0}</strong></span>
           </div>
         </div>
 
         {/* Right: Instant Score Result */}
         <div className="lg:col-span-6 flex items-center justify-center">
-          <div className="w-full bg-slate-50 rounded-2xl p-6 border border-slate-200 text-center flex flex-col items-center justify-center">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
-              Test Score Result
-            </span>
-            <div className="text-5xl sm:text-6xl font-black text-indigo-600 tracking-tight">
+          <div className="w-full bg-slate-50 rounded-2xl p-5 sm:p-6 border border-slate-200 text-center flex flex-col items-center justify-center">
+            <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
+              Score Earned
+            </div>
+            <div className="text-5xl sm:text-6xl font-black text-slate-900 tracking-tight">
               {singleScore.percentage}%
             </div>
-            <div className="mt-2 flex items-center gap-2">
-              <span className="text-sm font-bold bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">
-                Letter Grade: {singleScore.letter}
+            <div className="mt-3 flex items-center gap-2">
+              <span className="px-4 py-1.5 rounded-full text-sm font-extrabold bg-indigo-600 text-white shadow-sm">
+                Grade: {singleScore.letter}
               </span>
-              <span className="text-xs font-semibold text-slate-600 bg-white border border-slate-200 px-3 py-1 rounded-full">
-                {singleScore.fraction} Correct
+              <span className="px-3 py-1.5 rounded-full text-xs font-bold bg-white text-slate-700 border border-slate-200">
+                {gpaVal.toFixed(1)} GPA
               </span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Section: Easy Grader Chart Table */}
-      <div className="p-6 lg:p-8 bg-slate-50/50">
+      {/* Bottom Section: Full Easy Grader Table */}
+      <div className="p-4 sm:p-6 lg:p-8">
         <div className="flex items-center justify-between mb-4">
-          <div>
-            <h3 className="text-base font-bold text-slate-900">
-              Easy Grader Chart ({totalNum || 50} Questions)
-            </h3>
-            <p className="text-xs text-slate-500">
-              Quick grading reference sheet showing scores for each wrong answer.
-            </p>
+          <div className="flex items-center gap-2">
+            <ListFilter className="w-4 h-4 text-indigo-600" />
+            <span className="text-sm font-bold text-slate-800 uppercase tracking-wider">
+              Easy Grader Quick Reference ({totalNum || 50} Questions)
+            </span>
           </div>
         </div>
 
-        <div className="max-h-72 overflow-y-auto border border-slate-200 rounded-xl bg-white shadow-sm">
-          <table className="w-full text-left text-xs sm:text-sm">
-            <thead className="bg-slate-100/80 text-slate-600 uppercase text-[11px] font-bold sticky top-0">
+        <div className="overflow-x-auto rounded-xl border border-slate-200">
+          <table className="w-full text-xs text-left">
+            <thead className="bg-slate-100 text-slate-700 uppercase tracking-wider text-[11px] font-bold">
               <tr>
-                <th className="px-4 py-2.5">Wrong (-pts)</th>
-                <th className="px-4 py-2.5">Correct</th>
-                <th className="px-4 py-2.5">Percentage</th>
-                <th className="px-4 py-2.5">Letter Grade</th>
+                <th scope="col" className="px-4 py-2.5">Wrong Answers</th>
+                <th scope="col" className="px-4 py-2.5">Score Fraction</th>
+                <th scope="col" className="px-4 py-2.5">Percentage</th>
+                <th scope="col" className="px-4 py-2.5">Letter Grade</th>
+                <th scope="col" className="px-4 py-2.5">GPA</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">
               {chartRows.map((row) => {
-                const isCurrent = row.wrong === wrongNum;
+                const rowGpa = getLetterGrade(row.percentage).gpaPoint;
                 return (
                   <tr
                     key={row.wrong}
-                    className={`transition-colors ${
-                      isCurrent ? "bg-indigo-50/90 font-bold text-indigo-900" : "hover:bg-slate-50/70"
-                    }`}
+                    className={`hover:bg-slate-50 ${row.wrong === wrongNum ? "bg-indigo-50/80 font-bold" : ""}`}
                   >
-                    <td className="px-4 py-2 font-bold text-rose-600">-{row.wrong}</td>
-                    <td className="px-4 py-2 font-medium">{row.correct}</td>
-                    <td className="px-4 py-2 font-bold">{row.percentage}%</td>
+                    <td className="px-4 py-2 font-semibold text-slate-900">
+                      {row.wrong === 0 ? "0 (Perfect)" : `-${row.wrong} Wrong`}
+                    </td>
+                    <td className="px-4 py-2 text-slate-600">{row.correct} / {totalNum || 50}</td>
+                    <td className="px-4 py-2 font-bold text-slate-900">{row.percentage}%</td>
                     <td className="px-4 py-2">
-                      <span className="font-black px-2 py-0.5 rounded text-xs bg-slate-100 text-slate-800">
+                      <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-slate-100 text-slate-800">
                         {row.letter}
                       </span>
                     </td>
+                    <td className="px-4 py-2 text-slate-600">{rowGpa.toFixed(1)}</td>
                   </tr>
                 );
               })}

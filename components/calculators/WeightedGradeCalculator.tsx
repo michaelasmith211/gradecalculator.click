@@ -1,7 +1,16 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Plus, Trash2, RotateCcw, AlertCircle, CheckCircle2, PieChart, Sparkles } from "lucide-react";
+import {
+  Plus,
+  Trash2,
+  RotateCcw,
+  AlertCircle,
+  CheckCircle2,
+  PieChart,
+  Sparkles,
+  TrendingUp,
+} from "lucide-react";
 import { calculateWeightedGrade, WeightedCategoryItem } from "@/lib/calculations/grades";
 import { DEFAULT_GRADE_SCALE } from "@/lib/calculations/scales";
 import { trackEvent } from "@/lib/analytics";
@@ -16,11 +25,11 @@ export default function WeightedGradeCalculator({
   subtitle,
 }: WeightedGradeCalculatorProps) {
   const [categories, setCategories] = useState<WeightedCategoryItem[]>([
-    { id: "1", name: "Homework & Assignments", score: 95, weight: 20 },
+    { id: "1", name: "Homework & Labs", score: 95, weight: 20 },
     { id: "2", name: "Quizzes", score: 82, weight: 15 },
     { id: "3", name: "Midterm Exam", score: 88, weight: 25 },
     { id: "4", name: "Final Exam", score: 90, weight: 30 },
-    { id: "5", name: "Class Participation", score: 100, weight: 10 },
+    { id: "5", name: "Participation", score: 100, weight: 10 },
   ]);
 
   const result = useMemo(() => calculateWeightedGrade(categories, DEFAULT_GRADE_SCALE), [categories]);
@@ -69,12 +78,17 @@ export default function WeightedGradeCalculator({
   ];
 
   return (
-    <div className="w-full bg-white border border-slate-200/90 rounded-2xl shadow-xl shadow-slate-100 overflow-hidden my-6">
+    <div className="w-full bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl shadow-xl shadow-slate-100 overflow-hidden my-4 sm:my-6">
       {/* Header */}
-      <div className="px-6 py-5 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white flex flex-wrap items-center justify-between gap-4">
+      <div className="px-4 sm:px-6 py-4 sm:py-5 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 className="text-xl font-bold tracking-tight">
-            {title || "Weighted Grade Calculator"}
+          <h2 className="text-lg sm:text-xl font-bold tracking-tight flex items-center gap-2">
+            <span>{title || "Weighted Grade Calculator"}</span>
+            {result.categoryBreakdown.length > 0 && result.overallPercentage >= 90 && (
+              <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/30 text-emerald-300 border border-emerald-400/30 animate-pulse">
+                <Sparkles className="w-3 h-3 inline mr-0.5" /> High Honors
+              </span>
+            )}
           </h2>
           <p className="text-xs text-slate-300 mt-0.5">
             {subtitle || "Calculate your overall score based on syllabus percentage weights for each category."}
@@ -83,7 +97,7 @@ export default function WeightedGradeCalculator({
         <button
           type="button"
           onClick={handleReset}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors border border-white/10"
+          className="self-end sm:self-auto flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 active:scale-95 text-white rounded-lg transition-all border border-white/15 touch-manipulation min-h-[36px]"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span>Reset</span>
@@ -91,15 +105,15 @@ export default function WeightedGradeCalculator({
       </div>
 
       {/* Main Grid */}
-      <div className="p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
         {/* Left: Categories Input Table */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
               Categories & Weights ({categories.length})
             </span>
             <div className="flex items-center gap-1.5 text-xs">
-              <span className="text-slate-500">Total Weight:</span>
+              <span className="text-slate-500">Weight Total:</span>
               <span
                 className={`font-bold px-2 py-0.5 rounded ${
                   result.isWeights100
@@ -116,54 +130,73 @@ export default function WeightedGradeCalculator({
           <div className="grid grid-cols-12 gap-2 text-xs font-bold text-slate-500 px-2 uppercase tracking-wider hidden sm:grid">
             <div className="col-span-6">Category Name</div>
             <div className="col-span-3 text-center">Your Score (%)</div>
-            <div className="col-span-3 text-center">Weight (%)</div>
+            <div className="col-span-2 text-center">Weight (%)</div>
+            <div className="col-span-1"></div>
           </div>
 
-          {/* Row Inputs */}
-          <div className="space-y-2.5 max-h-[420px] overflow-y-auto pr-1">
+          {/* Row Inputs - Touch & Mobile Optimized */}
+          <div className="space-y-2.5 max-h-[440px] overflow-y-auto pr-1">
             {categories.map((cat, idx) => (
               <div
                 key={cat.id}
-                className="grid grid-cols-12 gap-2 p-2 bg-slate-50/80 hover:bg-slate-100/80 rounded-xl border border-slate-200 transition-colors items-center"
+                className="p-3 sm:p-2 bg-slate-50/90 hover:bg-slate-100/90 rounded-xl border border-slate-200 transition-colors space-y-2 sm:space-y-0 sm:grid sm:grid-cols-12 sm:gap-2 sm:items-center"
               >
-                <div className="col-span-12 sm:col-span-6">
+                {/* Category Name */}
+                <div className="sm:col-span-6">
+                  <div className="text-[11px] font-bold text-slate-400 sm:hidden mb-1">
+                    Category #{idx + 1}
+                  </div>
                   <input
                     type="text"
                     value={cat.name}
-                    placeholder={`e.g. Homework`}
+                    placeholder="e.g. Homework"
                     onChange={(e) => handleChange(cat.id, "name", e.target.value)}
-                    className="w-full px-3 py-2 text-sm font-medium text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 text-base sm:text-sm font-medium text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
                 </div>
-                <div className="col-span-5 sm:col-span-3">
-                  <input
-                    type="number"
-                    step="any"
-                    value={cat.score}
-                    placeholder="Score %"
-                    onChange={(e) => handleChange(cat.id, "score", e.target.value)}
-                    className="w-full px-3 py-2 text-sm text-center font-bold text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  />
-                </div>
-                <div className="col-span-5 sm:col-span-2">
-                  <input
-                    type="number"
-                    step="any"
-                    value={cat.weight}
-                    placeholder="Weight %"
-                    onChange={(e) => handleChange(cat.id, "weight", e.target.value)}
-                    className="w-full px-3 py-2 text-sm text-center font-bold text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  />
-                </div>
-                <div className="col-span-2 sm:col-span-1 flex justify-center">
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveCategory(cat.id)}
-                    className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
-                    title="Remove category"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+
+                {/* Score & Weight on Mobile */}
+                <div className="grid grid-cols-12 gap-2 sm:contents">
+                  <div className="col-span-5 sm:col-span-3">
+                    <div className="text-[10px] font-bold text-slate-400 sm:hidden mb-0.5 text-center">
+                      Score %
+                    </div>
+                    <input
+                      type="number"
+                      inputMode="decimal"
+                      step="any"
+                      value={cat.score}
+                      placeholder="Score %"
+                      onChange={(e) => handleChange(cat.id, "score", e.target.value)}
+                      className="w-full px-3 py-2 text-base sm:text-sm text-center font-bold text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+
+                  <div className="col-span-5 sm:col-span-2">
+                    <div className="text-[10px] font-bold text-slate-400 sm:hidden mb-0.5 text-center">
+                      Weight %
+                    </div>
+                    <input
+                      type="number"
+                      inputMode="decimal"
+                      step="any"
+                      value={cat.weight}
+                      placeholder="Weight %"
+                      onChange={(e) => handleChange(cat.id, "weight", e.target.value)}
+                      className="w-full px-3 py-2 text-base sm:text-sm text-center font-bold text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+
+                  <div className="col-span-2 sm:col-span-1 flex items-end sm:items-center justify-center">
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveCategory(cat.id)}
+                      className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors active:scale-90 touch-manipulation min-h-[40px] min-w-[40px] flex items-center justify-center"
+                      title="Remove category"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -172,27 +205,27 @@ export default function WeightedGradeCalculator({
           <button
             type="button"
             onClick={handleAddCategory}
-            className="w-full py-2.5 px-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-sm rounded-xl border border-indigo-200/80 flex items-center justify-center gap-2 transition-colors"
+            className="w-full py-3 sm:py-2.5 px-4 bg-indigo-50 hover:bg-indigo-100 active:scale-[0.99] text-indigo-700 font-bold text-sm rounded-xl border border-indigo-200 flex items-center justify-center gap-2 transition-all shadow-sm touch-manipulation min-h-[44px]"
           >
             <Plus className="w-4 h-4" />
-            <span>Add Another Category</span>
+            <span>+ Add Another Category</span>
           </button>
         </div>
 
         {/* Right: Results & Contribution Breakdown */}
-        <div className="lg:col-span-5 flex flex-col justify-between bg-gradient-to-b from-slate-50 to-slate-100/90 rounded-2xl p-6 border border-slate-200">
+        <div className="lg:col-span-5 flex flex-col justify-between bg-gradient-to-b from-slate-50 to-slate-100/90 rounded-2xl p-5 sm:p-6 border border-slate-200">
           <div>
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Overall Weighted Grade
               </span>
-              <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
-                Calculated
+              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 flex items-center gap-1">
+                <CheckCircle2 className="w-3 h-3" /> Live
               </span>
             </div>
 
             {/* Score Big Card */}
-            <div className="text-center py-6 bg-white rounded-2xl border border-slate-200 shadow-sm mb-6">
+            <div className="text-center py-6 px-4 bg-white rounded-2xl border border-slate-200 shadow-sm mb-4">
               <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
                 Weighted Average Score
               </div>
@@ -201,11 +234,11 @@ export default function WeightedGradeCalculator({
               </div>
 
               {result.categoryBreakdown.length > 0 && (
-                <div className="mt-3 flex items-center justify-center gap-2">
-                  <span className="text-sm font-black px-3.5 py-1 rounded-full bg-indigo-600 text-white shadow-sm">
-                    Letter Grade: {result.letter}
+                <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
+                  <span className="text-sm font-black px-4 py-1.5 rounded-full bg-indigo-600 text-white shadow-sm">
+                    Grade: {result.letter}
                   </span>
-                  <span className="text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
+                  <span className="text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200">
                     {result.gpaPoint.toFixed(1)} GPA
                   </span>
                 </div>
@@ -214,7 +247,7 @@ export default function WeightedGradeCalculator({
 
             {/* Visual Contribution Stacked Bar */}
             {result.categoryBreakdown.length > 0 && (
-              <div className="mb-6 space-y-3">
+              <div className="mb-4 space-y-3">
                 <div className="flex items-center justify-between text-xs font-bold text-slate-700">
                   <span className="flex items-center gap-1.5">
                     <PieChart className="w-4 h-4 text-indigo-600" />
@@ -238,31 +271,36 @@ export default function WeightedGradeCalculator({
                 </div>
 
                 {/* Category Legend list */}
-                <div className="space-y-1.5 pt-1 text-xs">
+                <div className="space-y-1 pt-1">
                   {result.categoryBreakdown.map((cat, idx) => (
-                    <div key={cat.id} className="flex items-center justify-between text-slate-600">
-                      <div className="flex items-center gap-2 truncate max-w-[180px]">
-                        <span className={`w-2.5 h-2.5 rounded-full ${colors[idx % colors.length]} shrink-0`} />
-                        <span className="truncate">{cat.name} ({cat.weight}%)</span>
+                    <div
+                      key={cat.id}
+                      className="flex items-center justify-between text-xs p-2 bg-white rounded-lg border border-slate-100 shadow-sm"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className={`w-3 h-3 rounded-full ${colors[idx % colors.length]}`} />
+                        <span className="font-semibold text-slate-800">{cat.name || "Category"}</span>
                       </div>
-                      <span className="font-semibold text-slate-800">
-                        +{cat.weightedContribution}% towards final
-                      </span>
+                      <div className="text-slate-600 font-mono text-[11px]">
+                        <span className="font-bold text-indigo-700">+{cat.weightedContribution}%</span>
+                        <span className="text-slate-400 ml-1">({cat.weight}%)</span>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
             )}
-          </div>
 
-          {!result.isWeights100 && result.categoryBreakdown.length > 0 && (
-            <div className="mt-4 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800 flex items-start gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
-              <span>
-                Your weights currently sum to <strong>{result.totalWeight}%</strong> instead of 100%. The calculator automatically normalized the scores so your grade is accurate.
-              </span>
-            </div>
-          )}
+            {!result.isWeights100 && result.totalWeight > 0 && (
+              <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-start gap-2">
+                <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                <div>
+                  <strong>Mid-Semester Normalized: </strong>
+                  Your weights sum to {result.totalWeight}% (less than 100%). Your score has been normalized to reflect your standing to date.
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

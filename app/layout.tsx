@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileBottomNav from "@/components/MobileBottomNav";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { generateWebSiteSchema, generateOrganizationSchema } from "@/lib/seo/schema";
 
@@ -83,8 +84,9 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased text-slate-900 bg-slate-50/40 flex flex-col min-h-screen selection:bg-indigo-500 selection:text-white">
         <Header />
-        <main className="flex-grow">{children}</main>
+        <main className="flex-grow pb-16 md:pb-0">{children}</main>
         <Footer />
+        <MobileBottomNav />
       </body>
     </html>
   );

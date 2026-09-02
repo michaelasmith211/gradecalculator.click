@@ -1,7 +1,15 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Plus, Trash2, RotateCcw, Award, GraduationCap, Sparkles } from "lucide-react";
+import {
+  Plus,
+  Trash2,
+  RotateCcw,
+  Award,
+  GraduationCap,
+  Sparkles,
+  CheckCircle2,
+} from "lucide-react";
 import { calculateGPA, GPACourseItem } from "@/lib/calculations/gpa";
 import { trackEvent } from "@/lib/analytics";
 
@@ -66,12 +74,26 @@ export default function GPACalculator({
   const letterOptions = ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F"];
 
   return (
-    <div className="w-full bg-white border border-slate-200/90 rounded-2xl shadow-xl shadow-slate-100 overflow-hidden my-6">
+    <div className="w-full bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl shadow-xl shadow-slate-100 overflow-hidden my-4 sm:my-6">
       {/* Header */}
-      <div className="px-6 py-5 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white flex flex-wrap items-center justify-between gap-4">
+      <div className="px-4 sm:px-6 py-4 sm:py-5 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 className="text-xl font-bold tracking-tight">
-            {title || (type === "college" ? "College GPA Calculator" : type === "highschool" ? "High School GPA Calculator" : type === "semester" ? "Semester GPA Calculator" : "4.0 GPA Calculator")}
+          <h2 className="text-lg sm:text-xl font-bold tracking-tight flex items-center gap-2">
+            <span>
+              {title ||
+                (type === "college"
+                  ? "College GPA Calculator"
+                  : type === "highschool"
+                  ? "High School GPA Calculator"
+                  : type === "semester"
+                  ? "Semester GPA Calculator"
+                  : "4.0 GPA Calculator")}
+            </span>
+            {result.validCourseCount > 0 && result.gpa >= 3.5 && (
+              <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/30 text-emerald-300 border border-emerald-400/30 animate-pulse">
+                <Sparkles className="w-3 h-3 inline mr-0.5" /> Dean's List
+              </span>
+            )}
           </h2>
           <p className="text-xs text-slate-300 mt-0.5">
             {subtitle || "Calculate your term and cumulative Grade Point Average and quality points."}
@@ -80,7 +102,7 @@ export default function GPACalculator({
         <button
           type="button"
           onClick={handleReset}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors border border-white/10"
+          className="self-end sm:self-auto flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 active:scale-95 text-white rounded-lg transition-all border border-white/15 touch-manipulation min-h-[36px]"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span>Reset</span>
@@ -88,17 +110,17 @@ export default function GPACalculator({
       </div>
 
       {/* Main Grid */}
-      <div className="p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
         {/* Left: Courses Table */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
               Current Courses ({courses.length})
             </span>
             <span className="text-xs text-slate-500 font-medium">Standard 4.0 Scale</span>
           </div>
 
-          {/* Table Header */}
+          {/* Desktop Table Header */}
           <div className="grid grid-cols-12 gap-2 text-xs font-bold text-slate-500 px-2 uppercase tracking-wider hidden sm:grid">
             <div className="col-span-5">Course Name</div>
             <div className="col-span-2 text-center">Grade</div>
@@ -107,67 +129,88 @@ export default function GPACalculator({
             <div className="col-span-1"></div>
           </div>
 
-          {/* Row Inputs */}
-          <div className="space-y-2.5 max-h-[420px] overflow-y-auto pr-1">
+          {/* Row Inputs - Touch & Mobile Optimized */}
+          <div className="space-y-2.5 max-h-[440px] overflow-y-auto pr-1">
             {courses.map((course, idx) => (
               <div
                 key={course.id}
-                className="grid grid-cols-12 gap-2 p-2 bg-slate-50/80 hover:bg-slate-100/80 rounded-xl border border-slate-200 transition-colors items-center"
+                className="p-3 sm:p-2 bg-slate-50/90 hover:bg-slate-100/90 rounded-xl border border-slate-200 transition-colors space-y-2 sm:space-y-0 sm:grid sm:grid-cols-12 sm:gap-2 sm:items-center"
               >
-                <div className="col-span-12 sm:col-span-5">
+                {/* Course Name */}
+                <div className="sm:col-span-5">
+                  <div className="text-[11px] font-bold text-slate-400 sm:hidden mb-1">
+                    Course #{idx + 1}
+                  </div>
                   <input
                     type="text"
                     value={course.name}
                     placeholder={`Course ${idx + 1}`}
                     onChange={(e) => handleChange(course.id, "name", e.target.value)}
-                    className="w-full px-3 py-2 text-sm font-medium text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 text-base sm:text-sm font-medium text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
                 </div>
-                <div className="col-span-4 sm:col-span-2">
-                  <select
-                    value={course.grade}
-                    onChange={(e) => handleChange(course.id, "grade", e.target.value)}
-                    className="w-full px-2 py-2 text-sm text-center font-bold text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  >
-                    {letterOptions.map((opt) => (
-                      <option key={opt} value={opt}>
-                        {opt}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="col-span-4 sm:col-span-2">
-                  <input
-                    type="number"
-                    step="any"
-                    min="0"
-                    max="10"
-                    value={course.credits}
-                    placeholder="Credits"
-                    onChange={(e) => handleChange(course.id, "credits", e.target.value)}
-                    className="w-full px-2 py-2 text-sm text-center font-bold text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  />
-                </div>
-                <div className="col-span-3 sm:col-span-2">
-                  <select
-                    value={course.level || "regular"}
-                    onChange={(e) => handleChange(course.id, "level", e.target.value)}
-                    className="w-full px-2 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  >
-                    <option value="regular">Regular (4.0)</option>
-                    <option value="honors">Honors (+0.5)</option>
-                    <option value="ap_ib">AP/IB (+1.0)</option>
-                  </select>
-                </div>
-                <div className="col-span-1 flex justify-center">
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveCourse(course.id)}
-                    className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
-                    title="Remove course"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+
+                {/* Grade, Credits, Level on Mobile */}
+                <div className="grid grid-cols-12 gap-2 sm:contents">
+                  <div className="col-span-4 sm:col-span-2">
+                    <div className="text-[10px] font-bold text-slate-400 sm:hidden mb-0.5 text-center">
+                      Grade
+                    </div>
+                    <select
+                      value={course.grade}
+                      onChange={(e) => handleChange(course.id, "grade", e.target.value)}
+                      className="w-full px-2 py-2 text-base sm:text-sm text-center font-bold text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
+                      {letterOptions.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="col-span-3 sm:col-span-2">
+                    <div className="text-[10px] font-bold text-slate-400 sm:hidden mb-0.5 text-center">
+                      Credits
+                    </div>
+                    <input
+                      type="number"
+                      inputMode="decimal"
+                      step="any"
+                      min="0"
+                      max="10"
+                      value={course.credits}
+                      placeholder="Credits"
+                      onChange={(e) => handleChange(course.id, "credits", e.target.value)}
+                      className="w-full px-2 py-2 text-base sm:text-sm text-center font-bold text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+
+                  <div className="col-span-4 sm:col-span-2">
+                    <div className="text-[10px] font-bold text-slate-400 sm:hidden mb-0.5 text-center">
+                      Level
+                    </div>
+                    <select
+                      value={course.level || "regular"}
+                      onChange={(e) => handleChange(course.id, "level", e.target.value)}
+                      className="w-full px-1.5 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
+                      <option value="regular">Regular</option>
+                      <option value="honors">Honors (+0.5)</option>
+                      <option value="ap_ib">AP/IB (+1.0)</option>
+                    </select>
+                  </div>
+
+                  <div className="col-span-1 flex items-end sm:items-center justify-center">
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveCourse(course.id)}
+                      className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors active:scale-90 touch-manipulation min-h-[40px] min-w-[40px] flex items-center justify-center"
+                      title="Remove course"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -176,41 +219,43 @@ export default function GPACalculator({
           <button
             type="button"
             onClick={handleAddCourse}
-            className="w-full py-2.5 px-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-sm rounded-xl border border-indigo-200/80 flex items-center justify-center gap-2 transition-colors shadow-sm"
+            className="w-full py-3 sm:py-2.5 px-4 bg-indigo-50 hover:bg-indigo-100 active:scale-[0.99] text-indigo-700 font-bold text-sm rounded-xl border border-indigo-200 flex items-center justify-center gap-2 transition-all shadow-sm touch-manipulation min-h-[44px]"
           >
             <Plus className="w-4 h-4" />
-            <span>Add Another Course</span>
+            <span>+ Add Another Course</span>
           </button>
 
           {/* Cumulative GPA Accumulator */}
-          <div className="mt-6 pt-4 border-t border-slate-200 bg-slate-50/70 p-4 rounded-xl">
+          <div className="mt-6 pt-4 border-t border-slate-200 bg-slate-50/90 p-4 rounded-xl">
             <span className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-2">
               Optional: Calculate Cumulative GPA
             </span>
-            <div className="grid grid-cols-2 gap-3 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div>
                 <label className="text-slate-600 font-medium block mb-1">Prior Cumulative GPA</label>
                 <input
                   type="number"
+                  inputMode="decimal"
                   step="0.01"
                   min="0"
                   max="5.0"
                   value={priorGpa}
                   onChange={(e) => setPriorGpa(e.target.value)}
                   placeholder="e.g. 3.65"
-                  className="w-full px-3 py-2 text-sm font-bold text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 text-base sm:text-sm font-bold text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
               <div>
                 <label className="text-slate-600 font-medium block mb-1">Prior Credits Completed</label>
                 <input
                   type="number"
+                  inputMode="decimal"
                   step="any"
                   min="0"
                   value={priorCredits}
                   onChange={(e) => setPriorCredits(e.target.value)}
                   placeholder="e.g. 45"
-                  className="w-full px-3 py-2 text-sm font-bold text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 text-base sm:text-sm font-bold text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
             </div>
@@ -218,19 +263,19 @@ export default function GPACalculator({
         </div>
 
         {/* Right: Results Panel */}
-        <div className="lg:col-span-5 flex flex-col justify-between bg-gradient-to-b from-slate-50 to-slate-100/90 rounded-2xl p-6 border border-slate-200">
+        <div className="lg:col-span-5 flex flex-col justify-between bg-gradient-to-b from-slate-50 to-slate-100/90 rounded-2xl p-5 sm:p-6 border border-slate-200">
           <div>
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 GPA Calculation
               </span>
-              <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
-                4.0 Standard
+              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 flex items-center gap-1">
+                <CheckCircle2 className="w-3 h-3" /> Live
               </span>
             </div>
 
             {/* GPA Big Score */}
-            <div className="text-center py-6 bg-white rounded-2xl border border-slate-200 shadow-sm mb-6">
+            <div className="text-center py-6 px-4 bg-white rounded-2xl border border-slate-200 shadow-sm mb-4">
               <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
                 Term Grade Point Average
               </div>
@@ -239,65 +284,53 @@ export default function GPACalculator({
               </div>
 
               {result.validCourseCount > 0 && (
-                <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
-                  <span className="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full">
-                    {result.academicStanding}
+                <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
+                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-indigo-600 text-white shadow-sm">
+                    {result.totalCredits} Credits Attempted
                   </span>
-                  {type === "highschool" && (
-                    <span className="text-xs font-bold text-slate-700 bg-slate-100 border border-slate-200 px-3 py-1 rounded-full">
-                      Unweighted: {result.unweightedGpa.toFixed(2)}
+                  {type === "highschool" && result.gpa !== result.unweightedGpa && (
+                    <span className="text-xs font-bold px-3 py-1 rounded-full bg-purple-600 text-white shadow-sm">
+                      Unweighted: {result.unweightedGpa.toFixed(2)} GPA
                     </span>
                   )}
                 </div>
               )}
             </div>
 
-            {/* Cumulative GPA Card if entered */}
-            {result.cumulativeGpa !== undefined && (
-              <div className="mb-6 p-4 bg-indigo-600 text-white rounded-2xl text-center shadow-md">
-                <div className="text-xs font-semibold text-indigo-100 uppercase tracking-wider">
-                  Updated Cumulative GPA
+            {/* Metrics Breakdown */}
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+                <div className="text-[11px] font-semibold text-slate-500 uppercase">
+                  Quality Points
                 </div>
-                <div className="text-4xl font-black mt-1">
-                  {result.cumulativeGpa.toFixed(2)}
-                </div>
-                <div className="text-xs text-indigo-100 mt-1">
-                  Across {result.cumulativeCredits} total completed credits
+                <div className="text-xl font-bold text-slate-900 mt-0.5">
+                  {result.totalQualityPoints.toFixed(1)}
                 </div>
               </div>
-            )}
-
-            {/* Stats Breakdown */}
-            <div className="grid grid-cols-2 gap-3 text-xs">
-              <div className="p-3 bg-white rounded-xl border border-slate-200">
-                <div className="text-slate-500 font-medium">Term Credits</div>
-                <div className="text-lg font-bold text-slate-900 mt-0.5">
+              <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+                <div className="text-[11px] font-semibold text-slate-500 uppercase">
+                  Total Credits
+                </div>
+                <div className="text-xl font-bold text-slate-900 mt-0.5">
                   {result.totalCredits}
                 </div>
               </div>
-              <div className="p-3 bg-white rounded-xl border border-slate-200">
-                <div className="text-slate-500 font-medium">Quality Points</div>
-                <div className="text-lg font-bold text-slate-900 mt-0.5">
-                  {result.totalQualityPoints}
-                </div>
-              </div>
-              <div className="p-3 bg-white rounded-xl border border-slate-200">
-                <div className="text-slate-500 font-medium">Courses Counted</div>
-                <div className="text-lg font-bold text-slate-900 mt-0.5">
-                  {result.validCourseCount}
-                </div>
-              </div>
-              <div className="p-3 bg-white rounded-xl border border-slate-200">
-                <div className="text-slate-500 font-medium">Grading System</div>
-                <div className="text-xs font-bold text-indigo-700 mt-1">
-                  4.0 Scale System
-                </div>
-              </div>
             </div>
-          </div>
 
-          <div className="mt-6 text-[11px] text-slate-500">
-            Quality points = Course Credits &times; Grade Point Value (e.g. 4 credits of A = 16.0 quality points).
+            {/* Cumulative GPA Display if populated */}
+            {result.cumulativeGpa !== undefined && result.cumulativeCredits !== undefined && (
+              <div className="p-4 bg-indigo-50 border border-indigo-200 rounded-xl mb-4 text-center">
+                <div className="text-xs font-bold uppercase tracking-wider text-indigo-900">
+                  New Cumulative GPA
+                </div>
+                <div className="text-3xl font-black text-indigo-700 mt-1">
+                  {result.cumulativeGpa.toFixed(2)}
+                </div>
+                <div className="text-[11px] text-indigo-600 mt-0.5">
+                  Across {result.cumulativeCredits} Total Career Credits
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
