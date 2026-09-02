@@ -153,7 +153,7 @@ export default function RelatedCalculators({
                 <span className="text-[11px] font-semibold text-indigo-600 uppercase tracking-wider bg-indigo-50 px-2 py-0.5 rounded">
                   {tool.category || "Calculator"}
                 </span>
-                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
+                <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
               </div>
               <h3 className="font-bold text-slate-900 group-hover:text-indigo-600 text-base mb-1.5 transition-colors">
                 {tool.name}

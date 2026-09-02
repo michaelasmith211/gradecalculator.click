@@ -44,7 +44,7 @@ export default function TestGradeCalculator({
           <h2 className="text-lg sm:text-xl font-bold tracking-tight">
             {title || "Test & Quiz Grade Calculator"}
           </h2>
-          <p className="text-xs text-slate-300 mt-0.5">
+          <p className="text-xs text-slate-200 mt-0.5">
             {subtitle || "Calculate single test scores and view a complete Easy Grader grading chart."}
           </p>
         </div>
@@ -63,7 +63,7 @@ export default function TestGradeCalculator({
         <div className="lg:col-span-6 space-y-4">
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <div>
-              <label htmlFor="totalQuestions" className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
+              <label htmlFor="totalQuestions" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
                 Total Questions
               </label>
               <input
@@ -78,7 +78,7 @@ export default function TestGradeCalculator({
               />
             </div>
             <div>
-              <label htmlFor="wrongAnswers" className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
+              <label htmlFor="wrongAnswers" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
                 Number Wrong
               </label>
               <input
@@ -94,16 +94,16 @@ export default function TestGradeCalculator({
             </div>
           </div>
 
-          <div className="text-xs text-slate-500 flex items-center justify-between pt-1">
-            <span>Correct: <strong className="text-slate-800">{correctNum}</strong></span>
-            <span>Total: <strong className="text-slate-800">{totalNum || 0}</strong></span>
+          <div className="text-xs text-slate-600 flex items-center justify-between pt-1 font-medium">
+            <span>Correct: <strong className="text-slate-900">{correctNum}</strong></span>
+            <span>Total: <strong className="text-slate-900">{totalNum || 0}</strong></span>
           </div>
         </div>
 
         {/* Right: Instant Score Result */}
         <div className="lg:col-span-6 flex items-center justify-center">
           <div className="w-full bg-slate-50 rounded-2xl p-5 sm:p-6 border border-slate-200 text-center flex flex-col items-center justify-center">
-            <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
+            <div className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">
               Score Earned
             </div>
             <div className="text-5xl sm:text-6xl font-black text-slate-900 tracking-tight">
@@ -113,7 +113,7 @@ export default function TestGradeCalculator({
               <span className="px-4 py-1.5 rounded-full text-sm font-extrabold bg-indigo-600 text-white shadow-sm">
                 Grade: {singleScore.letter}
               </span>
-              <span className="px-3 py-1.5 rounded-full text-xs font-bold bg-white text-slate-700 border border-slate-200">
+              <span className="px-3 py-1.5 rounded-full text-xs font-bold bg-white text-slate-800 border border-slate-200">
                 {gpaVal.toFixed(1)} GPA
               </span>
             </div>
@@ -125,8 +125,8 @@ export default function TestGradeCalculator({
       <div className="p-4 sm:p-6 lg:p-8">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <ListFilter className="w-4 h-4 text-indigo-600" />
-            <span className="text-sm font-bold text-slate-800 uppercase tracking-wider">
+            <ListFilter className="w-4 h-4 text-indigo-700" />
+            <span className="text-sm font-bold text-slate-900 uppercase tracking-wider">
               Easy Grader Quick Reference ({totalNum || 50} Questions)
             </span>
           </div>
@@ -134,7 +134,7 @@ export default function TestGradeCalculator({
 
         <div className="overflow-x-auto rounded-xl border border-slate-200">
           <table className="w-full text-xs text-left">
-            <thead className="bg-slate-100 text-slate-700 uppercase tracking-wider text-[11px] font-bold">
+            <thead className="bg-slate-100 text-slate-800 uppercase tracking-wider text-[11px] font-bold">
               <tr>
                 <th scope="col" className="px-4 py-2.5">Wrong Answers</th>
                 <th scope="col" className="px-4 py-2.5">Score Fraction</th>
@@ -154,14 +154,14 @@ export default function TestGradeCalculator({
                     <td className="px-4 py-2 font-semibold text-slate-900">
                       {row.wrong === 0 ? "0 (Perfect)" : `-${row.wrong} Wrong`}
                     </td>
-                    <td className="px-4 py-2 text-slate-600">{row.correct} / {totalNum || 50}</td>
+                    <td className="px-4 py-2 text-slate-700">{row.correct} / {totalNum || 50}</td>
                     <td className="px-4 py-2 font-bold text-slate-900">{row.percentage}%</td>
                     <td className="px-4 py-2">
-                      <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-slate-100 text-slate-800">
+                      <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-slate-100 text-slate-900">
                         {row.letter}
                       </span>
                     </td>
-                    <td className="px-4 py-2 text-slate-600">{rowGpa.toFixed(1)}</td>
+                    <td className="px-4 py-2 text-slate-700 font-medium">{rowGpa.toFixed(1)}</td>
                   </tr>
                 );
               })}

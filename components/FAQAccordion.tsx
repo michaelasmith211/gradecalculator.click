@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, HelpCircle } from "lucide-react";
 
 export interface FAQItem {
   question: string;
@@ -17,47 +17,53 @@ interface FAQAccordionProps {
 export default function FAQAccordion({
   faqs,
   title = "Frequently Asked Questions",
-  subtitle = "Find quick answers to common questions about grading formulas, scale variations, and calculations.",
+  subtitle,
 }: FAQAccordionProps) {
-  const [openIndexes, setOpenIndexes] = useState<number[]>([0]); // first open by default
+  const [openIndex, setOpenIndex] = useState<number | null>(0); // First open by default
 
-  const toggleIndex = (index: number) => {
-    setOpenIndexes((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
+  const toggle = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
   };
 
+  if (!faqs || faqs.length === 0) return null;
+
   return (
-    <section className="my-12 pt-8 border-t border-slate-200">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-slate-900 tracking-tight">{title}</h2>
-        {subtitle && <p className="text-sm text-slate-600 mt-1">{subtitle}</p>}
+    <section className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 space-y-6">
+      <div className="flex items-center gap-2.5">
+        <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center">
+          <HelpCircle className="w-5 h-5" />
+        </div>
+        <div>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+            {title}
+          </h2>
+          {subtitle && <p className="text-xs sm:text-sm text-slate-600 mt-0.5">{subtitle}</p>}
+        </div>
       </div>
 
-      <div className="space-y-3">
-        {faqs.map((faq, idx) => {
-          const isOpen = openIndexes.includes(idx);
+      <div className="divide-y divide-slate-200/80">
+        {faqs.map((faq, index) => {
+          const isOpen = openIndex === index;
           return (
-            <div
-              key={idx}
-              className="border border-slate-200 rounded-xl bg-white overflow-hidden transition-all shadow-sm"
-            >
+            <div key={index} className="py-4 first:pt-0 last:pb-0">
               <button
                 type="button"
-                onClick={() => toggleIndex(idx)}
-                className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-semibold text-slate-900 hover:text-indigo-600 transition-colors focus:outline-none focus:bg-slate-50"
+                onClick={() => toggle(index)}
+                className="w-full flex items-center justify-between text-left gap-4 group focus:outline-none"
                 aria-expanded={isOpen}
               >
-                <span className="text-base sm:text-lg">{faq.question}</span>
+                <span className="text-sm sm:text-base font-bold text-slate-800 group-hover:text-indigo-700 transition-colors">
+                  {faq.question}
+                </span>
                 <ChevronDown
-                  className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${
-                    isOpen ? "rotate-180 text-indigo-600" : ""
+                  className={`w-5 h-5 text-slate-600 shrink-0 transition-transform duration-200 ${
+                    isOpen ? "rotate-180 text-indigo-700" : ""
                   }`}
                 />
               </button>
               {isOpen && (
-                <div className="px-5 pb-4 pt-1 text-slate-600 text-sm leading-relaxed border-t border-slate-100">
-                  <p className="whitespace-pre-line">{faq.answer}</p>
+                <div className="mt-3 text-xs sm:text-sm text-slate-700 leading-relaxed animate-in fade-in slide-in-from-top-1 duration-150">
+                  <p>{faq.answer}</p>
                 </div>
               )}
             </div>

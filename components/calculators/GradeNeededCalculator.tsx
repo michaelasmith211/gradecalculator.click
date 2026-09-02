@@ -54,7 +54,7 @@ export default function GradeNeededCalculator() {
       <div className="px-4 sm:px-6 py-4 sm:py-5 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h2 className="text-lg sm:text-xl font-bold tracking-tight">Grade Needed Calculator</h2>
-          <p className="text-xs text-slate-300 mt-0.5">
+          <p className="text-xs text-slate-200 mt-0.5">
             Calculate the average score required on your remaining coursework to achieve your target class grade.
           </p>
         </div>
@@ -98,8 +98,8 @@ export default function GradeNeededCalculator() {
               placeholder="e.g. 60"
               className="w-full px-4 py-3 text-base sm:text-lg font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
-            <span className="text-xs text-slate-500 mt-1 block">
-              Remaining course weight: <strong>{remainingWeight}%</strong>
+            <span className="text-xs text-slate-600 mt-1 block font-medium">
+              Remaining course weight: <strong className="text-slate-900">{remainingWeight}%</strong>
             </span>
           </div>
 
@@ -122,13 +122,13 @@ export default function GradeNeededCalculator() {
         {/* Right Output */}
         <div className="lg:col-span-6 flex flex-col justify-between bg-gradient-to-b from-indigo-50/50 via-slate-50 to-slate-100/80 rounded-2xl p-5 sm:p-6 border border-indigo-100">
           <div>
-            <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
+            <div className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3">
               Required Score on Remaining Work
             </div>
 
             {result ? (
               <div className="bg-white rounded-2xl p-5 sm:p-6 border border-indigo-100 shadow-sm text-center mb-4">
-                <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
+                <div className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">
                   Required Average
                 </div>
                 <div
@@ -164,7 +164,7 @@ export default function GradeNeededCalculator() {
                 </div>
               </div>
             ) : (
-              <div className="text-center py-10 text-sm text-slate-400">
+              <div className="text-center py-10 text-sm text-slate-500">
                 Enter your current grade and completed percentage above.
               </div>
             )}

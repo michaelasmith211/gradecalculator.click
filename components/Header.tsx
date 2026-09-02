@@ -3,7 +3,17 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Calculator, Menu, X, ChevronDown, GraduationCap, Percent, BookOpen } from "lucide-react";
+import {
+  Calculator,
+  ChevronDown,
+  Menu,
+  X,
+  BookOpen,
+  HelpCircle,
+  GraduationCap,
+  Sparkles,
+  Award,
+} from "lucide-react";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -11,68 +21,62 @@ export default function Header() {
   const pathname = usePathname();
 
   const mainTools = [
-    { name: "Grade Calculator", href: "/grade-calculator", desc: "Calculate overall course percentage & letter grade" },
-    { name: "Final Grade Calculator", href: "/final-grade-calculator", desc: "Calculate score needed on final exam" },
-    { name: "Weighted Grade Calculator", href: "/weighted-grade-calculator", desc: "Category weights (Homework, Exams, etc.)" },
-    { name: "GPA Calculator", href: "/gpa-calculator", desc: "Calculate 4.0 & weighted GPA with credits" },
-    { name: "Percentage Calculator", href: "/percentage-grade-calculator", desc: "Convert scores, fractions, and percentages" },
-    { name: "Grade Needed Calculator", href: "/grade-needed-calculator", desc: "Determine required score on upcoming work" },
-    { name: "Test Grade Calculator", href: "/test-grade-calculator", desc: "Quick test & quiz score grading table" },
-    { name: "Points Grade Calculator", href: "/points-grade-calculator", desc: "Total points based grading system" },
+    { name: "Grade Calculator", href: "/grade-calculator", desc: "Total points & percentage" },
+    { name: "Final Grade Calculator", href: "/final-grade-calculator", desc: "Target final exam score" },
+    { name: "Weighted Grade", href: "/weighted-grade-calculator", desc: "Category weights (HW/Exams)" },
+    { name: "4.0 GPA Calculator", href: "/gpa-calculator", desc: "High school & college GPA" },
+    { name: "Average Grade", href: "/average-grade-calculator", desc: "Arithmetic mean & median" },
+    { name: "Test & Quiz Grader", href: "/test-grade-calculator", desc: "Easy Grader scoring chart" },
+    { name: "Grade Needed", href: "/grade-needed-calculator", desc: "Score required on remaining work" },
+    { name: "Percentage Calculator", href: "/percentage-grade-calculator", desc: "Fraction to % converter" },
   ];
 
   const resources = [
     { name: "How to Calculate Grades", href: "/how-to-calculate-grades" },
-    { name: "Grade Scale Guide", href: "/grade-scale" },
-    { name: "GPA Scale Reference", href: "/gpa-scale" },
-    { name: "FAQ Knowledge Base", href: "/grade-calculator-faq" },
+    { name: "Standard Grade Scale", href: "/grade-scale" },
+    { name: "4.0 GPA Scale Chart", href: "/gpa-scale" },
+    { name: "Grade Calculator FAQ", href: "/grade-calculator-faq" },
   ];
 
-  const isActive = (path: string) => pathname === path;
+  const isActive = (href: string) => pathname === href;
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm transition-all">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Brand Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2.5 font-bold text-xl text-slate-900 hover:text-indigo-600 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1"
-            title="Grade Calculator Home"
+            className="flex items-center gap-2.5 font-extrabold text-xl text-slate-900 tracking-tight group"
           >
             <img
               src="/favicon.png"
-              alt="Grade Calculator Icon"
-              className="w-10 h-10 rounded-xl shadow-sm object-contain"
+              alt="Grade Calculator Logo"
+              className="w-8 h-8 rounded-lg shadow-sm object-contain"
             />
-            <div className="flex flex-col">
-              <span className="leading-tight tracking-tight font-extrabold text-slate-900">
-                Grade<span className="text-indigo-600">Calculator</span>
-              </span>
-              <span className="text-[10px] text-slate-500 tracking-wider uppercase font-semibold">
-                Fast & Accurate
-              </span>
-            </div>
+            <span>
+              Grade<span className="text-indigo-600">Calculator</span>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+          <nav className="hidden md:flex items-center gap-1 text-sm font-semibold">
             <Link
               href="/grade-calculator"
-              className={`px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
-                isActive("/grade-calculator") || isActive("/")
-                  ? "text-indigo-600 bg-indigo-50/80"
+              className={`px-3 py-2 rounded-lg transition-colors ${
+                isActive("/grade-calculator")
+                  ? "text-indigo-600 bg-indigo-50 font-bold"
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              Grade Calculator
+              Grade Calc
             </Link>
 
             <Link
               href="/final-grade-calculator"
-              className={`px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
+              className={`px-3 py-2 rounded-lg transition-colors ${
                 isActive("/final-grade-calculator")
-                  ? "text-indigo-600 bg-indigo-50/80"
+                  ? "text-indigo-600 bg-indigo-50 font-bold"
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
@@ -81,27 +85,27 @@ export default function Header() {
 
             <Link
               href="/weighted-grade-calculator"
-              className={`px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
+              className={`px-3 py-2 rounded-lg transition-colors ${
                 isActive("/weighted-grade-calculator")
-                  ? "text-indigo-600 bg-indigo-50/80"
+                  ? "text-indigo-600 bg-indigo-50 font-bold"
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              Weighted Grade
+              Weighted
             </Link>
 
             <Link
               href="/gpa-calculator"
-              className={`px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
+              className={`px-3 py-2 rounded-lg transition-colors ${
                 isActive("/gpa-calculator")
-                  ? "text-indigo-600 bg-indigo-50/80"
+                  ? "text-indigo-600 bg-indigo-50 font-bold"
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              GPA Calculator
+              GPA
             </Link>
 
-            {/* Dropdown for More Calculators */}
+            {/* Dropdown for More Calculators & Guides */}
             <div className="relative">
               <button
                 type="button"
@@ -111,12 +115,12 @@ export default function Header() {
                 aria-expanded={toolsDropdownOpen}
               >
                 <span>More Calculators</span>
-                <ChevronDown className="w-4 h-4 text-slate-400" />
+                <ChevronDown className="w-4 h-4 text-slate-600" />
               </button>
 
               {toolsDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-80 bg-white border border-slate-200 rounded-xl shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                  <div className="px-3 py-1.5 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                  <div className="px-3 py-1.5 text-xs font-bold text-slate-700 uppercase tracking-wider">
                     Calculators & Tools
                   </div>
                   {mainTools.slice(4).map((tool) => (
@@ -125,19 +129,19 @@ export default function Header() {
                       href={tool.href}
                       className="block px-4 py-2 text-sm text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
                     >
-                      <div className="font-medium text-slate-900">{tool.name}</div>
-                      <div className="text-xs text-slate-500 line-clamp-1">{tool.desc}</div>
+                      <div className="font-semibold text-slate-900">{tool.name}</div>
+                      <div className="text-xs text-slate-600 line-clamp-1">{tool.desc}</div>
                     </Link>
                   ))}
                   <div className="border-t border-slate-100 my-1"></div>
-                  <div className="px-3 py-1.5 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                  <div className="px-3 py-1.5 text-xs font-bold text-slate-700 uppercase tracking-wider">
                     Educational Guides
                   </div>
                   {resources.map((res) => (
                     <Link
                       key={res.href}
                       href={res.href}
-                      className="block px-4 py-1.5 text-sm text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+                      className="block px-4 py-1.5 text-sm text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors font-medium"
                     >
                       {res.name}
                     </Link>
@@ -162,7 +166,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="p-2 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -174,7 +178,7 @@ export default function Header() {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3 shadow-lg">
-          <div className="font-semibold text-xs text-slate-400 uppercase tracking-wider px-2">
+          <div className="font-bold text-xs text-slate-700 uppercase tracking-wider px-2">
             Top Calculators
           </div>
           <div className="grid grid-cols-1 gap-1">
@@ -185,18 +189,18 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium ${
                   isActive(tool.href)
-                    ? "text-indigo-600 bg-indigo-50 font-semibold"
+                    ? "text-indigo-600 bg-indigo-50 font-bold"
                     : "text-slate-700 hover:bg-slate-50"
                 }`}
               >
-                <Calculator className="w-4 h-4 text-slate-400" />
+                <Calculator className="w-4 h-4 text-indigo-600" />
                 {tool.name}
               </Link>
             ))}
           </div>
 
           <div className="border-t border-slate-100 pt-3">
-            <div className="font-semibold text-xs text-slate-400 uppercase tracking-wider px-2 mb-2">
+            <div className="font-bold text-xs text-slate-700 uppercase tracking-wider px-2 mb-2">
               Grade Guides & Scales
             </div>
             <div className="grid grid-cols-1 gap-1">
@@ -205,9 +209,9 @@ export default function Header() {
                   key={res.href}
                   href={res.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-600 hover:bg-slate-50"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-slate-50 font-medium"
                 >
-                  <BookOpen className="w-4 h-4 text-slate-400" />
+                  <BookOpen className="w-4 h-4 text-indigo-600" />
                   {res.name}
                 </Link>
               ))}
@@ -218,9 +222,9 @@ export default function Header() {
             <Link
               href="/grade-calculator"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-center px-4 py-2.5 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm"
+              className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow"
             >
-              Start Grade Calculation
+              Start Free Calculation
             </Link>
           </div>
         </div>

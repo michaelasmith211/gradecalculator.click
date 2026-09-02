@@ -85,12 +85,12 @@ export default function FinalGradeCalculator({
           <h2 className="text-lg sm:text-xl font-bold tracking-tight flex items-center gap-2">
             <span>{title || "Final Grade Calculator"}</span>
             {result && result.requiredScore <= 100 && (
-              <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-500/30 text-indigo-300 border border-indigo-400/30">
+              <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/30">
                 Target Planner
               </span>
             )}
           </h2>
-          <p className="text-xs text-slate-300 mt-0.5">
+          <p className="text-xs text-slate-200 mt-0.5">
             {subtitle || "Calculate the exact minimum score you need on your final exam to reach your goal grade."}
           </p>
         </div>
@@ -114,7 +114,7 @@ export default function FinalGradeCalculator({
               <label htmlFor="currentGrade" className="text-sm font-bold text-slate-800">
                 1. Your Current Grade (%)
               </label>
-              <span className="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">
+              <span className="text-xs font-semibold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">
                 Before Final
               </span>
             </div>
@@ -131,7 +131,7 @@ export default function FinalGradeCalculator({
                 placeholder="e.g. 85.5"
                 className="w-full px-4 py-3 text-base sm:text-lg font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
-              <span className="absolute right-4 top-3 text-slate-400 font-bold text-base sm:text-lg">%</span>
+              <span className="absolute right-4 top-3 text-slate-500 font-bold text-base sm:text-lg">%</span>
             </div>
             <input
               type="range"
@@ -149,7 +149,7 @@ export default function FinalGradeCalculator({
               <label htmlFor="desiredGrade" className="text-sm font-bold text-slate-800">
                 2. Your Desired Overall Grade (%)
               </label>
-              <span className="text-xs font-semibold text-slate-500">
+              <span className="text-xs font-semibold text-slate-600">
                 Target Letter Cutoff
               </span>
             </div>
@@ -166,44 +166,44 @@ export default function FinalGradeCalculator({
                 placeholder="e.g. 90"
                 className="w-full px-4 py-3 text-base sm:text-lg font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
-              <span className="absolute right-4 top-3 text-slate-400 font-bold text-base sm:text-lg">%</span>
+              <span className="absolute right-4 top-3 text-slate-500 font-bold text-base sm:text-lg">%</span>
             </div>
 
             {/* Quick Desired Grade Targets - Swipeable on mobile */}
             <div className="flex items-center gap-1.5 pt-1 text-xs overflow-x-auto pb-1">
-              <span className="text-slate-500 font-bold shrink-0">Quick:</span>
+              <span className="text-slate-700 font-bold shrink-0">Quick:</span>
               <button
                 type="button"
                 onClick={() => handleQuickDesired(93)}
-                className="px-2.5 py-1.5 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 font-bold rounded-lg transition-all active:scale-95 shrink-0 touch-manipulation min-h-[36px]"
+                className="px-2.5 py-1.5 bg-slate-100 hover:bg-indigo-50 text-slate-800 hover:text-indigo-700 font-bold rounded-lg transition-all active:scale-95 shrink-0 touch-manipulation min-h-[36px]"
               >
                 A (93%)
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickDesired(90)}
-                className="px-2.5 py-1.5 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 font-bold rounded-lg transition-all active:scale-95 shrink-0 touch-manipulation min-h-[36px]"
+                className="px-2.5 py-1.5 bg-slate-100 hover:bg-indigo-50 text-slate-800 hover:text-indigo-700 font-bold rounded-lg transition-all active:scale-95 shrink-0 touch-manipulation min-h-[36px]"
               >
                 A- (90%)
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickDesired(83)}
-                className="px-2.5 py-1.5 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 font-bold rounded-lg transition-all active:scale-95 shrink-0 touch-manipulation min-h-[36px]"
+                className="px-2.5 py-1.5 bg-slate-100 hover:bg-indigo-50 text-slate-800 hover:text-indigo-700 font-bold rounded-lg transition-all active:scale-95 shrink-0 touch-manipulation min-h-[36px]"
               >
                 B (83%)
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickDesired(80)}
-                className="px-2.5 py-1.5 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 font-bold rounded-lg transition-all active:scale-95 shrink-0 touch-manipulation min-h-[36px]"
+                className="px-2.5 py-1.5 bg-slate-100 hover:bg-indigo-50 text-slate-800 hover:text-indigo-700 font-bold rounded-lg transition-all active:scale-95 shrink-0 touch-manipulation min-h-[36px]"
               >
                 B- (80%)
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickDesired(70)}
-                className="px-2.5 py-1.5 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 font-bold rounded-lg transition-all active:scale-95 shrink-0 touch-manipulation min-h-[36px]"
+                className="px-2.5 py-1.5 bg-slate-100 hover:bg-indigo-50 text-slate-800 hover:text-indigo-700 font-bold rounded-lg transition-all active:scale-95 shrink-0 touch-manipulation min-h-[36px]"
               >
                 C (70%)
               </button>
@@ -216,7 +216,7 @@ export default function FinalGradeCalculator({
               <label htmlFor="examWeight" className="text-sm font-bold text-slate-800">
                 3. Final Exam Weight (%)
               </label>
-              <span className="text-xs font-semibold text-slate-500">
+              <span className="text-xs font-semibold text-slate-600">
                 Syllabus Weight
               </span>
             </div>
@@ -233,7 +233,7 @@ export default function FinalGradeCalculator({
                 placeholder="e.g. 20 or 30"
                 className="w-full px-4 py-3 text-base sm:text-lg font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
-              <span className="absolute right-4 top-3 text-slate-400 font-bold text-base sm:text-lg">%</span>
+              <span className="absolute right-4 top-3 text-slate-500 font-bold text-base sm:text-lg">%</span>
             </div>
             <input
               type="range"
@@ -249,9 +249,9 @@ export default function FinalGradeCalculator({
         {/* Right Output Results Panel */}
         <div className="lg:col-span-6 flex flex-col justify-between bg-gradient-to-b from-indigo-50/50 via-slate-50 to-slate-100/80 rounded-2xl p-5 sm:p-6 border border-indigo-100">
           <div>
-            <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center justify-between">
+            <div className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3 flex items-center justify-between">
               <span>Required Exam Score</span>
-              <span className="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded text-[11px] font-semibold flex items-center gap-1">
+              <span className="text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded text-[11px] font-semibold flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" /> Instant
               </span>
             </div>
@@ -259,7 +259,7 @@ export default function FinalGradeCalculator({
             {/* Prominent Score Output Card */}
             {result ? (
               <div className="bg-white rounded-2xl p-5 sm:p-6 border border-indigo-100 shadow-sm text-center mb-4">
-                <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
+                <div className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">
                   You Need on Final Exam
                 </div>
                 <div
@@ -324,7 +324,7 @@ export default function FinalGradeCalculator({
                 </button>
               </div>
             ) : (
-              <div className="text-center py-10 text-sm text-slate-400">
+              <div className="text-center py-10 text-sm text-slate-500">
                 Enter your current grade and final exam weight above.
               </div>
             )}
@@ -332,12 +332,12 @@ export default function FinalGradeCalculator({
             {/* Scenario Breakdown Matrix */}
             {result && (
               <div className="space-y-2">
-                <div className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                <div className="text-xs font-bold text-slate-800 uppercase tracking-wider">
                   "What-If" Final Score Scenario Matrix
                 </div>
                 <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
                   <table className="w-full text-xs text-left">
-                    <thead className="bg-slate-100 text-slate-700 font-bold uppercase text-[10px]">
+                    <thead className="bg-slate-100 text-slate-800 font-bold uppercase text-[10px]">
                       <tr>
                         <th className="px-3 py-2">If you score</th>
                         <th className="px-3 py-2 text-center">Final Course Grade</th>
@@ -364,7 +364,7 @@ export default function FinalGradeCalculator({
                                   ✓ Goal Met
                                 </span>
                               ) : (
-                                <span className="text-slate-400 text-[11px]">-</span>
+                                <span className="text-slate-500 text-[11px]">-</span>
                               )}
                             </td>
                           </tr>

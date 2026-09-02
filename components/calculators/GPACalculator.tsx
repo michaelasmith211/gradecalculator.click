@@ -90,12 +90,12 @@ export default function GPACalculator({
                   : "4.0 GPA Calculator")}
             </span>
             {result.validCourseCount > 0 && result.gpa >= 3.5 && (
-              <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/30 text-emerald-300 border border-emerald-400/30 animate-pulse">
+              <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 animate-pulse">
                 <Sparkles className="w-3 h-3 inline mr-0.5" /> Dean's List
               </span>
             )}
           </h2>
-          <p className="text-xs text-slate-300 mt-0.5">
+          <p className="text-xs text-slate-200 mt-0.5">
             {subtitle || "Calculate your term and cumulative Grade Point Average and quality points."}
           </p>
         </div>
@@ -114,14 +114,14 @@ export default function GPACalculator({
         {/* Left: Courses Table */}
         <div className="lg:col-span-7 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
               Current Courses ({courses.length})
             </span>
-            <span className="text-xs text-slate-500 font-medium">Standard 4.0 Scale</span>
+            <span className="text-xs text-slate-600 font-semibold">Standard 4.0 Scale</span>
           </div>
 
           {/* Desktop Table Header */}
-          <div className="grid grid-cols-12 gap-2 text-xs font-bold text-slate-500 px-2 uppercase tracking-wider hidden sm:grid">
+          <div className="grid grid-cols-12 gap-2 text-xs font-bold text-slate-700 px-2 uppercase tracking-wider hidden sm:grid">
             <div className="col-span-5">Course Name</div>
             <div className="col-span-2 text-center">Grade</div>
             <div className="col-span-2 text-center">Credits</div>
@@ -138,7 +138,7 @@ export default function GPACalculator({
               >
                 {/* Course Name */}
                 <div className="sm:col-span-5">
-                  <div className="text-[11px] font-bold text-slate-400 sm:hidden mb-1">
+                  <div className="text-[11px] font-bold text-slate-600 sm:hidden mb-1">
                     Course #{idx + 1}
                   </div>
                   <input
@@ -153,7 +153,7 @@ export default function GPACalculator({
                 {/* Grade, Credits, Level on Mobile */}
                 <div className="grid grid-cols-12 gap-2 sm:contents">
                   <div className="col-span-4 sm:col-span-2">
-                    <div className="text-[10px] font-bold text-slate-400 sm:hidden mb-0.5 text-center">
+                    <div className="text-[10px] font-bold text-slate-600 sm:hidden mb-0.5 text-center">
                       Grade
                     </div>
                     <select
@@ -170,7 +170,7 @@ export default function GPACalculator({
                   </div>
 
                   <div className="col-span-3 sm:col-span-2">
-                    <div className="text-[10px] font-bold text-slate-400 sm:hidden mb-0.5 text-center">
+                    <div className="text-[10px] font-bold text-slate-600 sm:hidden mb-0.5 text-center">
                       Credits
                     </div>
                     <input
@@ -187,13 +187,13 @@ export default function GPACalculator({
                   </div>
 
                   <div className="col-span-4 sm:col-span-2">
-                    <div className="text-[10px] font-bold text-slate-400 sm:hidden mb-0.5 text-center">
+                    <div className="text-[10px] font-bold text-slate-600 sm:hidden mb-0.5 text-center">
                       Level
                     </div>
                     <select
                       value={course.level || "regular"}
                       onChange={(e) => handleChange(course.id, "level", e.target.value)}
-                      className="w-full px-1.5 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-1.5 py-2 text-xs font-semibold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     >
                       <option value="regular">Regular</option>
                       <option value="honors">Honors (+0.5)</option>
@@ -205,7 +205,7 @@ export default function GPACalculator({
                     <button
                       type="button"
                       onClick={() => handleRemoveCourse(course.id)}
-                      className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors active:scale-90 touch-manipulation min-h-[40px] min-w-[40px] flex items-center justify-center"
+                      className="p-2 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors active:scale-90 touch-manipulation min-h-[40px] min-w-[40px] flex items-center justify-center"
                       title="Remove course"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -232,7 +232,7 @@ export default function GPACalculator({
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div>
-                <label className="text-slate-600 font-medium block mb-1">Prior Cumulative GPA</label>
+                <label className="text-slate-700 font-semibold block mb-1">Prior Cumulative GPA</label>
                 <input
                   type="number"
                   inputMode="decimal"
@@ -246,7 +246,7 @@ export default function GPACalculator({
                 />
               </div>
               <div>
-                <label className="text-slate-600 font-medium block mb-1">Prior Credits Completed</label>
+                <label className="text-slate-700 font-semibold block mb-1">Prior Credits Completed</label>
                 <input
                   type="number"
                   inputMode="decimal"
@@ -266,7 +266,7 @@ export default function GPACalculator({
         <div className="lg:col-span-5 flex flex-col justify-between bg-gradient-to-b from-slate-50 to-slate-100/90 rounded-2xl p-5 sm:p-6 border border-slate-200">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
                 GPA Calculation
               </span>
               <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 flex items-center gap-1">
@@ -276,7 +276,7 @@ export default function GPACalculator({
 
             {/* GPA Big Score */}
             <div className="text-center py-6 px-4 bg-white rounded-2xl border border-slate-200 shadow-sm mb-4">
-              <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
+              <div className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">
                 Term Grade Point Average
               </div>
               <div className="text-5xl sm:text-6xl font-black text-slate-900 tracking-tight">
@@ -300,7 +300,7 @@ export default function GPACalculator({
             {/* Metrics Breakdown */}
             <div className="grid grid-cols-2 gap-3 mb-4">
               <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
-                <div className="text-[11px] font-semibold text-slate-500 uppercase">
+                <div className="text-[11px] font-semibold text-slate-600 uppercase">
                   Quality Points
                 </div>
                 <div className="text-xl font-bold text-slate-900 mt-0.5">
@@ -308,7 +308,7 @@ export default function GPACalculator({
                 </div>
               </div>
               <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
-                <div className="text-[11px] font-semibold text-slate-500 uppercase">
+                <div className="text-[11px] font-semibold text-slate-600 uppercase">
                   Total Credits
                 </div>
                 <div className="text-xl font-bold text-slate-900 mt-0.5">
@@ -326,7 +326,7 @@ export default function GPACalculator({
                 <div className="text-3xl font-black text-indigo-700 mt-1">
                   {result.cumulativeGpa.toFixed(2)}
                 </div>
-                <div className="text-[11px] text-indigo-600 mt-0.5">
+                <div className="text-[11px] text-indigo-700 mt-0.5 font-semibold">
                   Across {result.cumulativeCredits} Total Career Credits
                 </div>
               </div>

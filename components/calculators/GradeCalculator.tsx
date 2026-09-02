@@ -94,19 +94,19 @@ export default function GradeCalculator({
 
   // Color helper based on percentage
   const getBadgeColor = (percent: number) => {
-    if (percent >= 90) return "bg-emerald-500 text-white shadow-emerald-500/20";
+    if (percent >= 90) return "bg-emerald-600 text-white shadow-emerald-500/20";
     if (percent >= 80) return "bg-indigo-600 text-white shadow-indigo-500/20";
-    if (percent >= 70) return "bg-amber-500 text-white shadow-amber-500/20";
-    if (percent >= 60) return "bg-orange-500 text-white shadow-orange-500/20";
-    return "bg-rose-500 text-white shadow-rose-500/20";
+    if (percent >= 70) return "bg-amber-600 text-white shadow-amber-500/20";
+    if (percent >= 60) return "bg-orange-600 text-white shadow-orange-500/20";
+    return "bg-rose-600 text-white shadow-rose-500/20";
   };
 
   const getProgressBarColor = (percent: number) => {
-    if (percent >= 90) return "from-emerald-400 to-emerald-500";
-    if (percent >= 80) return "from-indigo-400 to-indigo-600";
-    if (percent >= 70) return "from-amber-400 to-amber-500";
-    if (percent >= 60) return "from-orange-400 to-orange-500";
-    return "from-rose-400 to-rose-500";
+    if (percent >= 90) return "from-emerald-500 to-emerald-600";
+    if (percent >= 80) return "from-indigo-500 to-indigo-600";
+    if (percent >= 70) return "from-amber-500 to-amber-600";
+    if (percent >= 60) return "from-orange-500 to-orange-600";
+    return "from-rose-500 to-rose-600";
   };
 
   return (
@@ -117,12 +117,12 @@ export default function GradeCalculator({
           <h2 className="text-lg sm:text-xl font-bold tracking-tight flex items-center gap-2">
             <span>{title || "Grade Calculator"}</span>
             {result.validItemCount > 0 && result.percentage >= 90 && (
-              <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/30 text-emerald-300 border border-emerald-400/30 animate-pulse">
+              <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 animate-pulse">
                 <Sparkles className="w-3 h-3" /> Excellent
               </span>
             )}
           </h2>
-          <p className="text-xs text-slate-300 mt-0.5">
+          <p className="text-xs text-slate-200 mt-0.5">
             {subtitle || "Enter your assignment scores below to calculate your overall grade and GPA."}
           </p>
         </div>
@@ -155,22 +155,22 @@ export default function GradeCalculator({
         {/* Left Column: Assignment Rows */}
         <div className="lg:col-span-7 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
               Assignments ({items.length})
             </span>
             <div className="flex items-center gap-1.5 text-xs">
-              <span className="text-slate-400">Quick Samples:</span>
+              <span className="text-slate-600 font-semibold">Quick Samples:</span>
               <button
                 type="button"
                 onClick={() => loadSample("college")}
-                className="px-2 py-0.5 bg-slate-100 hover:bg-indigo-50 text-indigo-600 font-bold rounded text-xs transition-colors active:scale-95 touch-manipulation"
+                className="px-2 py-0.5 bg-slate-100 hover:bg-indigo-50 text-indigo-700 font-bold rounded text-xs transition-colors active:scale-95 touch-manipulation"
               >
                 College
               </button>
               <button
                 type="button"
                 onClick={() => loadSample("highschool")}
-                className="px-2 py-0.5 bg-slate-100 hover:bg-indigo-50 text-indigo-600 font-bold rounded text-xs transition-colors active:scale-95 touch-manipulation"
+                className="px-2 py-0.5 bg-slate-100 hover:bg-indigo-50 text-indigo-700 font-bold rounded text-xs transition-colors active:scale-95 touch-manipulation"
               >
                 High School
               </button>
@@ -178,7 +178,7 @@ export default function GradeCalculator({
           </div>
 
           {/* Desktop Column Header */}
-          <div className="grid grid-cols-12 gap-2 text-xs font-bold text-slate-500 px-2 uppercase tracking-wider hidden sm:grid">
+          <div className="grid grid-cols-12 gap-2 text-xs font-bold text-slate-700 px-2 uppercase tracking-wider hidden sm:grid">
             <div className="col-span-6">Assignment Name</div>
             <div className="col-span-3 text-center">Score Earned</div>
             <div className="col-span-2 text-center">Possible</div>
@@ -194,7 +194,7 @@ export default function GradeCalculator({
               >
                 {/* Assignment Name */}
                 <div className="sm:col-span-6">
-                  <div className="text-[11px] font-bold text-slate-400 sm:hidden mb-1">
+                  <div className="text-[11px] font-bold text-slate-600 sm:hidden mb-1">
                     Assignment #{index + 1}
                   </div>
                   <input
@@ -210,7 +210,7 @@ export default function GradeCalculator({
                 {/* Score Earned & Total Grid on Mobile */}
                 <div className="grid grid-cols-12 gap-2 sm:contents">
                   <div className="col-span-5 sm:col-span-3">
-                    <div className="text-[10px] font-bold text-slate-400 sm:hidden mb-0.5 text-center">
+                    <div className="text-[10px] font-bold text-slate-600 sm:hidden mb-0.5 text-center">
                       Score
                     </div>
                     <input
@@ -226,7 +226,7 @@ export default function GradeCalculator({
                   </div>
 
                   <div className="col-span-5 sm:col-span-2">
-                    <div className="text-[10px] font-bold text-slate-400 sm:hidden mb-0.5 text-center">
+                    <div className="text-[10px] font-bold text-slate-600 sm:hidden mb-0.5 text-center">
                       Out of
                     </div>
                     <input
@@ -245,7 +245,7 @@ export default function GradeCalculator({
                     <button
                       type="button"
                       onClick={() => handleRemoveItem(item.id)}
-                      className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors active:scale-90 touch-manipulation min-h-[40px] min-w-[40px] flex items-center justify-center"
+                      className="p-2 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors active:scale-90 touch-manipulation min-h-[40px] min-w-[40px] flex items-center justify-center"
                       title="Remove assignment"
                       aria-label={`Delete ${item.name}`}
                     >
@@ -272,7 +272,7 @@ export default function GradeCalculator({
         <div className="lg:col-span-5 flex flex-col justify-between bg-gradient-to-b from-slate-50 to-slate-100/90 rounded-2xl p-5 sm:p-6 border border-slate-200">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
                 Calculation Results
               </span>
               <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 flex items-center gap-1">
@@ -282,7 +282,7 @@ export default function GradeCalculator({
 
             {/* Overall Percentage Card */}
             <div className="text-center py-6 px-4 bg-white rounded-2xl border border-slate-200/90 shadow-sm mb-4">
-              <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
+              <div className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">
                 Overall Course Grade
               </div>
               <div className="text-5xl sm:text-6xl font-black text-slate-900 tracking-tight transition-all">
@@ -307,12 +307,12 @@ export default function GradeCalculator({
                   className={`px-4 py-1.5 rounded-full text-base font-extrabold shadow-sm ${
                     result.validItemCount > 0
                       ? getBadgeColor(result.percentage)
-                      : "bg-slate-200 text-slate-600"
+                      : "bg-slate-200 text-slate-700"
                   }`}
                 >
                   Grade: {result.letter}
                 </span>
-                <span className="px-3 py-1.5 rounded-full text-sm font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                <span className="px-3 py-1.5 rounded-full text-sm font-bold bg-slate-100 text-slate-800 border border-slate-200">
                   {result.gpaPoint.toFixed(1)} GPA
                 </span>
               </div>
@@ -321,7 +321,7 @@ export default function GradeCalculator({
             {/* Score Breakdown Metrics */}
             <div className="grid grid-cols-2 gap-3 mb-4">
               <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
-                <div className="text-[11px] font-semibold text-slate-500 uppercase">
+                <div className="text-[11px] font-semibold text-slate-600 uppercase">
                   Points Earned
                 </div>
                 <div className="text-xl font-bold text-slate-900 mt-0.5">
@@ -329,7 +329,7 @@ export default function GradeCalculator({
                 </div>
               </div>
               <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
-                <div className="text-[11px] font-semibold text-slate-500 uppercase">
+                <div className="text-[11px] font-semibold text-slate-600 uppercase">
                   Total Points
                 </div>
                 <div className="text-xl font-bold text-slate-900 mt-0.5">
@@ -340,7 +340,7 @@ export default function GradeCalculator({
 
             {/* Academic Status Note */}
             <div className="p-3.5 bg-indigo-50/70 border border-indigo-100 rounded-xl text-xs text-indigo-950 flex items-start gap-2.5">
-              <TrendingUp className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+              <TrendingUp className="w-4 h-4 text-indigo-700 shrink-0 mt-0.5" />
               <div>
                 <span className="font-bold">Academic Standing: </span>
                 {result.validItemCount === 0 ? (
