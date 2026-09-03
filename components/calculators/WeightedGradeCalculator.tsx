@@ -13,7 +13,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { calculateWeightedGrade, WeightedCategoryItem } from "@/lib/calculations/grades";
-import InteractiveShareCardModal from "../InteractiveShareCardModal";
+import GradeSocialCardStudio from "../GradeSocialCardStudio";
 import { trackEvent } from "@/lib/analytics";
 
 interface WeightedGradeCalculatorProps {
@@ -319,41 +319,28 @@ export default function WeightedGradeCalculator({
                 </div>
               </div>
             )}
-
-            {/* Interactive Share Card Trigger Button */}
-            {result.totalWeight > 0 && (
-              <button
-                type="button"
-                onClick={() => setShareModalOpen(true)}
-                className="w-full mt-2 py-2.5 px-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 active:scale-[0.98] text-white font-bold text-xs sm:text-sm rounded-xl flex items-center justify-center gap-2 shadow-md shadow-indigo-200 transition-all touch-manipulation min-h-[44px]"
-              >
-                <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
-                <span>Create & Share Grade Card</span>
-                <Share2 className="w-4 h-4" />
-              </button>
-            )}
           </div>
         </div>
       </div>
 
-      {/* Interactive Social Share Card Modal */}
+      {/* Inline Interactive Social Share Card Studio (Story format first) */}
       {result.totalWeight > 0 && (
-        <InteractiveShareCardModal
-          isOpen={shareModalOpen}
-          onClose={() => setShareModalOpen(false)}
-          data={{
-            type: "weighted",
-            title: title || "Weighted Course Grade",
-            scoreDisplay: `${result.overallPercentage}%`,
-            scoreLabel: "Weighted Overall Grade",
-            letterGrade: result.letter,
-            gpaPoint: result.gpaPoint,
-            additionalMetrics: [
-              { label: "Total Weight", value: `${result.totalWeight}%` },
-              { label: "Categories", value: `${categories.length} Categories` },
-            ],
-          }}
-        />
+        <div className="px-4 sm:px-6 lg:px-8 pb-6 sm:pb-8">
+          <GradeSocialCardStudio
+            data={{
+              type: "weighted",
+              title: title || "Weighted Course Grade",
+              scoreDisplay: `${result.overallPercentage}%`,
+              scoreLabel: "Weighted Overall Grade",
+              letterGrade: result.letter,
+              gpaPoint: result.gpaPoint,
+              additionalMetrics: [
+                { label: "Total Weight", value: `${result.totalWeight}%` },
+                { label: "Categories", value: `${categories.length} Categories` },
+              ],
+            }}
+          />
+        </div>
       )}
     </div>
   );

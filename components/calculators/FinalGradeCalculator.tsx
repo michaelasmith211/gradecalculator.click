@@ -13,7 +13,7 @@ import {
   Trophy,
 } from "lucide-react";
 import { calculateFinalExamNeeded, FinalExamInput } from "@/lib/calculations/finalExam";
-import InteractiveShareCardModal from "../InteractiveShareCardModal";
+import GradeSocialCardStudio from "../GradeSocialCardStudio";
 import { trackEvent } from "@/lib/analytics";
 
 interface FinalGradeCalculatorProps {
@@ -305,17 +305,6 @@ export default function FinalGradeCalculator({
                     </div>
                   )}
                 </div>
-
-                {/* Interactive Share Result Button */}
-                <button
-                  type="button"
-                  onClick={() => setShareModalOpen(true)}
-                  className="mt-4 w-full py-2.5 px-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 active:scale-[0.98] text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-indigo-200 flex items-center justify-center gap-2 transition-all touch-manipulation min-h-[44px]"
-                >
-                  <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
-                  <span>Create & Share Final Exam Card</span>
-                  <Share2 className="w-4 h-4" />
-                </button>
               </div>
             ) : (
               <div className="text-center py-10 text-sm text-slate-500">
@@ -373,28 +362,28 @@ export default function FinalGradeCalculator({
         </div>
       </div>
 
-      {/* Interactive Social Share Card Modal */}
+      {/* Inline Interactive Social Share Card Studio (Story format first) */}
       {result && (
-        <InteractiveShareCardModal
-          isOpen={shareModalOpen}
-          onClose={() => setShareModalOpen(false)}
-          data={{
-            type: "final",
-            title: title || "Final Exam Goal",
-            scoreDisplay: `${result.requiredScore}%`,
-            scoreLabel: "Score Needed on Final Exam",
-            letterGrade: `Goal: ${result.desiredGrade}%`,
-            additionalMetrics: [
-              { label: "Current Grade", value: `${result.currentGrade}%` },
-              { label: "Exam Weight", value: `${result.examWeightPercent}%` },
-            ],
-            statusText: result.isGuaranteed
-              ? "Grade already secured!"
-              : result.isImpossible
-              ? "Extra credit needed"
-              : "Achievable exam goal",
-          }}
-        />
+        <div className="px-4 sm:px-6 lg:px-8 pb-6 sm:pb-8">
+          <GradeSocialCardStudio
+            data={{
+              type: "final",
+              title: title || "Final Exam Target",
+              scoreDisplay: `${result.requiredScore}%`,
+              scoreLabel: "Score Needed on Final Exam",
+              letterGrade: `Target: ${result.desiredGrade}%`,
+              additionalMetrics: [
+                { label: "Current Grade", value: `${result.currentGrade}%` },
+                { label: "Exam Weight", value: `${result.examWeightPercent}%` },
+              ],
+              statusText: result.isGuaranteed
+                ? "Grade already secured!"
+                : result.isImpossible
+                ? "Extra credit needed"
+                : "Achievable exam goal",
+            }}
+          />
+        </div>
       )}
     </div>
   );
