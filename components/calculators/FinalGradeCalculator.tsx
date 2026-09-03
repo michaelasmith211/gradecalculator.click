@@ -13,6 +13,7 @@ import {
   Trophy,
 } from "lucide-react";
 import { calculateFinalExamNeeded, FinalExamInput } from "@/lib/calculations/finalExam";
+import InteractiveShareCardModal from "../InteractiveShareCardModal";
 import { trackEvent } from "@/lib/analytics";
 
 interface FinalGradeCalculatorProps {
@@ -28,6 +29,7 @@ export default function FinalGradeCalculator({
   const [desiredGrade, setDesiredGrade] = useState<string>("90");
   const [examWeight, setExamWeight] = useState<string>("20");
   const [copiedResult, setCopiedResult] = useState(false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
 
   const result = useMemo(() => {
     return calculateFinalExamNeeded({
@@ -304,23 +306,15 @@ export default function FinalGradeCalculator({
                   )}
                 </div>
 
-                {/* 1-Tap Share Result Button */}
+                {/* Interactive Share Result Button */}
                 <button
                   type="button"
-                  onClick={handleShareResult}
-                  className="mt-4 w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] text-white font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-2 transition-all touch-manipulation min-h-[44px]"
+                  onClick={() => setShareModalOpen(true)}
+                  className="mt-4 w-full py-2.5 px-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 active:scale-[0.98] text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-indigo-200 flex items-center justify-center gap-2 transition-all touch-manipulation min-h-[44px]"
                 >
-                  {copiedResult ? (
-                    <>
-                      <Check className="w-4 h-4 text-emerald-300" />
-                      <span>Target Copied to Clipboard!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Share2 className="w-4 h-4" />
-                      <span>Share My Final Target</span>
-                    </>
-                  )}
+                  <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
+                  <span>Create & Share Final Exam Card</span>
+                  <Share2 className="w-4 h-4" />
                 </button>
               </div>
             ) : (
@@ -378,6 +372,30 @@ export default function FinalGradeCalculator({
           </div>
         </div>
       </div>
+
+      {/* Interactive Social Share Card Modal */}
+      {result && (
+        <InteractiveShareCardModal
+          isOpen={shareModalOpen}
+          onClose={() => setShareModalOpen(false)}
+          data={{
+            type: "final",
+            title: title || "Final Exam Goal",
+            scoreDisplay: `${result.requiredScore}%`,
+            scoreLabel: "Score Needed on Final Exam",
+            letterGrade: `Goal: ${result.desiredGrade}%`,
+            additionalMetrics: [
+              { label: "Current Grade", value: `${result.currentGrade}%` },
+              { label: "Exam Weight", value: `${result.examWeightPercent}%` },
+            ],
+            statusText: result.isGuaranteed
+              ? "Grade already secured!"
+              : result.isImpossible
+              ? "Extra credit needed"
+              : "Achievable exam goal",
+          }}
+        />
+      )}
     </div>
   );
 }

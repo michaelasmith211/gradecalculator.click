@@ -9,8 +9,11 @@ import {
   Percent,
   TrendingUp,
   CheckCircle2,
+  Share2,
+  Sparkles,
 } from "lucide-react";
 import { calculateWeightedGrade, WeightedCategoryItem } from "@/lib/calculations/grades";
+import InteractiveShareCardModal from "../InteractiveShareCardModal";
 import { trackEvent } from "@/lib/analytics";
 
 interface WeightedGradeCalculatorProps {
@@ -28,6 +31,7 @@ export default function WeightedGradeCalculator({
     { id: "3", name: "Midterm Examination", score: 78, weight: 25 },
     { id: "4", name: "Final Examination", score: 88, weight: 35 },
   ]);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
 
   const result = useMemo(() => calculateWeightedGrade(categories), [categories]);
 
@@ -315,9 +319,42 @@ export default function WeightedGradeCalculator({
                 </div>
               </div>
             )}
+
+            {/* Interactive Share Card Trigger Button */}
+            {result.totalWeight > 0 && (
+              <button
+                type="button"
+                onClick={() => setShareModalOpen(true)}
+                className="w-full mt-2 py-2.5 px-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 active:scale-[0.98] text-white font-bold text-xs sm:text-sm rounded-xl flex items-center justify-center gap-2 shadow-md shadow-indigo-200 transition-all touch-manipulation min-h-[44px]"
+              >
+                <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
+                <span>Create & Share Grade Card</span>
+                <Share2 className="w-4 h-4" />
+              </button>
+            )}
           </div>
         </div>
       </div>
+
+      {/* Interactive Social Share Card Modal */}
+      {result.totalWeight > 0 && (
+        <InteractiveShareCardModal
+          isOpen={shareModalOpen}
+          onClose={() => setShareModalOpen(false)}
+          data={{
+            type: "weighted",
+            title: title || "Weighted Course Grade",
+            scoreDisplay: `${result.overallPercentage}%`,
+            scoreLabel: "Weighted Overall Grade",
+            letterGrade: result.letter,
+            gpaPoint: result.gpaPoint,
+            additionalMetrics: [
+              { label: "Total Weight", value: `${result.totalWeight}%` },
+              { label: "Categories", value: `${categories.length} Categories` },
+            ],
+          }}
+        />
+      )}
     </div>
   );
 }
