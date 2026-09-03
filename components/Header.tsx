@@ -69,7 +69,7 @@ export default function Header() {
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              Grade Calc
+              Grade Calculator
             </Link>
 
             <Link

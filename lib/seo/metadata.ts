@@ -21,29 +21,40 @@ export function constructMetadata({
 }: PageMetaParams): Metadata {
   const url = `${SITE_URL}${path === "/" ? "" : path}`;
 
+  // Ensure title contains the main keyword "Grade Calculator" cleanly without redundant repetition
+  const formattedTitle = title.toLowerCase().includes("grade calculator")
+    ? title
+    : `${title} – ${SITE_NAME}`;
+
   return {
-    title: `${title} | ${SITE_NAME}`,
+    title: formattedTitle,
     description,
     keywords: [
       "grade calculator",
-      "gpa calculator",
+      "grade calculator online",
+      "free grade calculator",
+      "class grade calculator",
+      "school grade calculator",
+      "student grade calculator",
+      "calculate my grade",
       "final grade calculator",
       "weighted grade calculator",
-      "calculate grades",
-      "test score grader",
+      "gpa calculator",
+      "percentage grade calculator",
+      "easy grader",
       ...keywords,
     ],
-    authors: [{ name: "Grade Calculator Editorial Team" }],
+    authors: [{ name: "Grade Calculator Editorial & Academic Team" }],
     creator: "Grade Calculator",
     publisher: "Grade Calculator",
     alternates: {
       canonical: url,
     },
     openGraph: {
-      title: `${title} | ${SITE_NAME}`,
+      title: formattedTitle,
       description,
       url,
-      siteName: SITE_NAME,
+      siteName: "GradeCalculator.dev",
       locale: "en_US",
       type,
       images: [
@@ -51,13 +62,13 @@ export function constructMetadata({
           url: DEFAULT_OG_IMAGE,
           width: 1200,
           height: 630,
-          alt: `${title} - Grade Calculator Online`,
+          alt: `${formattedTitle} - Free Online Grade Calculator`,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | ${SITE_NAME}`,
+      title: formattedTitle,
       description,
       images: [DEFAULT_OG_IMAGE],
       creator: "@gradecalculator",
