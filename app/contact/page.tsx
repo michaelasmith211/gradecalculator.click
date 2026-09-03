@@ -49,6 +49,60 @@ export default function ContactPage() {
             </div>
           </div>
 
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-3">
+            <h3 className="font-bold text-slate-900 text-sm">Official Social Channels</h3>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Connect with our student and educator community across our official platforms:
+            </p>
+            <div className="space-y-2 pt-1 text-xs">
+              <a
+                href="https://x.com/gradecalculato"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200 hover:border-indigo-400 hover:text-indigo-600 transition-colors font-medium text-slate-700"
+              >
+                <span>X (Twitter)</span>
+                <span className="text-slate-400 text-[11px]">@gradecalculato</span>
+              </a>
+              <a
+                href="https://www.facebook.com/gradecalculator100"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200 hover:border-indigo-400 hover:text-indigo-600 transition-colors font-medium text-slate-700"
+              >
+                <span>Facebook</span>
+                <span className="text-slate-400 text-[11px]">Grade Calculator</span>
+              </a>
+              <a
+                href="https://uk.pinterest.com/Gradecalculator100"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200 hover:border-indigo-400 hover:text-indigo-600 transition-colors font-medium text-slate-700"
+              >
+                <span>Pinterest</span>
+                <span className="text-slate-400 text-[11px]">@Gradecalculator100</span>
+              </a>
+              <a
+                href="https://www.reddit.com/user/gradecalculator100"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200 hover:border-indigo-400 hover:text-indigo-600 transition-colors font-medium text-slate-700"
+              >
+                <span>Reddit</span>
+                <span className="text-slate-400 text-[11px]">u/gradecalculator100</span>
+              </a>
+              <a
+                href="https://www.youtube.com/@gradecalculator100"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200 hover:border-indigo-400 hover:text-indigo-600 transition-colors font-medium text-slate-700"
+              >
+                <span>YouTube</span>
+                <span className="text-slate-400 text-[11px]">@gradecalculator100</span>
+              </a>
+            </div>
+          </div>
+
           <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-2 text-xs text-slate-600">
             <h3 className="font-bold text-slate-900 text-sm">Academic Privacy</h3>
             <p className="leading-relaxed">

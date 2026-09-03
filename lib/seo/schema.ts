@@ -13,7 +13,11 @@ export function generateOrganizationSchema() {
       caption: SITE_NAME,
     },
     sameAs: [
-      "https://twitter.com/gradecalculator",
+      "https://x.com/gradecalculato",
+      "https://www.facebook.com/gradecalculator100",
+      "https://uk.pinterest.com/Gradecalculator100",
+      "https://www.reddit.com/user/gradecalculator100",
+      "https://www.youtube.com/@gradecalculator100",
       "https://github.com/michaelasmith211/gradecalculator.click",
     ],
     contactPoint: {

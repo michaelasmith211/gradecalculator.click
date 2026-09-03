@@ -77,6 +77,66 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Official Community Channels */}
+      <section className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-2xl p-6 sm:p-8 space-y-4 shadow-lg">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 className="text-xl font-bold">Join Our Academic Community</h2>
+            <p className="text-xs sm:text-sm text-slate-300 mt-1">
+              Follow Grade Calculator across our official channels for study tips, calculator updates, and grading strategies.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-2">
+          <a
+            href="https://x.com/gradecalculato"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-3 bg-white/10 hover:bg-indigo-600 rounded-xl border border-white/10 text-center transition-all flex flex-col items-center gap-1.5"
+          >
+            <span className="text-xs font-bold">X (Twitter)</span>
+            <span className="text-[10px] text-slate-300">@gradecalculato</span>
+          </a>
+          <a
+            href="https://www.facebook.com/gradecalculator100"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-3 bg-white/10 hover:bg-indigo-600 rounded-xl border border-white/10 text-center transition-all flex flex-col items-center gap-1.5"
+          >
+            <span className="text-xs font-bold">Facebook</span>
+            <span className="text-[10px] text-slate-300">Grade Calculator</span>
+          </a>
+          <a
+            href="https://uk.pinterest.com/Gradecalculator100"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-3 bg-white/10 hover:bg-indigo-600 rounded-xl border border-white/10 text-center transition-all flex flex-col items-center gap-1.5"
+          >
+            <span className="text-xs font-bold">Pinterest</span>
+            <span className="text-[10px] text-slate-300">@Gradecalculator100</span>
+          </a>
+          <a
+            href="https://www.reddit.com/user/gradecalculator100"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-3 bg-white/10 hover:bg-indigo-600 rounded-xl border border-white/10 text-center transition-all flex flex-col items-center gap-1.5"
+          >
+            <span className="text-xs font-bold">Reddit</span>
+            <span className="text-[10px] text-slate-300">u/gradecalculator100</span>
+          </a>
+          <a
+            href="https://www.youtube.com/@gradecalculator100"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-3 bg-white/10 hover:bg-indigo-600 rounded-xl border border-white/10 text-center transition-all flex flex-col items-center gap-1.5"
+          >
+            <span className="text-xs font-bold">YouTube</span>
+            <span className="text-[10px] text-slate-300">@gradecalculator100</span>
+          </a>
+        </div>
+      </section>
+
       {/* Institutional Variation Disclaimer */}
       <section className="p-6 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
         <h2 className="text-base font-bold text-slate-900">Academic Policy Disclaimer</h2>

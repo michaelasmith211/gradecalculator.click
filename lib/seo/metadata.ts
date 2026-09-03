@@ -71,7 +71,8 @@ export function constructMetadata({
       title: formattedTitle,
       description,
       images: [DEFAULT_OG_IMAGE],
-      creator: "@gradecalculator",
+      creator: "@gradecalculato",
+      site: "@gradecalculato",
     },
     robots: {
       index: true,
