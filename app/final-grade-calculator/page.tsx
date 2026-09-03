@@ -5,6 +5,7 @@ import {
   generateFAQSchema,
   generateBreadcrumbSchema,
   generateHowToSchema,
+  generateArticleSchema,
 } from "@/lib/seo/schema";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import FinalGradeCalculator from "@/components/calculators/FinalGradeCalculator";
@@ -96,6 +97,12 @@ export default function FinalGradeCalculatorPage() {
     ],
   });
 
+  const articleSchema = generateArticleSchema({
+    headline: "How to Calculate What You Need on Your Final Exam: Formulas & Examples",
+    description: "Step-by-step mathematical guide to determine required final exam scores, syllabus weights, and scenario matrices.",
+    path: "/final-grade-calculator",
+  });
+
   const tocItems = [
     { id: "calculator", label: "Final Exam Calculator" },
     { id: "formula-guide", label: "Final Exam Formula Explained" },
@@ -108,9 +115,10 @@ export default function FinalGradeCalculatorPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       {/* Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
 
       <Breadcrumbs items={breadcrumbs} />
 

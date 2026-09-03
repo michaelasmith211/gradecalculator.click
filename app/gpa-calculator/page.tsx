@@ -5,6 +5,7 @@ import {
   generateFAQSchema,
   generateBreadcrumbSchema,
   generateHowToSchema,
+  generateArticleSchema,
 } from "@/lib/seo/schema";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import GPACalculator from "@/components/calculators/GPACalculator";
@@ -94,6 +95,12 @@ export default function GPACalculatorPage() {
     ],
   });
 
+  const articleSchema = generateArticleSchema({
+    headline: "How to Calculate GPA on a 4.0 Scale: Complete Formulas & Quality Point Guide",
+    description: "Learn how Grade Point Averages are calculated using quality points, credit hour weighting, and cumulative formulas for high school and college.",
+    path: "/gpa-calculator",
+  });
+
   const tocItems = [
     { id: "calculator", label: "Interactive 4.0 GPA Calculator" },
     { id: "specialized-tools", label: "Specialized GPA Tools" },
@@ -107,9 +114,10 @@ export default function GPACalculatorPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       {/* Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
 
       <Breadcrumbs items={breadcrumbs} />
 
