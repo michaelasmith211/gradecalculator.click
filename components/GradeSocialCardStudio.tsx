@@ -129,6 +129,27 @@ const FORMATS: { id: CardFormat; name: string; desc: string; icon: React.Compone
   { id: "wide", name: "Wide Banner (16:9)", desc: "X / Twitter & Discord", icon: RectangleHorizontal },
 ];
 
+/**
+ * Helper to dynamically fit canvas font size within maxWidth constraints
+ */
+function setFittedFont(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  maxSize: number,
+  minSize: number,
+  maxWidth: number,
+  weight = "bold",
+  fontStack = "system-ui, -apple-system, sans-serif"
+): number {
+  let size = maxSize;
+  ctx.font = `${weight} ${size}px ${fontStack}`;
+  while (ctx.measureText(text).width > maxWidth && size > minSize) {
+    size -= 2;
+    ctx.font = `${weight} ${size}px ${fontStack}`;
+  }
+  return size;
+}
+
 export default function GradeSocialCardStudio({ data }: GradeSocialCardStudioProps) {
   // Default to story format first as requested by user
   const [selectedFormat, setSelectedFormat] = useState<CardFormat>("story");
@@ -178,27 +199,30 @@ export default function GradeSocialCardStudio({ data }: GradeSocialCardStudioPro
     ctx.textAlign = "center";
     ctx.fillText("GradeCalculator.dev • Report ✨", width / 2, cardMargin + 109);
 
-    // Course Title & Academic Milestone Heading
-    ctx.font = "bold 58px system-ui, -apple-system, sans-serif";
+    // Course Title & Academic Milestone Heading (Auto-fit title)
+    setFittedFont(ctx, courseName || "Academic Report", 58, 36, cardWidth - 80, "bold");
     ctx.fillStyle = isLight ? "#1e293b" : "#ffffff";
+    ctx.textAlign = "center";
     ctx.fillText(courseName || "Academic Report", width / 2, cardMargin + 230);
 
-    ctx.font = "500 28px system-ui, -apple-system, sans-serif";
+    setFittedFont(ctx, customNote, 28, 20, cardWidth - 100, "500");
     ctx.fillStyle = isLight ? "#64748b" : "#94a3b8";
     ctx.fillText(customNote, width / 2, cardMargin + 290);
     ctx.restore();
 
-    // Huge Central Glowing Score Card
+    // Central Glowing Score Circle Medallion
     const centerX = width / 2;
-    const centerY = cardMargin + 650;
-    const scoreRadius = 240;
+    const centerY = cardMargin + 655;
+    const scoreRadius = 255; // Generous radius
 
     ctx.save();
+    // Outer Glow Ring
     ctx.beginPath();
     ctx.arc(centerX, centerY, scoreRadius + 22, 0, Math.PI * 2);
     ctx.fillStyle = isLight ? "rgba(79, 70, 229, 0.08)" : `${activeTheme.accentColor}25`;
     ctx.fill();
 
+    // Circle Base
     ctx.beginPath();
     ctx.arc(centerX, centerY, scoreRadius, 0, Math.PI * 2);
     ctx.fillStyle = isLight ? "#f8fafc" : "rgba(255, 255, 255, 0.08)";
@@ -207,26 +231,45 @@ export default function GradeSocialCardStudio({ data }: GradeSocialCardStudioPro
     ctx.strokeStyle = activeTheme.accentColor;
     ctx.stroke();
 
-    ctx.font = "bold 22px system-ui, -apple-system, sans-serif";
+    // Score Label
+    ctx.font = "bold 20px system-ui, -apple-system, sans-serif";
     ctx.fillStyle = isLight ? "#64748b" : "#94a3b8";
     ctx.textAlign = "center";
-    ctx.fillText((data.scoreLabel || "OVERALL GRADE").toUpperCase(), centerX, centerY - 100);
+    ctx.fillText((data.scoreLabel || "OVERALL GRADE").toUpperCase(), centerX, centerY - 105);
 
-    ctx.font = "900 130px system-ui, -apple-system, sans-serif";
-    ctx.fillStyle = isLight ? "#0f172a" : "#ffffff";
+    // Dynamic Font-Size Auto-Fitting for Percentage Score to strictly stay inside the circle
     const displayedScore = showPercentage ? data.scoreDisplay : "--";
-    ctx.fillText(displayedScore, centerX, centerY + 30);
+    const maxScoreTextWidth = scoreRadius * 1.5; // Safe boundary width inside circle (382px max width)
+    setFittedFont(
+      ctx,
+      displayedScore,
+      105, // max font size
+      48,  // min font size
+      maxScoreTextWidth,
+      "900"
+    );
+    ctx.fillStyle = isLight ? "#0f172a" : "#ffffff";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(displayedScore, centerX, centerY + 10);
+    ctx.textBaseline = "alphabetic"; // reset
 
-    // Badges inside / under score
+    // Letter Grade Badge under score
     if (data.letterGrade) {
+      const badgeW = 260;
+      const badgeH = 62;
+      const badgeX = centerX - badgeW / 2;
+      const badgeY = centerY + 95;
+
       ctx.beginPath();
-      ctx.roundRect(centerX - 135, centerY + 90, 270, 66, 20);
+      ctx.roundRect(badgeX, badgeY, badgeW, badgeH, 20);
       ctx.fillStyle = activeTheme.badgeBg;
       ctx.fill();
 
-      ctx.font = "bold 32px system-ui, -apple-system, sans-serif";
+      setFittedFont(ctx, `Grade: ${data.letterGrade}`, 28, 20, badgeW - 24, "bold");
       ctx.fillStyle = "#ffffff";
-      ctx.fillText(`Grade: ${data.letterGrade}`, centerX, centerY + 133);
+      ctx.textAlign = "center";
+      ctx.fillText(`Grade: ${data.letterGrade}`, centerX, badgeY + 41);
     }
     ctx.restore();
 
@@ -267,7 +310,7 @@ export default function GradeSocialCardStudio({ data }: GradeSocialCardStudioPro
       ctx.fillStyle = isLight ? "#64748b" : "#94a3b8";
       ctx.fillText(m.title, cardX + 35, cy + 45);
 
-      ctx.font = "bold 34px system-ui, -apple-system, sans-serif";
+      setFittedFont(ctx, m.val, 34, 22, cardW - 70, "bold");
       ctx.fillStyle = isLight ? "#0f172a" : "#ffffff";
       ctx.fillText(m.val, cardX + 35, cy + 95);
       ctx.restore();
@@ -323,22 +366,22 @@ export default function GradeSocialCardStudio({ data }: GradeSocialCardStudioPro
     ctx.textAlign = "center";
     ctx.fillText("GradeCalculator.dev ✨", width / 2, cardMargin + 78);
 
-    ctx.font = "bold 44px system-ui, -apple-system, sans-serif";
+    setFittedFont(ctx, courseName || "Course Grade Summary", 44, 28, cardWidth - 80, "bold");
     ctx.fillStyle = isLight ? "#1e293b" : "#f8fafc";
     ctx.fillText(courseName || "Course Grade Summary", width / 2, cardMargin + 160);
 
-    ctx.font = "500 24px system-ui, -apple-system, sans-serif";
+    setFittedFont(ctx, customNote, 24, 16, cardWidth - 100, "500");
     ctx.fillStyle = isLight ? "#64748b" : "#94a3b8";
     ctx.fillText(customNote, width / 2, cardMargin + 205);
     ctx.restore();
 
     const centerX = width / 2;
     const centerY = cardMargin + 430;
-    const radius = 175;
+    const radius = 185;
 
     ctx.save();
     ctx.beginPath();
-    ctx.arc(centerX, centerY, radius + 10, 0, Math.PI * 2);
+    ctx.arc(centerX, centerY, radius + 12, 0, Math.PI * 2);
     ctx.fillStyle = isLight ? "rgba(79, 70, 229, 0.06)" : `${activeTheme.accentColor}22`;
     ctx.fill();
 
@@ -346,29 +389,46 @@ export default function GradeSocialCardStudio({ data }: GradeSocialCardStudioPro
     ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
     ctx.fillStyle = isLight ? "#f8fafc" : "rgba(255, 255, 255, 0.07)";
     ctx.fill();
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 3.5;
     ctx.strokeStyle = activeTheme.accentColor;
     ctx.stroke();
 
-    ctx.font = "bold 18px system-ui, -apple-system, sans-serif";
+    ctx.font = "bold 17px system-ui, -apple-system, sans-serif";
     ctx.fillStyle = isLight ? "#64748b" : "#94a3b8";
     ctx.textAlign = "center";
-    ctx.fillText((data.scoreLabel || "ACADEMIC SCORE").toUpperCase(), centerX, centerY - 80);
+    ctx.fillText((data.scoreLabel || "ACADEMIC SCORE").toUpperCase(), centerX, centerY - 82);
 
-    ctx.font = "900 96px system-ui, -apple-system, sans-serif";
-    ctx.fillStyle = isLight ? "#0f172a" : "#ffffff";
+    // Dynamic auto-fitting for square circle
     const displayedScore = showPercentage ? data.scoreDisplay : "--";
-    ctx.fillText(displayedScore, centerX, centerY + 20);
+    const maxSquareScoreWidth = radius * 1.5; // 277px safe inner width
+    setFittedFont(
+      ctx,
+      displayedScore,
+      82,
+      40,
+      maxSquareScoreWidth,
+      "900"
+    );
+    ctx.fillStyle = isLight ? "#0f172a" : "#ffffff";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(displayedScore, centerX, centerY + 10);
+    ctx.textBaseline = "alphabetic";
 
     if (data.letterGrade) {
+      const badgeW = 200;
+      const badgeH = 46;
+      const badgeX = centerX - badgeW / 2;
+      const badgeY = centerY + 72;
+
       ctx.beginPath();
-      ctx.roundRect(centerX - 95, centerY + 70, 190, 48, 14);
+      ctx.roundRect(badgeX, badgeY, badgeW, badgeH, 14);
       ctx.fillStyle = activeTheme.badgeBg;
       ctx.fill();
 
-      ctx.font = "bold 24px system-ui, -apple-system, sans-serif";
+      setFittedFont(ctx, `Grade: ${data.letterGrade}`, 22, 16, badgeW - 20, "bold");
       ctx.fillStyle = "#ffffff";
-      ctx.fillText(`Grade: ${data.letterGrade}`, centerX, centerY + 102);
+      ctx.fillText(`Grade: ${data.letterGrade}`, centerX, badgeY + 31);
     }
     ctx.restore();
 
@@ -392,13 +452,10 @@ export default function GradeSocialCardStudio({ data }: GradeSocialCardStudioPro
     ctx.fillStyle = isLight ? "#64748b" : "#94a3b8";
     ctx.fillText("ACADEMIC STATUS", col1X, statsBoxY + 50);
 
-    ctx.font = "bold 32px system-ui, -apple-system, sans-serif";
+    const statusVal = data.statusText || (data.gpaPoint && data.gpaPoint >= 3.5 ? "Dean's List" : "Honor Standing");
+    setFittedFont(ctx, statusVal, 30, 18, statsBoxW * 0.45, "bold");
     ctx.fillStyle = isLight ? "#0f172a" : "#ffffff";
-    ctx.fillText(
-      data.statusText || (data.gpaPoint && data.gpaPoint >= 3.5 ? "Dean's List" : "Honor Standing"),
-      col1X,
-      statsBoxY + 105
-    );
+    ctx.fillText(statusVal, col1X, statsBoxY + 105);
 
     ctx.beginPath();
     ctx.moveTo(statsBoxX + statsBoxW * 0.5, statsBoxY + 30);
@@ -412,13 +469,10 @@ export default function GradeSocialCardStudio({ data }: GradeSocialCardStudioPro
     ctx.fillStyle = isLight ? "#64748b" : "#94a3b8";
     ctx.fillText("4.0 SCALE EQUIVALENT", col2X, statsBoxY + 50);
 
-    ctx.font = "bold 32px system-ui, -apple-system, sans-serif";
+    const gpaVal = showGPA && data.gpaPoint !== undefined ? `${data.gpaPoint.toFixed(2)} GPA` : "Standard Scale";
+    setFittedFont(ctx, gpaVal, 30, 18, statsBoxW * 0.45, "bold");
     ctx.fillStyle = isLight ? "#0f172a" : "#ffffff";
-    ctx.fillText(
-      showGPA && data.gpaPoint !== undefined ? `${data.gpaPoint.toFixed(2)} GPA` : "Standard Scale",
-      col2X,
-      statsBoxY + 105
-    );
+    ctx.fillText(gpaVal, col2X, statsBoxY + 105);
     ctx.restore();
 
     ctx.save();
@@ -475,11 +529,11 @@ export default function GradeSocialCardStudio({ data }: GradeSocialCardStudioPro
 
     ctx.save();
     ctx.textAlign = "left";
-    ctx.font = "bold 36px system-ui, -apple-system, sans-serif";
+    setFittedFont(ctx, courseName || "Academic Course Grade", 36, 24, cardWidth - 260, "bold");
     ctx.fillStyle = isLight ? "#1e293b" : "#f8fafc";
     ctx.fillText(courseName || "Academic Course Grade", cardMargin + 35, cardMargin + 145);
 
-    ctx.font = "500 20px system-ui, -apple-system, sans-serif";
+    setFittedFont(ctx, customNote, 20, 15, cardWidth - 260, "500");
     ctx.fillStyle = isLight ? "#64748b" : "#94a3b8";
     ctx.fillText(customNote, cardMargin + 35, cardMargin + 185);
     ctx.restore();
@@ -507,9 +561,9 @@ export default function GradeSocialCardStudio({ data }: GradeSocialCardStudioPro
       scoreBoxY + 45
     );
 
-    ctx.font = "900 80px system-ui, -apple-system, sans-serif";
-    ctx.fillStyle = isLight ? "#0f172a" : "#ffffff";
     const displayedScore = showPercentage ? data.scoreDisplay : "--";
+    setFittedFont(ctx, displayedScore, 76, 42, 380, "900");
+    ctx.fillStyle = isLight ? "#0f172a" : "#ffffff";
     ctx.fillText(displayedScore, scoreBoxX + 35, scoreBoxY + 135);
 
     if (data.letterGrade) {
