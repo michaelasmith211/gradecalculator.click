@@ -154,17 +154,44 @@ export function generateFAQSchema(faqs: { question: string; answer: string }[]) 
   };
 }
 
+export function generateImageObjectSchema({
+  url,
+  caption,
+  width = 1024,
+  height = 576,
+}: {
+  url: string;
+  caption: string;
+  width?: number;
+  height?: number;
+}) {
+  const fullUrl = url.startsWith("http") ? url : `${SITE_URL}${url}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    contentUrl: fullUrl,
+    url: fullUrl,
+    name: caption,
+    caption: caption,
+    width: width,
+    height: height,
+    representativeOfPage: true,
+  };
+}
+
 export function generateHowToSchema({
   name,
   description,
   path,
   steps,
+  image,
   totalTime = "PT2M",
 }: {
   name: string;
   description: string;
   path: string;
   steps: { name: string; text: string; url?: string }[];
+  image?: string;
   totalTime?: string;
 }) {
   const url = `${SITE_URL}${path === "/" ? "" : path}`;
@@ -175,6 +202,7 @@ export function generateHowToSchema({
     name: name,
     description: description,
     url: url,
+    image: image ? (image.startsWith("http") ? image : `${SITE_URL}${image}`) : undefined,
     totalTime: totalTime,
     estimatedCost: {
       "@type": "MonetaryAmount",

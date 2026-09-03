@@ -5,6 +5,7 @@ import {
   generateWebApplicationSchema,
   generateFAQSchema,
   generateHowToSchema,
+  generateImageObjectSchema,
 } from "@/lib/seo/schema";
 import GradeCalculator from "@/components/calculators/GradeCalculator";
 import GradeScaleTable from "@/components/GradeScaleTable";
@@ -101,33 +102,49 @@ export default function HomePage() {
   const faqSchema = generateFAQSchema(homeFaqs);
 
   const howToSchema = generateHowToSchema({
-    name: "How to Calculate Your Class Grade with a Grade Calculator",
+    name: "How GradeCalculator.dev Works: Step-by-Step Grade & GPA Calculation Guide",
     description:
-      "Learn how to calculate your overall grade percentage and letter grade step-by-step using assignment scores.",
+      "Learn how to calculate your grades, percentages, weighted averages, GPA, and final exam scores in 6 easy steps on GradeCalculator.dev.",
     path: "/",
+    image: "/images/how-grade-calculator-works-step-by-step.png",
     steps: [
       {
-        name: "Enter Assignment Scores",
-        text: "Input the points you earned and the total points possible for each assignment, quiz, exam, or homework.",
+        name: "Enter Your Assignments",
+        text: "Add your assignments, quizzes, tests, or exams with the score you earned and total points possible.",
       },
       {
-        name: "Add Additional Coursework",
-        text: "Click '+ Add Another Assignment' to enter all graded items listed on your course syllabus.",
+        name: "Choose Your Grading Scale",
+        text: "Select your grading scale (percentage, letter grade, or custom cutoffs) to match your school's system.",
       },
       {
-        name: "Review Instant Calculation",
-        text: "The calculator instantly computes your total points earned, total possible points, overall percentage, and letter grade.",
+        name: "Add Weight (Optional)",
+        text: "If your assignments have different weightings, add category percentages (e.g. Homework 30%, Tests 40%) for accurate results.",
       },
       {
-        name: "Customize Grading Scale Cutoffs",
-        text: "Click 'Grading Scale' to adjust percentage boundaries to match your school or university syllabus.",
+        name: "See Instant Results",
+        text: "Get your overall course grade, percentage, letter grade, and 4.0 GPA points instantly in real time with zero lag.",
+      },
+      {
+        name: "Calculate Final Exam Score",
+        text: "Find out what percentage score you need on your final exam to reach your target course grade.",
+      },
+      {
+        name: "Track & Improve Your Performance",
+        text: "Stay on top of your academic goals and improve your grades with confidence.",
       },
     ],
   });
 
+  const imageSchema = generateImageObjectSchema({
+    url: "/images/how-grade-calculator-works-step-by-step.png",
+    caption: "How GradeCalculator.dev Works – Step-by-Step Grade, GPA, Weighted Average, and Final Exam Calculation Infographic",
+    width: 1024,
+    height: 576,
+  });
+
   const tocItems = [
     { id: "calculator", label: "Interactive Grade Calculator" },
-    { id: "how-it-works", label: "How to Use This Calculator" },
+    { id: "how-it-works", label: "How GradeCalculator.dev Works (Infographic)" },
     { id: "popular-tools", label: "Specialized Grade Tools" },
     { id: "grade-formulas", label: "Grade Calculation Formulas" },
     { id: "grading-scale", label: "Standard Grading Scale" },
@@ -137,7 +154,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen">
-      {/* Structured Data: WebApplication, FAQPage, HowTo */}
+      {/* Structured Data: WebApplication, FAQPage, HowTo, ImageObject */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
@@ -149,6 +166,10 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(imageSchema) }}
       />
 
       {/* Hero Section */}
@@ -195,57 +216,139 @@ export default function HomePage() {
         {/* Ad Placeholder 1 */}
         <AdPlaceholder format="horizontal" slotId="home-top-banner" />
 
-        {/* How It Works Section */}
-        <section id="how-it-works" className="space-y-6">
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-              How It Works
+        {/* How It Works Section with SEO Infographic */}
+        <section id="how-it-works" className="space-y-8">
+          <div className="text-center max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold uppercase tracking-wider mb-2">
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Visual Workflow Guide</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              How GradeCalculator.dev Works
             </h2>
-            <p className="text-sm text-slate-600 mt-1">
-              Four simple steps to calculate your class standing and letter grade.
+            <p className="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
+              Calculate your grades, percentages, weighted averages, GPA, and final exam scores in just a few clicks.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm text-center">
-              <div className="w-12 h-12 bg-indigo-50 text-indigo-600 font-black rounded-xl flex items-center justify-center mx-auto mb-4 text-lg">
+          {/* SEO Optimized Responsive Infographic */}
+          <figure className="my-6 space-y-3">
+            <div className="overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-b from-slate-50 to-slate-100/90 p-2 sm:p-4 border border-slate-200/90 shadow-xl shadow-slate-100">
+              <img
+                src="/images/how-grade-calculator-works-step-by-step.png"
+                alt="How GradeCalculator.dev Works – Step-by-Step Grade, GPA, Weighted Average, and Final Exam Calculation Infographic"
+                title="How GradeCalculator.dev Works – 6-Step Grade & GPA Calculation Workflow"
+                width={1024}
+                height={576}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-auto rounded-xl sm:rounded-2xl object-contain shadow-sm"
+              />
+            </div>
+            <figcaption className="text-center text-xs sm:text-sm text-slate-600 font-medium leading-relaxed max-w-3xl mx-auto">
+              <strong>Figure 1:</strong> The complete 6-step calculation workflow on <span className="font-bold text-slate-900">GradeCalculator.dev</span> — enter assignments, customize your grading scale, apply category weights, get live scores, compute target final exam requirements, and track academic standing.
+            </figcaption>
+          </figure>
+
+          {/* 6 Step Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-indigo-300 hover:shadow-md transition-all">
+              <div className="w-10 h-10 bg-indigo-600 text-white font-black rounded-xl flex items-center justify-center mb-3.5 text-base shadow-sm shadow-indigo-200">
                 1
               </div>
-              <h3 className="font-bold text-slate-900 text-base mb-1">Enter Your Scores</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Type the score you received and the total possible points for each quiz, paper, or homework.
+              <h3 className="font-bold text-slate-900 text-base mb-1.5">1. Enter Your Assignments</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Add your assignments, quizzes, tests, or exams with the score you earned and total points possible.
               </p>
             </div>
 
-            <div className="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm text-center">
-              <div className="w-12 h-12 bg-indigo-50 text-indigo-600 font-black rounded-xl flex items-center justify-center mx-auto mb-4 text-lg">
+            <div className="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-indigo-300 hover:shadow-md transition-all">
+              <div className="w-10 h-10 bg-indigo-600 text-white font-black rounded-xl flex items-center justify-center mb-3.5 text-base shadow-sm shadow-indigo-200">
                 2
               </div>
-              <h3 className="font-bold text-slate-900 text-base mb-1">Add Assignments</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Click "+ Add Another Assignment" to include as many coursework items as you have on your syllabus.
+              <h3 className="font-bold text-slate-900 text-base mb-1.5">2. Choose Your Grading Scale</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Select your grading scale (percentage, letter grade, or custom cutoffs) to match your school's official syllabus.
               </p>
             </div>
 
-            <div className="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm text-center">
-              <div className="w-12 h-12 bg-indigo-50 text-indigo-600 font-black rounded-xl flex items-center justify-center mx-auto mb-4 text-lg">
+            <div className="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-indigo-300 hover:shadow-md transition-all">
+              <div className="w-10 h-10 bg-indigo-600 text-white font-black rounded-xl flex items-center justify-center mb-3.5 text-base shadow-sm shadow-indigo-200">
                 3
               </div>
-              <h3 className="font-bold text-slate-900 text-base mb-1">Calculate Average</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Calculations update live in your browser without clicking submit or reloading the page.
+              <h3 className="font-bold text-slate-900 text-base mb-1.5">3. Add Weight (Optional)</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                If your assignments have different weightage (e.g., Homework 30%, Tests 40%), add category weights for precision.
               </p>
             </div>
 
-            <div className="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm text-center">
-              <div className="w-12 h-12 bg-indigo-50 text-indigo-600 font-black rounded-xl flex items-center justify-center mx-auto mb-4 text-lg">
+            <div className="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-indigo-300 hover:shadow-md transition-all">
+              <div className="w-10 h-10 bg-indigo-600 text-white font-black rounded-xl flex items-center justify-center mb-3.5 text-base shadow-sm shadow-indigo-200">
                 4
               </div>
-              <h3 className="font-bold text-slate-900 text-base mb-1">See Letter Grade</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                View your exact percentage, letter grade (A, B, C), 4.0 GPA points, and academic status.
+              <h3 className="font-bold text-slate-900 text-base mb-1.5">4. See Instant Results</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Get your overall grade percentage, letter grade (A–F), 4.0 GPA points, and total points earned in real time.
               </p>
             </div>
+
+            <div className="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-indigo-300 hover:shadow-md transition-all">
+              <div className="w-10 h-10 bg-indigo-600 text-white font-black rounded-xl flex items-center justify-center mb-3.5 text-base shadow-sm shadow-indigo-200">
+                5
+              </div>
+              <h3 className="font-bold text-slate-900 text-base mb-1.5">5. Calculate Final Exam Score</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Find out exactly what score you need on your final exam or final project to secure your desired course grade.
+              </p>
+            </div>
+
+            <div className="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-indigo-300 hover:shadow-md transition-all">
+              <div className="w-10 h-10 bg-indigo-600 text-white font-black rounded-xl flex items-center justify-center mb-3.5 text-base shadow-sm shadow-indigo-200">
+                6
+              </div>
+              <h3 className="font-bold text-slate-900 text-base mb-1.5">6. Track & Improve Performance</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Stay on top of your academic goals, monitor Dean's List eligibility, and boost your grades with confidence.
+              </p>
+            </div>
+          </div>
+
+          {/* Why Students Love It Bar */}
+          <div className="p-6 sm:p-8 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-2xl sm:rounded-3xl shadow-xl flex flex-col lg:flex-row items-center justify-between gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 w-full lg:w-auto text-center sm:text-left">
+              <div className="space-y-1">
+                <div className="text-amber-400 font-bold text-xs uppercase tracking-wider flex items-center justify-center sm:justify-start gap-1">
+                  <Zap className="w-3.5 h-3.5" /> Instant Results
+                </div>
+                <div className="text-xs text-slate-300">Live as you type with zero delay</div>
+              </div>
+              <div className="space-y-1">
+                <div className="text-emerald-400 font-bold text-xs uppercase tracking-wider flex items-center justify-center sm:justify-start gap-1">
+                  <ShieldCheck className="w-3.5 h-3.5" /> 100% Private
+                </div>
+                <div className="text-xs text-slate-300">Data stays on your device</div>
+              </div>
+              <div className="space-y-1">
+                <div className="text-cyan-400 font-bold text-xs uppercase tracking-wider flex items-center justify-center sm:justify-start gap-1">
+                  <Sparkles className="w-3.5 h-3.5" /> Works Anywhere
+                </div>
+                <div className="text-xs text-slate-300">Desktop, tablet, & mobile friendly</div>
+              </div>
+              <div className="space-y-1">
+                <div className="text-indigo-300 font-bold text-xs uppercase tracking-wider flex items-center justify-center sm:justify-start gap-1">
+                  <Target className="w-3.5 h-3.5" /> Achieve Goals
+                </div>
+                <div className="text-xs text-slate-300">Know what you need to pass</div>
+              </div>
+            </div>
+
+            <a
+              href="#calculator"
+              className="w-full sm:w-auto shrink-0 px-6 py-3.5 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-bold text-sm rounded-xl transition-all shadow-lg text-center flex items-center justify-center gap-2"
+            >
+              <span>Calculate Your Grade Now</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
           </div>
         </section>
 
