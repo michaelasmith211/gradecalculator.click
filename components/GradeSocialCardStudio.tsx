@@ -523,16 +523,30 @@ export default function GradeSocialCardStudio({ data }: GradeSocialCardStudioPro
 
     ctx.font = "bold 13px system-ui, -apple-system, sans-serif";
     ctx.fillStyle = activeTheme.secondaryText;
-    ctx.fillText("EDUCATIONAL STUDY TOOL", rightSigX, sigY + 70);
+    // Prominent Big Website URL Badge
+    const urlBoxW = panelW;
+    const urlBoxH = 68;
+    const urlBoxY = height - margin - 100;
+
+    ctx.beginPath();
+    ctx.roundRect(panelX, urlBoxY, urlBoxW, urlBoxH, 18);
+    ctx.fillStyle = activeTheme.pillBg;
+    ctx.fill();
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = activeTheme.goldColor;
+    ctx.stroke();
+
+    ctx.font = "900 28px system-ui, -apple-system, sans-serif";
+    ctx.fillStyle = activeTheme.goldColor;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("https://gradecalculator.dev/", width / 2, urlBoxY + urlBoxH / 2);
+    ctx.textBaseline = "alphabetic";
 
     // Bottom Explicit Informational Disclaimer
-    ctx.font = "600 14px system-ui, -apple-system, sans-serif";
-    ctx.fillStyle = activeTheme.goldColor;
-    ctx.fillText("UNOFFICIAL STUDENT RECORD • FOR PERSONAL INFORMATIONAL PURPOSES ONLY", width / 2, height - (margin + 42));
-
-    ctx.font = "500 12px system-ui, -apple-system, sans-serif";
-    ctx.fillStyle = activeTheme.isLight ? "#64748b" : "#94a3b8";
-    ctx.fillText("Self-calculated with GradeCalculator.dev • Not an official school transcript or binding diploma", width / 2, height - (margin + 22));
+    ctx.font = "600 13px system-ui, -apple-system, sans-serif";
+    ctx.fillStyle = activeTheme.secondaryText;
+    ctx.fillText("UNOFFICIAL STUDENT RECORD • FOR PERSONAL MOTIVATION & STUDY GOALS ONLY", width / 2, height - (margin + 16));
     ctx.restore();
   };
 
@@ -616,14 +630,30 @@ export default function GradeSocialCardStudio({ data }: GradeSocialCardStudioPro
     ctx.fillStyle = activeTheme.textColor;
     ctx.fillText(gpaVal, col2, boxY + 68);
 
-    // Footer Disclaimer
-    ctx.font = "bold 12px system-ui, -apple-system, sans-serif";
-    ctx.fillStyle = activeTheme.goldColor;
-    ctx.fillText("UNOFFICIAL • SELF-CALCULATED WITH GRADECALCULATOR.DEV", width / 2, height - (margin + 30));
+    // Prominent Big Website URL Badge
+    const urlBoxW = boxW;
+    const urlBoxH = 54;
+    const urlBoxY = height - margin - 78;
 
-    ctx.font = "500 11px system-ui, -apple-system, sans-serif";
-    ctx.fillStyle = activeTheme.isLight ? "#64748b" : "#94a3b8";
-    ctx.fillText("For personal goal tracking and study motivation. Not an official academic transcript.", width / 2, height - (margin + 14));
+    ctx.beginPath();
+    ctx.roundRect(boxX, urlBoxY, urlBoxW, urlBoxH, 14);
+    ctx.fillStyle = activeTheme.pillBg;
+    ctx.fill();
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = activeTheme.goldColor;
+    ctx.stroke();
+
+    ctx.font = "900 24px system-ui, -apple-system, sans-serif";
+    ctx.fillStyle = activeTheme.goldColor;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("https://gradecalculator.dev/", width / 2, urlBoxY + urlBoxH / 2);
+    ctx.textBaseline = "alphabetic";
+
+    // Footer Disclaimer
+    ctx.font = "600 11px system-ui, -apple-system, sans-serif";
+    ctx.fillStyle = activeTheme.secondaryText;
+    ctx.fillText("UNOFFICIAL • FOR PERSONAL MOTIVATION & STUDY GOALS ONLY", width / 2, height - (margin + 12));
     ctx.restore();
   };
 
@@ -686,22 +716,25 @@ export default function GradeSocialCardStudio({ data }: GradeSocialCardStudioPro
     ctx.fillStyle = activeTheme.textColor;
     ctx.fillText(gpaVal, leftX + bW * 0.55, bY + 58);
 
-    // Attribution lines
-    const sigY = margin + 395;
+    // Big Bold Website URL Box on Left Bottom
+    const urlBoxW = contentW - 30;
+    const urlBoxH = 46;
+    const urlBoxY = height - margin - 72;
+
     ctx.beginPath();
-    ctx.moveTo(leftX, sigY + 38);
-    ctx.lineTo(leftX + 220, sigY + 38);
-    ctx.strokeStyle = activeTheme.borderInner;
+    ctx.roundRect(leftX, urlBoxY, urlBoxW, urlBoxH, 12);
+    ctx.fillStyle = activeTheme.pillBg;
+    ctx.fill();
     ctx.lineWidth = 1.5;
+    ctx.strokeStyle = activeTheme.goldColor;
     ctx.stroke();
 
-    ctx.font = "italic 20px serif, 'Brush Script MT', cursive, Georgia";
+    ctx.font = "900 20px system-ui, -apple-system, sans-serif";
     ctx.fillStyle = activeTheme.goldColor;
-    ctx.fillText("Student Self-Assessment", leftX + 10, sigY + 26);
-
-    ctx.font = "bold 11px system-ui, -apple-system, sans-serif";
-    ctx.fillStyle = activeTheme.secondaryText;
-    ctx.fillText("SELF-REPORTED STUDY DATA", leftX, sigY + 56);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("https://gradecalculator.dev/", leftX + urlBoxW / 2, urlBoxY + urlBoxH / 2);
+    ctx.textBaseline = "alphabetic";
 
     // Right Side: Embossed Gold Seal
     const sealX = width - (margin + 175);
@@ -721,13 +754,9 @@ export default function GradeSocialCardStudio({ data }: GradeSocialCardStudioPro
 
     // Wide Footer Disclaimer
     ctx.textAlign = "left";
-    ctx.font = "bold 11px system-ui, -apple-system, sans-serif";
-    ctx.fillStyle = activeTheme.goldColor;
-    ctx.fillText("UNOFFICIAL • FOR PERSONAL MOTIVATION & STUDY TRACKING ONLY", leftX, height - margin - 26);
-
-    ctx.font = "500 11px system-ui, -apple-system, sans-serif";
-    ctx.fillStyle = activeTheme.isLight ? "#64748b" : "#94a3b8";
-    ctx.fillText("Self-calculated on https://gradecalculator.dev • Not an official school transcript", leftX, height - margin - 12);
+    ctx.font = "600 11px system-ui, -apple-system, sans-serif";
+    ctx.fillStyle = activeTheme.secondaryText;
+    ctx.fillText("UNOFFICIAL • PERSONAL MILESTONE • NOT A SCHOOL TRANSCRIPT", leftX, height - margin - 12);
     ctx.restore();
   };
 
