@@ -66,49 +66,49 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1 text-sm font-semibold">
+          <nav className="hidden md:flex items-center gap-1 lg:gap-1.5 text-sm font-semibold">
             <Link
-              href={mainTools[0].href}
-              className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive(mainTools[0].href)
+              href={getLocalizedPath("/grade-calculator", locale)}
+              className={`px-2.5 lg:px-3 py-2 rounded-lg transition-colors whitespace-nowrap ${
+                isActive(getLocalizedPath("/grade-calculator", locale))
                   ? "text-indigo-600 bg-indigo-50 font-bold"
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              {mainTools[0].name}
+              Grade Calculator
             </Link>
 
             <Link
-              href={mainTools[1].href}
-              className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive(mainTools[1].href)
+              href={getLocalizedPath("/final-grade-calculator", locale)}
+              className={`px-2.5 lg:px-3 py-2 rounded-lg transition-colors whitespace-nowrap ${
+                isActive(getLocalizedPath("/final-grade-calculator", locale))
                   ? "text-indigo-600 bg-indigo-50 font-bold"
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              {mainTools[1].name}
+              Final Grade
             </Link>
 
             <Link
-              href={mainTools[2].href}
-              className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive(mainTools[2].href)
+              href={getLocalizedPath("/weighted-grade-calculator", locale)}
+              className={`px-2.5 lg:px-3 py-2 rounded-lg transition-colors whitespace-nowrap ${
+                isActive(getLocalizedPath("/weighted-grade-calculator", locale))
                   ? "text-indigo-600 bg-indigo-50 font-bold"
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              {mainTools[2].name}
+              Weighted
             </Link>
 
             <Link
-              href={mainTools[3].href}
-              className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive(mainTools[3].href)
+              href={getLocalizedPath("/gpa-calculator", locale)}
+              className={`px-2.5 lg:px-3 py-2 rounded-lg transition-colors whitespace-nowrap ${
+                isActive(getLocalizedPath("/gpa-calculator", locale))
                   ? "text-indigo-600 bg-indigo-50 font-bold"
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              {mainTools[3].name}
+              4.0 GPA
             </Link>
 
             {/* Dropdown for More Calculators & Guides */}
@@ -117,17 +117,17 @@ export default function Header() {
                 type="button"
                 onClick={() => setToolsDropdownOpen(!toolsDropdownOpen)}
                 onBlur={() => setTimeout(() => setToolsDropdownOpen(false), 200)}
-                className="flex items-center gap-1 px-3 py-2 text-sm font-semibold text-slate-700 hover:text-indigo-600 rounded-lg hover:bg-slate-50 transition-colors focus:outline-none"
+                className="flex items-center gap-1 px-2.5 lg:px-3 py-2 text-sm font-semibold text-slate-700 hover:text-indigo-600 rounded-lg hover:bg-slate-50 transition-colors focus:outline-none whitespace-nowrap"
                 aria-expanded={toolsDropdownOpen}
               >
-                <span>{t("toolsMenu")}</span>
-                <ChevronDown className="w-4 h-4 text-slate-600" />
+                <span>Calculators</span>
+                <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
               </button>
 
               {toolsDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-80 bg-white border border-slate-200 rounded-xl shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                   <div className="px-3 py-1.5 text-xs font-bold text-slate-700 uppercase tracking-wider">
-                    {t("toolsMenu")}
+                    Calculators & Tools
                   </div>
                   {mainTools.slice(4).map((tool) => (
                     <Link
@@ -158,23 +158,24 @@ export default function Header() {
           </nav>
 
           {/* Desktop Right: Language Selector & CTA */}
-          <div className="hidden md:flex items-center gap-2.5">
-            {/* Language Switcher Trigger */}
+          <div className="hidden md:flex items-center gap-2 lg:gap-3 shrink-0">
+            {/* Language Switcher Trigger Pill */}
             <button
               type="button"
               onClick={() => setLangModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:text-indigo-600 bg-slate-100 hover:bg-indigo-50 border border-slate-200 rounded-lg transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:text-indigo-600 bg-slate-100/90 hover:bg-indigo-50/80 border border-slate-200/90 hover:border-indigo-200 rounded-full transition-all shadow-xs whitespace-nowrap cursor-pointer"
               title="Change Language (39 Available)"
             >
               <Globe className="w-3.5 h-3.5 text-indigo-600" />
               <span>{localeConfig.name}</span>
+              <ChevronDown className="w-3 h-3 text-slate-400" />
             </button>
 
             <Link
               href={getLocalizedPath("/final-grade-calculator", locale)}
-              className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm hover:shadow transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="inline-flex items-center justify-center px-3.5 py-1.5 lg:px-4 lg:py-2 text-xs lg:text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm hover:shadow transition-all whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              {t("finalGradeCalculator")}
+              Calculate Final
             </Link>
           </div>
 

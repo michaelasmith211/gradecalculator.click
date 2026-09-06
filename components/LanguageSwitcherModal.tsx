@@ -61,7 +61,10 @@ export default function LanguageSwitcherModal({
     return (
       <button
         key={l.code}
-        onClick={() => switchLanguage(l.code)}
+        onClick={() => {
+          switchLanguage(l.code);
+          onClose();
+        }}
         dir={isLangRTL ? "rtl" : "ltr"}
         className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between group ${
           isSelected
@@ -101,7 +104,10 @@ export default function LanguageSwitcherModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-150">
+    <div
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-150"
+    >
       <div
         className="bg-white w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
