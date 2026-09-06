@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { ALL_LOCALE_CODES, NON_DEFAULT_LOCALES } from "@/lib/i18n/locales";
 
 export const dynamic = "force-static";
 
@@ -13,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/final-grade-calculator", priority: 0.95, changeFrequency: "daily" as const },
     { path: "/weighted-grade-calculator", priority: 0.95, changeFrequency: "daily" as const },
     { path: "/gpa-calculator", priority: 0.95, changeFrequency: "daily" as const },
-    
+
     // Sub-Calculators (Priority 0.85 - 0.8)
     { path: "/semester-gpa-calculator", priority: 0.85, changeFrequency: "weekly" as const },
     { path: "/college-gpa-calculator", priority: 0.85, changeFrequency: "weekly" as const },
@@ -40,10 +41,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/terms-of-use", priority: 0.5, changeFrequency: "yearly" as const },
   ];
 
-  return routes.map((r) => ({
-    url: `${baseUrl}${r.path}`,
-    lastModified: now,
-    changeFrequency: r.changeFrequency,
-    priority: r.priority,
-  }));
+  const sitemapEntries: MetadataRoute.Sitemap = [];
+
+  for (const r of routes) {
+    // Generate alternate hreflang dictionary for all 39 languages + x-default
+    const languageAlternates: Record<string, string> = {
+      "x-default": `${baseUrl}${r.path}`,
+      en: `${baseUrl}${r.path}`,
+    };
+    for (const code of NON_DEFAULT_LOCALES) {
+      languageAlternates[code] = `${baseUrl}/${code}${r.path}`;
+    }
+
+    // Default English entry at root
+    sitemapEntries.push({
+      url: `${baseUrl}${r.path}`,
+      lastModified: now,
+      changeFrequency: r.changeFrequency,
+      priority: r.priority,
+      alternates: {
+        languages: languageAlternates,
+      },
+    });
+
+    // Entries for each of the other 38 localized routes
+    for (const code of NON_DEFAULT_LOCALES) {
+      sitemapEntries.push({
+        url: `${baseUrl}/${code}${r.path}`,
+        lastModified: now,
+        changeFrequency: r.changeFrequency,
+        priority: Math.max(0.4, Number((r.priority * 0.95).toFixed(2))),
+        alternates: {
+          languages: languageAlternates,
+        },
+      });
+    }
+  }
+
+  return sitemapEntries;
 }

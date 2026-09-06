@@ -13,29 +13,35 @@ import {
   GraduationCap,
   Sparkles,
   Award,
+  Globe,
 } from "lucide-react";
+import { useI18n } from "@/lib/i18n/context";
+import { getLocalizedPath } from "@/lib/i18n/locales";
+import LanguageSwitcherModal from "./LanguageSwitcherModal";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
+  const [langModalOpen, setLangModalOpen] = useState(false);
   const pathname = usePathname();
+  const { locale, localeConfig, t } = useI18n();
 
   const mainTools = [
-    { name: "Grade Calculator", href: "/grade-calculator", desc: "Total points & percentage" },
-    { name: "Final Grade Calculator", href: "/final-grade-calculator", desc: "Target final exam score" },
-    { name: "Weighted Grade", href: "/weighted-grade-calculator", desc: "Category weights (HW/Exams)" },
-    { name: "4.0 GPA Calculator", href: "/gpa-calculator", desc: "High school & college GPA" },
-    { name: "Average Grade", href: "/average-grade-calculator", desc: "Arithmetic mean & median" },
-    { name: "Test & Quiz Grader", href: "/test-grade-calculator", desc: "Easy Grader scoring chart" },
-    { name: "Grade Needed", href: "/grade-needed-calculator", desc: "Score required on remaining work" },
-    { name: "Percentage Calculator", href: "/percentage-grade-calculator", desc: "Fraction to % converter" },
+    { name: t("gradeCalculator"), href: getLocalizedPath("/grade-calculator", locale), desc: "Total points & percentage" },
+    { name: t("finalGradeCalculator"), href: getLocalizedPath("/final-grade-calculator", locale), desc: "Target final exam score" },
+    { name: t("weightedGradeCalculator"), href: getLocalizedPath("/weighted-grade-calculator", locale), desc: "Category weights (HW/Exams)" },
+    { name: t("gpaCalculator"), href: getLocalizedPath("/gpa-calculator", locale), desc: "High school & college GPA" },
+    { name: t("averageGradeCalculator"), href: getLocalizedPath("/average-grade-calculator", locale), desc: "Arithmetic mean & median" },
+    { name: t("testGradeCalculator"), href: getLocalizedPath("/test-grade-calculator", locale), desc: "Easy Grader scoring chart" },
+    { name: t("gradeNeededCalculator"), href: getLocalizedPath("/grade-needed-calculator", locale), desc: "Score required on remaining work" },
+    { name: t("percentageCalculator"), href: getLocalizedPath("/percentage-grade-calculator", locale), desc: "Fraction to % converter" },
   ];
 
   const resources = [
-    { name: "How to Calculate Grades", href: "/how-to-calculate-grades" },
-    { name: "Standard Grade Scale", href: "/grade-scale" },
-    { name: "4.0 GPA Scale Chart", href: "/gpa-scale" },
-    { name: "Grade Calculator FAQ", href: "/grade-calculator-faq" },
+    { name: t("howToCalculate"), href: getLocalizedPath("/how-to-calculate-grades", locale) },
+    { name: t("gradeScale"), href: getLocalizedPath("/grade-scale", locale) },
+    { name: t("gpaScale"), href: getLocalizedPath("/gpa-scale", locale) },
+    { name: t("faq"), href: getLocalizedPath("/grade-calculator-faq", locale) },
   ];
 
   const isActive = (href: string) => pathname === href;
@@ -46,7 +52,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Brand Logo */}
           <Link
-            href="/"
+            href={getLocalizedPath("/", locale)}
             className="flex items-center gap-2.5 font-extrabold text-xl text-slate-900 tracking-tight group"
           >
             <img
@@ -62,47 +68,47 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1 text-sm font-semibold">
             <Link
-              href="/grade-calculator"
+              href={mainTools[0].href}
               className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive("/grade-calculator")
+                isActive(mainTools[0].href)
                   ? "text-indigo-600 bg-indigo-50 font-bold"
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              Grade Calculator
+              {mainTools[0].name}
             </Link>
 
             <Link
-              href="/final-grade-calculator"
+              href={mainTools[1].href}
               className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive("/final-grade-calculator")
+                isActive(mainTools[1].href)
                   ? "text-indigo-600 bg-indigo-50 font-bold"
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              Final Grade
+              {mainTools[1].name}
             </Link>
 
             <Link
-              href="/weighted-grade-calculator"
+              href={mainTools[2].href}
               className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive("/weighted-grade-calculator")
+                isActive(mainTools[2].href)
                   ? "text-indigo-600 bg-indigo-50 font-bold"
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              Weighted
+              {mainTools[2].name}
             </Link>
 
             <Link
-              href="/gpa-calculator"
+              href={mainTools[3].href}
               className={`px-3 py-2 rounded-lg transition-colors ${
-                isActive("/gpa-calculator")
+                isActive(mainTools[3].href)
                   ? "text-indigo-600 bg-indigo-50 font-bold"
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              GPA
+              {mainTools[3].name}
             </Link>
 
             {/* Dropdown for More Calculators & Guides */}
@@ -114,14 +120,14 @@ export default function Header() {
                 className="flex items-center gap-1 px-3 py-2 text-sm font-semibold text-slate-700 hover:text-indigo-600 rounded-lg hover:bg-slate-50 transition-colors focus:outline-none"
                 aria-expanded={toolsDropdownOpen}
               >
-                <span>More Calculators</span>
+                <span>{t("toolsMenu")}</span>
                 <ChevronDown className="w-4 h-4 text-slate-600" />
               </button>
 
               {toolsDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-80 bg-white border border-slate-200 rounded-xl shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                   <div className="px-3 py-1.5 text-xs font-bold text-slate-700 uppercase tracking-wider">
-                    Calculators & Tools
+                    {t("toolsMenu")}
                   </div>
                   {mainTools.slice(4).map((tool) => (
                     <Link
@@ -135,7 +141,7 @@ export default function Header() {
                   ))}
                   <div className="border-t border-slate-100 my-1"></div>
                   <div className="px-3 py-1.5 text-xs font-bold text-slate-700 uppercase tracking-wider">
-                    Educational Guides
+                    {t("resourcesMenu")}
                   </div>
                   {resources.map((res) => (
                     <Link
@@ -151,18 +157,39 @@ export default function Header() {
             </div>
           </nav>
 
-          {/* Desktop Right CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Desktop Right: Language Selector & CTA */}
+          <div className="hidden md:flex items-center gap-2.5">
+            {/* Language Switcher Trigger */}
+            <button
+              type="button"
+              onClick={() => setLangModalOpen(true)}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:text-indigo-600 bg-slate-100 hover:bg-indigo-50 border border-slate-200 rounded-lg transition-colors"
+              title="Change Language (39 Available)"
+            >
+              <Globe className="w-3.5 h-3.5 text-indigo-600" />
+              <span>{localeConfig.name}</span>
+            </button>
+
             <Link
-              href="/final-grade-calculator"
+              href={getLocalizedPath("/final-grade-calculator", locale)}
               className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm hover:shadow transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Calculate Final Grade
+              {t("finalGradeCalculator")}
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center">
+          {/* Mobile Actions: Language & Hamburger */}
+          <div className="flex md:hidden items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => setLangModalOpen(true)}
+              className="p-2 text-xs font-bold text-slate-700 bg-slate-100 rounded-lg flex items-center gap-1"
+              aria-label="Change Language"
+            >
+              <Globe className="w-4 h-4 text-indigo-600" />
+              <span className="max-w-[80px] truncate">{localeConfig.name}</span>
+            </button>
+
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -178,8 +205,23 @@ export default function Header() {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3 shadow-lg">
+          {/* Mobile Language Switcher Row */}
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              setLangModalOpen(true);
+            }}
+            className="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-indigo-50/70 border border-indigo-100 text-indigo-900 text-xs font-semibold"
+          >
+            <div className="flex items-center gap-2">
+              <Globe className="w-4 h-4 text-indigo-600" />
+              <span>Language: {localeConfig.name}</span>
+            </div>
+            <span className="text-[11px] text-indigo-600 underline">Change (39)</span>
+          </button>
+
           <div className="font-bold text-xs text-slate-700 uppercase tracking-wider px-2">
-            Top Calculators
+            {t("toolsMenu")}
           </div>
           <div className="grid grid-cols-1 gap-1">
             {mainTools.map((tool) => (
@@ -201,7 +243,7 @@ export default function Header() {
 
           <div className="border-t border-slate-100 pt-3">
             <div className="font-bold text-xs text-slate-700 uppercase tracking-wider px-2 mb-2">
-              Grade Guides & Scales
+              {t("resourcesMenu")}
             </div>
             <div className="grid grid-cols-1 gap-1">
               {resources.map((res) => (
@@ -220,15 +262,21 @@ export default function Header() {
 
           <div className="pt-2">
             <Link
-              href="/grade-calculator"
+              href={getLocalizedPath("/grade-calculator", locale)}
               onClick={() => setMobileMenuOpen(false)}
               className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow"
             >
-              Start Free Calculation
+              {t("gradeCalculator")}
             </Link>
           </div>
         </div>
       )}
+
+      {/* Language Switcher 39-Languages Modal */}
+      <LanguageSwitcherModal
+        isOpen={langModalOpen}
+        onClose={() => setLangModalOpen(false)}
+      />
     </header>
   );
 }

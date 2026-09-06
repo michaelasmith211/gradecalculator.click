@@ -1,7 +1,12 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
-import { ShieldCheck, Cpu } from "lucide-react";
+import { ShieldCheck, Cpu, Globe } from "lucide-react";
 import CookiePreferencesButton from "./CookiePreferencesButton";
+import { useI18n } from "@/lib/i18n/context";
+import { getLocalizedPath } from "@/lib/i18n/locales";
+import LanguageSwitcherModal from "./LanguageSwitcherModal";
 
 // Official Social Media Channels
 export const SOCIAL_LINKS = [
@@ -59,6 +64,8 @@ export const SOCIAL_LINKS = [
 
 export default function Footer() {
   const currentYear = 2026;
+  const [langModalOpen, setLangModalOpen] = useState(false);
+  const { locale, localeConfig, t } = useI18n();
 
   return (
     <footer className="bg-slate-900 text-slate-300 border-t border-slate-800">
@@ -275,21 +282,37 @@ export default function Footer() {
             <Link href="/terms-of-use" className="hover:text-slate-300 transition-colors">
               Terms
             </Link>
-            <Link href="/contact" className="hover:text-slate-300 transition-colors">
+            <Link href={getLocalizedPath("/contact", locale)} className="hover:text-slate-300 transition-colors">
               Support
             </Link>
             <CookiePreferencesButton
               className="hover:text-indigo-400 text-slate-400 transition-colors cursor-pointer bg-transparent shadow-none p-0 inline-flex items-center gap-1 font-normal text-xs"
               label="Cookie Settings"
             />
+            {/* Language Switcher Trigger */}
+            <button
+              type="button"
+              onClick={() => setLangModalOpen(true)}
+              className="hover:text-indigo-400 text-slate-300 transition-colors cursor-pointer bg-slate-800/80 hover:bg-slate-800 px-2.5 py-1 rounded-md border border-slate-700 inline-flex items-center gap-1.5 font-semibold text-xs"
+              title="Change Language (39 Languages Available)"
+            >
+              <Globe className="w-3.5 h-3.5 text-indigo-400" />
+              <span>{localeConfig.name} (39)</span>
+            </button>
           </div>
         </div>
 
         {/* Academic Disclaimer */}
         <div className="mt-4 text-[11px] text-slate-600 text-center sm:text-left leading-relaxed">
-          Disclaimer: Grade Calculator is designed for educational estimation purposes. Grading policies, rounding rules, quality point distributions, and weighting formulas vary across individual schools, colleges, and professors. Always confirm official grades with your academic instructor or registrar.
+          {t("disclaimerText")}
         </div>
       </div>
+
+      {/* Language Switcher 39-Languages Modal */}
+      <LanguageSwitcherModal
+        isOpen={langModalOpen}
+        onClose={() => setLangModalOpen(false)}
+      />
     </footer>
   );
 }

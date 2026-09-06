@@ -54,6 +54,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { I18nProvider } from "@/lib/i18n/context";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -70,6 +72,26 @@ export default function RootLayout({
         <link rel="icon" type="image/png" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
+        {/* Immediate client-side HTML lang & dir configuration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var p = window.location.pathname.split('/').filter(Boolean)[0];
+                  var rtlLocales = ['ar', 'he', 'fa', 'ur'];
+                  if (p && p.length === 2) {
+                    document.documentElement.lang = p;
+                    if (rtlLocales.indexOf(p) !== -1) {
+                      document.documentElement.dir = 'rtl';
+                    }
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
+
         {/* Dynamic Route & SPA Google Analytics 4 */}
         <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
 
@@ -84,11 +106,13 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased text-slate-900 bg-slate-50/40 flex flex-col min-h-screen selection:bg-indigo-500 selection:text-white">
-        <Header />
-        <main className="flex-grow pb-16 md:pb-0">{children}</main>
-        <Footer />
-        <MobileBottomNav />
-        <CookieConsent />
+        <I18nProvider>
+          <Header />
+          <main className="flex-grow pb-16 md:pb-0">{children}</main>
+          <Footer />
+          <MobileBottomNav />
+          <CookieConsent />
+        </I18nProvider>
       </body>
     </html>
   );
