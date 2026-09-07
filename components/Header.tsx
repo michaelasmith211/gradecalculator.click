@@ -121,7 +121,7 @@ export default function Header() {
                 aria-expanded={toolsDropdownOpen}
               >
                 <span>{t("toolsMenu")}</span>
-                <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
+                <ChevronDown className="w-3.5 h-3.5 text-slate-700" />
               </button>
 
               {toolsDropdownOpen && (
@@ -168,7 +168,7 @@ export default function Header() {
             >
               <Globe className="w-3.5 h-3.5 text-indigo-600" />
               <span>{localeConfig.name}</span>
-              <ChevronDown className="w-3 h-3 text-slate-400" />
+              <ChevronDown className="w-3 h-3 text-slate-600" />
             </button>
 
             <Link

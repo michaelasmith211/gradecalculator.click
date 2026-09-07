@@ -167,28 +167,28 @@ export default function CookiePolicyPage() {
             <tbody className="divide-y divide-slate-100 text-slate-700">
               <tr>
                 <td className="px-4 py-2.5 font-mono font-bold text-slate-900">gc_cookie_consent_v1</td>
-                <td className="px-4 py-2.5 font-semibold text-indigo-600">Necessary</td>
+                <td className="px-4 py-2.5 font-semibold text-indigo-800">Necessary</td>
                 <td className="px-4 py-2.5">GradeCalculator.dev</td>
                 <td className="px-4 py-2.5">1 Year</td>
                 <td className="px-4 py-2.5">Stores your cookie preferences (analytics and advertising consent states).</td>
               </tr>
               <tr>
                 <td className="px-4 py-2.5 font-mono font-bold text-slate-900">_ga</td>
-                <td className="px-4 py-2.5 font-semibold text-emerald-600">Analytics</td>
+                <td className="px-4 py-2.5 font-semibold text-emerald-800">Analytics</td>
                 <td className="px-4 py-2.5">Google Analytics (GA4)</td>
                 <td className="px-4 py-2.5">2 Years</td>
                 <td className="px-4 py-2.5">Distinguishes unique anonymous website visitors and tracks page sessions.</td>
               </tr>
               <tr>
                 <td className="px-4 py-2.5 font-mono font-bold text-slate-900">_ga_HT87NWEHNT</td>
-                <td className="px-4 py-2.5 font-semibold text-emerald-600">Analytics</td>
+                <td className="px-4 py-2.5 font-semibold text-emerald-800">Analytics</td>
                 <td className="px-4 py-2.5">Google Analytics (GA4)</td>
                 <td className="px-4 py-2.5">2 Years</td>
                 <td className="px-4 py-2.5">Maintains session state and telemetry for measurement ID G-HT87NWEHNT.</td>
               </tr>
               <tr>
                 <td className="px-4 py-2.5 font-mono font-bold text-slate-900">__gads, __gpi</td>
-                <td className="px-4 py-2.5 font-semibold text-amber-600">Advertising</td>
+                <td className="px-4 py-2.5 font-semibold text-amber-800">Advertising</td>
                 <td className="px-4 py-2.5">Google AdSense</td>
                 <td className="px-4 py-2.5">13 Months</td>
                 <td className="px-4 py-2.5">Measures ad impressions and protects against fraudulent clicks.</td>

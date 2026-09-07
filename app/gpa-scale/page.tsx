@@ -129,78 +129,78 @@ export default function GPAScalePage() {
                 <td className="px-4 py-2.5 font-bold text-slate-900">A+</td>
                 <td className="px-4 py-2.5">97–100%</td>
                 <td className="px-4 py-2.5 font-semibold text-slate-900">4.0</td>
-                <td className="px-4 py-2.5 font-bold text-indigo-600">4.5</td>
-                <td className="px-4 py-2.5 font-bold text-emerald-600">5.0</td>
+                <td className="px-4 py-2.5 font-bold text-indigo-800">4.5</td>
+                <td className="px-4 py-2.5 font-bold text-emerald-800">5.0</td>
               </tr>
               <tr>
                 <td className="px-4 py-2.5 font-bold text-slate-900">A</td>
                 <td className="px-4 py-2.5">93–96%</td>
                 <td className="px-4 py-2.5 font-semibold text-slate-900">4.0</td>
-                <td className="px-4 py-2.5 font-bold text-indigo-600">4.5</td>
-                <td className="px-4 py-2.5 font-bold text-emerald-600">5.0</td>
+                <td className="px-4 py-2.5 font-bold text-indigo-800">4.5</td>
+                <td className="px-4 py-2.5 font-bold text-emerald-800">5.0</td>
               </tr>
               <tr>
                 <td className="px-4 py-2.5 font-bold text-slate-900">A-</td>
                 <td className="px-4 py-2.5">90–92%</td>
                 <td className="px-4 py-2.5 font-semibold text-slate-900">3.7</td>
-                <td className="px-4 py-2.5 font-bold text-indigo-600">4.2</td>
-                <td className="px-4 py-2.5 font-bold text-emerald-600">4.7</td>
+                <td className="px-4 py-2.5 font-bold text-indigo-800">4.2</td>
+                <td className="px-4 py-2.5 font-bold text-emerald-800">4.7</td>
               </tr>
               <tr>
                 <td className="px-4 py-2.5 font-bold text-slate-900">B+</td>
                 <td className="px-4 py-2.5">87–89%</td>
                 <td className="px-4 py-2.5 font-semibold text-slate-900">3.3</td>
-                <td className="px-4 py-2.5 font-bold text-indigo-600">3.8</td>
-                <td className="px-4 py-2.5 font-bold text-emerald-600">4.3</td>
+                <td className="px-4 py-2.5 font-bold text-indigo-800">3.8</td>
+                <td className="px-4 py-2.5 font-bold text-emerald-800">4.3</td>
               </tr>
               <tr>
                 <td className="px-4 py-2.5 font-bold text-slate-900">B</td>
                 <td className="px-4 py-2.5">83–86%</td>
                 <td className="px-4 py-2.5 font-semibold text-slate-900">3.0</td>
-                <td className="px-4 py-2.5 font-bold text-indigo-600">3.5</td>
-                <td className="px-4 py-2.5 font-bold text-emerald-600">4.0</td>
+                <td className="px-4 py-2.5 font-bold text-indigo-800">3.5</td>
+                <td className="px-4 py-2.5 font-bold text-emerald-800">4.0</td>
               </tr>
               <tr>
                 <td className="px-4 py-2.5 font-bold text-slate-900">B-</td>
                 <td className="px-4 py-2.5">80–82%</td>
                 <td className="px-4 py-2.5 font-semibold text-slate-900">2.7</td>
-                <td className="px-4 py-2.5 font-bold text-indigo-600">3.2</td>
-                <td className="px-4 py-2.5 font-bold text-emerald-600">3.7</td>
+                <td className="px-4 py-2.5 font-bold text-indigo-800">3.2</td>
+                <td className="px-4 py-2.5 font-bold text-emerald-800">3.7</td>
               </tr>
               <tr>
                 <td className="px-4 py-2.5 font-bold text-slate-900">C+</td>
                 <td className="px-4 py-2.5">77–79%</td>
                 <td className="px-4 py-2.5 font-semibold text-slate-900">2.3</td>
-                <td className="px-4 py-2.5 font-bold text-indigo-600">2.8</td>
-                <td className="px-4 py-2.5 font-bold text-emerald-600">3.3</td>
+                <td className="px-4 py-2.5 font-bold text-indigo-800">2.8</td>
+                <td className="px-4 py-2.5 font-bold text-emerald-800">3.3</td>
               </tr>
               <tr>
                 <td className="px-4 py-2.5 font-bold text-slate-900">C</td>
                 <td className="px-4 py-2.5">73–76%</td>
                 <td className="px-4 py-2.5 font-semibold text-slate-900">2.0</td>
-                <td className="px-4 py-2.5 font-bold text-indigo-600">2.5</td>
-                <td className="px-4 py-2.5 font-bold text-emerald-600">3.0</td>
+                <td className="px-4 py-2.5 font-bold text-indigo-800">2.5</td>
+                <td className="px-4 py-2.5 font-bold text-emerald-800">3.0</td>
               </tr>
               <tr>
                 <td className="px-4 py-2.5 font-bold text-slate-900">C-</td>
                 <td className="px-4 py-2.5">70–72%</td>
                 <td className="px-4 py-2.5 font-semibold text-slate-900">1.7</td>
-                <td className="px-4 py-2.5 font-bold text-indigo-600">2.2</td>
-                <td className="px-4 py-2.5 font-bold text-emerald-600">2.7</td>
+                <td className="px-4 py-2.5 font-bold text-indigo-800">2.2</td>
+                <td className="px-4 py-2.5 font-bold text-emerald-800">2.7</td>
               </tr>
               <tr>
                 <td className="px-4 py-2.5 font-bold text-slate-900">D</td>
                 <td className="px-4 py-2.5">60–69%</td>
                 <td className="px-4 py-2.5 font-semibold text-slate-900">1.0</td>
-                <td className="px-4 py-2.5 font-bold text-indigo-600">1.5</td>
-                <td className="px-4 py-2.5 font-bold text-emerald-600">2.0</td>
+                <td className="px-4 py-2.5 font-bold text-indigo-800">1.5</td>
+                <td className="px-4 py-2.5 font-bold text-emerald-800">2.0</td>
               </tr>
               <tr>
                 <td className="px-4 py-2.5 font-bold text-slate-900">F</td>
                 <td className="px-4 py-2.5">Below 60%</td>
-                <td className="px-4 py-2.5 font-semibold text-rose-600">0.0</td>
-                <td className="px-4 py-2.5 font-semibold text-rose-600">0.0</td>
-                <td className="px-4 py-2.5 font-semibold text-rose-600">0.0</td>
+                <td className="px-4 py-2.5 font-semibold text-rose-700">0.0</td>
+                <td className="px-4 py-2.5 font-semibold text-rose-700">0.0</td>
+                <td className="px-4 py-2.5 font-semibold text-rose-700">0.0</td>
               </tr>
             </tbody>
           </table>

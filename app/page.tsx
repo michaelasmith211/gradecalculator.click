@@ -508,7 +508,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
             {/* Method 1 */}
             <div className="space-y-4 p-6 bg-slate-50 border border-slate-200 rounded-2xl">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">Method 1</span>
+              <span className="text-xs font-black uppercase tracking-wider text-indigo-900 bg-indigo-100/90 px-2.5 py-1 rounded-md inline-block">Method 1</span>
               <h3 className="text-lg font-bold text-slate-900">Points-Based Grading System</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
                 In a total points system, all assignments are added together into a single numerator (points earned) and divided by the denominator (points possible).
@@ -521,7 +521,7 @@ export default function HomePage() {
                 <p>Assignment 1: 45/50 (90%)</p>
                 <p>Assignment 2: 88/100 (88%)</p>
                 <p>Assignment 3: 20/20 (100%)</p>
-                <p className="pt-1 font-semibold text-indigo-700">
+                <p className="pt-1 font-semibold text-indigo-900">
                   Total = 153 / 170 = <strong>90.00% (Letter Grade A-)</strong>
                 </p>
               </div>
@@ -529,7 +529,7 @@ export default function HomePage() {
 
             {/* Method 2 */}
             <div className="space-y-4 p-6 bg-slate-50 border border-slate-200 rounded-2xl">
-              <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">Method 2</span>
+              <span className="text-xs font-black uppercase tracking-wider text-emerald-900 bg-emerald-100/90 px-2.5 py-1 rounded-md inline-block">Method 2</span>
               <h3 className="text-lg font-bold text-slate-900">Weighted Grading System</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
                 In a weighted grading system, assignment types belong to categories with fixed syllabus weights (e.g. Tests 50%, Homework 20%, Quizzes 30%).
@@ -542,7 +542,7 @@ export default function HomePage() {
                 <p>Homework (20% weight): 95% score &rarr; 19.00 points</p>
                 <p>Quizzes (30% weight): 85% score &rarr; 25.50 points</p>
                 <p>Exams (50% weight): 88% score &rarr; 44.00 points</p>
-                <p className="pt-1 font-semibold text-emerald-700">
+                <p className="pt-1 font-semibold text-emerald-900">
                   Overall = 19.0 + 25.5 + 44.0 = <strong>88.50% (Letter Grade B+)</strong>
                 </p>
               </div>

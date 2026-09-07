@@ -21,7 +21,7 @@ export default function GradeScaleTable({
         <h3 className="text-sm font-bold text-slate-800">
           {t("gradeScaleTitle")}
         </h3>
-        <span className="text-xs text-slate-500 font-medium">{t("gradingScale")}</span>
+        <span className="text-xs text-slate-700 font-semibold">{t("gradingScale")}</span>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-left text-xs sm:text-sm">

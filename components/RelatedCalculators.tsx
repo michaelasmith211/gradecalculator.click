@@ -159,10 +159,10 @@ export default function RelatedCalculators({
           >
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-semibold text-indigo-600 uppercase tracking-wider bg-indigo-50 px-2 py-0.5 rounded">
+                <span className="text-[11px] font-bold text-indigo-900 uppercase tracking-wider bg-indigo-100/90 px-2 py-0.5 rounded">
                   {tool.category || "Calculator"}
                 </span>
-                <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
+                <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
               </div>
               <h3 className="font-bold text-slate-900 group-hover:text-indigo-600 text-base mb-1.5 transition-colors">
                 {tool.name}
@@ -171,7 +171,7 @@ export default function RelatedCalculators({
                 {tool.description}
               </p>
             </div>
-            <div className="mt-4 text-xs font-semibold text-indigo-600 flex items-center gap-1">
+            <div className="mt-4 text-xs font-bold text-indigo-700 flex items-center gap-1">
               <span>Open Tool</span>
               <span>&rarr;</span>
             </div>

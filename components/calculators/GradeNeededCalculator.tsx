@@ -133,7 +133,7 @@ export default function GradeNeededCalculator() {
                 </div>
                 <div
                   className={`text-5xl sm:text-6xl font-black tracking-tight ${
-                    !result.isPossible ? "text-rose-600" : result.isGuaranteed ? "text-emerald-600" : "text-indigo-600"
+                    !result.isPossible ? "text-rose-700" : result.isGuaranteed ? "text-emerald-800" : "text-indigo-800"
                   }`}
                 >
                   {result.requiredScore}%
@@ -144,20 +144,20 @@ export default function GradeNeededCalculator() {
 
                 <div className="mt-4 text-xs">
                   {!result.isPossible ? (
-                    <div className="p-3 bg-rose-50 text-rose-800 border border-rose-200 rounded-xl flex items-center gap-2 text-left">
-                      <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
+                    <div className="p-3 bg-rose-50 text-rose-900 border border-rose-200 rounded-xl flex items-center gap-2 text-left">
+                      <AlertCircle className="w-4 h-4 shrink-0 text-rose-700" />
                       <span>
                         Even a 100% average on remaining work falls just short of your goal. Speak with your teacher about bonus work.
                       </span>
                     </div>
                   ) : result.isGuaranteed ? (
-                    <div className="p-3 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-xl flex items-center gap-2 text-left">
-                      <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+                    <div className="p-3 bg-emerald-50 text-emerald-900 border border-emerald-200 rounded-xl flex items-center gap-2 text-left">
+                      <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-800" />
                       <span>You have already mathematically locked in this grade!</span>
                     </div>
                   ) : (
-                    <div className="p-3 bg-indigo-50 text-indigo-900 border border-indigo-200 rounded-xl flex items-center gap-2 text-left">
-                      <CheckCircle2 className="w-4 h-4 shrink-0 text-indigo-600" />
+                    <div className="p-3 bg-indigo-50 text-indigo-950 border border-indigo-200 rounded-xl flex items-center gap-2 text-left">
+                      <CheckCircle2 className="w-4 h-4 shrink-0 text-indigo-800" />
                       <span>Realistic and achievable goal with regular coursework completion.</span>
                     </div>
                   )}

@@ -260,10 +260,10 @@ export default function FinalGradeCalculator({
                 <div
                   className={`text-5xl sm:text-6xl font-black tracking-tight ${
                     result.isImpossible
-                      ? "text-rose-600"
+                      ? "text-rose-700"
                       : result.isGuaranteed
-                      ? "text-emerald-600"
-                      : "text-indigo-600"
+                      ? "text-emerald-800"
+                      : "text-indigo-800"
                   }`}
                 >
                   {result.requiredScore}%
@@ -275,23 +275,23 @@ export default function FinalGradeCalculator({
                 {/* Status Advice Alert */}
                 <div className="mt-4 text-xs">
                   {result.isImpossible ? (
-                    <div className="p-3 bg-rose-50 text-rose-800 border border-rose-200 rounded-xl flex items-center gap-2 text-left">
-                      <AlertTriangle className="w-4 h-4 shrink-0 text-rose-600" />
+                    <div className="p-3 bg-rose-50 text-rose-900 border border-rose-200 rounded-xl flex items-center gap-2 text-left">
+                      <AlertTriangle className="w-4 h-4 shrink-0 text-rose-700" />
                       <span>
                         Mathematically, 100% on the final exam yields{" "}
                         <strong>{result.whatIfScenarios.find((s) => s.examScore === 100)?.resultingFinalGrade}%</strong>. Ask your instructor about extra credit!
                       </span>
                     </div>
                   ) : result.isGuaranteed ? (
-                    <div className="p-3 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-xl flex items-center gap-2 text-left">
-                      <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+                    <div className="p-3 bg-emerald-50 text-emerald-900 border border-emerald-200 rounded-xl flex items-center gap-2 text-left">
+                      <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-800" />
                       <span>
                         Congratulations! You have already locked in your desired grade regardless of your exam score.
                       </span>
                     </div>
                   ) : (
-                    <div className="p-3 bg-indigo-50 text-indigo-900 border border-indigo-200 rounded-xl flex items-center gap-2 text-left">
-                      <CheckCircle2 className="w-4 h-4 shrink-0 text-indigo-600" />
+                    <div className="p-3 bg-indigo-50 text-indigo-950 border border-indigo-200 rounded-xl flex items-center gap-2 text-left">
+                      <CheckCircle2 className="w-4 h-4 shrink-0 text-indigo-800" />
                       <span>
                         Achievable goal! With dedicated revision on high-yield topics, this target is well within reach.
                       </span>

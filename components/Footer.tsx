@@ -129,39 +129,39 @@ export default function Footer() {
             <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-3">
               {t("calculatorsAndTools")}
             </h3>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-sm text-slate-300">
               <li>
-                <Link href={getLocalizedPath("/grade-calculator", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/grade-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("gradeCalculator")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/final-grade-calculator", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/final-grade-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("finalGradeCalculator")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/weighted-grade-calculator", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/weighted-grade-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("weightedGradeCalculator")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/points-grade-calculator", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/points-grade-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
                   Points-Based Calculator
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/grade-needed-calculator", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/grade-needed-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("gradeNeededCalculator")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/test-grade-calculator", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/test-grade-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("testGradeCalculator")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/exam-grade-calculator", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/exam-grade-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
                   Exam Grade Calculator
                 </Link>
               </li>
@@ -173,39 +173,39 @@ export default function Footer() {
             <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-3">
               GPA & Averages
             </h3>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-sm text-slate-300">
               <li>
-                <Link href={getLocalizedPath("/gpa-calculator", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/gpa-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("gpaCalculator")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/college-gpa-calculator", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/college-gpa-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
                   College GPA Calculator
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/semester-gpa-calculator", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/semester-gpa-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
                   Semester GPA Calculator
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/high-school-gpa-calculator", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/high-school-gpa-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
                   High School GPA Calculator
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/average-grade-calculator", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/average-grade-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("averageGradeCalculator")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/percentage-grade-calculator", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/percentage-grade-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("percentageCalculator")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/weighted-average-calculator", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/weighted-average-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
                   Weighted Average Calculator
                 </Link>
               </li>
@@ -217,49 +217,49 @@ export default function Footer() {
             <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-3">
               {t("educationalGuides")}
             </h3>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-sm text-slate-300">
               <li>
-                <Link href={getLocalizedPath("/how-to-calculate-grades", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/how-to-calculate-grades", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("howToCalculate")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/grade-scale", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/grade-scale", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("gradeScale")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/gpa-scale", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/gpa-scale", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("gpaScale")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/grade-calculator-faq", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/grade-calculator-faq", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("faq")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/cookie-policy", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/cookie-policy", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("cookies")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/privacy-policy", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/privacy-policy", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("privacy")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/terms-of-use", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/terms-of-use", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("terms")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/about", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/about", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("aboutUs")}
                 </Link>
               </li>
               <li>
-                <Link href={getLocalizedPath("/contact", locale)} className="hover:text-white transition-colors">
+                <Link href={getLocalizedPath("/contact", locale)} className="text-slate-300 hover:text-white transition-colors">
                   {t("contactUs")}
                 </Link>
               </li>
@@ -268,32 +268,32 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <div>
+        <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-300">
+          <div className="text-slate-300">
             © {currentYear} Grade Calculator (gradecalculator.dev). {t("allRightsReserved")}
           </div>
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-            <Link href={getLocalizedPath("/privacy-policy", locale)} className="hover:text-slate-300 transition-colors">
+            <Link href={getLocalizedPath("/privacy-policy", locale)} className="text-slate-300 hover:text-white transition-colors">
               {t("privacy")}
             </Link>
-            <Link href={getLocalizedPath("/cookie-policy", locale)} className="hover:text-slate-300 transition-colors">
+            <Link href={getLocalizedPath("/cookie-policy", locale)} className="text-slate-300 hover:text-white transition-colors">
               {t("cookies")}
             </Link>
-            <Link href={getLocalizedPath("/terms-of-use", locale)} className="hover:text-slate-300 transition-colors">
+            <Link href={getLocalizedPath("/terms-of-use", locale)} className="text-slate-300 hover:text-white transition-colors">
               {t("terms")}
             </Link>
-            <Link href={getLocalizedPath("/contact", locale)} className="hover:text-slate-300 transition-colors">
+            <Link href={getLocalizedPath("/contact", locale)} className="text-slate-300 hover:text-white transition-colors">
               {t("contactUs")}
             </Link>
             <CookiePreferencesButton
-              className="hover:text-indigo-400 text-slate-400 transition-colors cursor-pointer bg-transparent shadow-none p-0 inline-flex items-center gap-1 font-normal text-xs"
+              className="text-slate-300 hover:text-white transition-colors cursor-pointer bg-transparent shadow-none p-0 inline-flex items-center gap-1 font-normal text-xs"
               label="Cookie Settings"
             />
             {/* Language Switcher Trigger */}
             <button
               type="button"
               onClick={() => setLangModalOpen(true)}
-              className="hover:text-indigo-400 text-slate-300 transition-colors cursor-pointer bg-slate-800/80 hover:bg-slate-800 px-2.5 py-1 rounded-md border border-slate-700 inline-flex items-center gap-1.5 font-semibold text-xs"
+              className="hover:text-white text-slate-200 transition-colors cursor-pointer bg-slate-800/90 hover:bg-slate-700 px-2.5 py-1 rounded-md border border-slate-700 inline-flex items-center gap-1.5 font-semibold text-xs"
               title="Change Language (39 Languages Available)"
             >
               <Globe className="w-3.5 h-3.5 text-indigo-400" />
@@ -303,7 +303,7 @@ export default function Footer() {
         </div>
 
         {/* Academic Disclaimer */}
-        <div className="mt-4 text-[11px] text-slate-600 text-center sm:text-left leading-relaxed">
+        <div className="mt-4 text-xs text-slate-400 text-center sm:text-left leading-relaxed">
           {t("disclaimerText")}
         </div>
       </div>
