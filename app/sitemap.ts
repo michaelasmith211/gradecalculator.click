@@ -44,18 +44,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const sitemapEntries: MetadataRoute.Sitemap = [];
 
   for (const r of routes) {
+    const formattedPath = r.path ? `${r.path}/` : "/";
+
     // Generate alternate hreflang dictionary for all 39 languages + x-default
     const languageAlternates: Record<string, string> = {
-      "x-default": `${baseUrl}${r.path}`,
-      en: `${baseUrl}${r.path}`,
+      "x-default": `${baseUrl}${formattedPath}`,
+      en: `${baseUrl}${formattedPath}`,
     };
     for (const code of NON_DEFAULT_LOCALES) {
-      languageAlternates[code] = `${baseUrl}/${code}${r.path}`;
+      languageAlternates[code] = `${baseUrl}/${code}${formattedPath}`;
     }
 
     // Default English entry at root
     sitemapEntries.push({
-      url: `${baseUrl}${r.path}`,
+      url: `${baseUrl}${formattedPath}`,
       lastModified: now,
       changeFrequency: r.changeFrequency,
       priority: r.priority,
@@ -67,7 +69,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Entries for each of the other 38 localized routes
     for (const code of NON_DEFAULT_LOCALES) {
       sitemapEntries.push({
-        url: `${baseUrl}/${code}${r.path}`,
+        url: `${baseUrl}/${code}${formattedPath}`,
         lastModified: now,
         changeFrequency: r.changeFrequency,
         priority: Math.max(0.4, Number((r.priority * 0.95).toFixed(2))),

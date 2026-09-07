@@ -16,6 +16,7 @@ import { DEFAULT_GRADE_SCALE, GradeCutoff } from "@/lib/calculations/scales";
 import ScaleSettingsModal from "./ScaleSettingsModal";
 import GradeSocialCardStudio from "../GradeSocialCardStudio";
 import { trackEvent } from "@/lib/analytics";
+import { useI18n } from "@/lib/i18n/context";
 
 interface GradeCalculatorProps {
   initialAssignments?: AssignmentItem[];
@@ -28,6 +29,7 @@ export default function GradeCalculator({
   title,
   subtitle,
 }: GradeCalculatorProps) {
+  const { t } = useI18n();
   const [items, setItems] = useState<AssignmentItem[]>(
     initialAssignments || [
       { id: "1", name: "Assignment 1", earned: 88, total: 100 },
@@ -118,15 +120,15 @@ export default function GradeCalculator({
       <div className="px-4 sm:px-6 py-4 sm:py-5 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h2 className="text-lg sm:text-xl font-bold tracking-tight flex items-center gap-2">
-            <span>{title || "Grade Calculator"}</span>
+            <span>{title || t("brand")}</span>
             {result.validItemCount > 0 && result.percentage >= 90 && (
               <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 animate-pulse">
-                <Sparkles className="w-3 h-3" /> Excellent
+                <Sparkles className="w-3 h-3" /> {t("statusHonors")}
               </span>
             )}
           </h2>
           <p className="text-xs text-slate-200 mt-0.5">
-            {subtitle || "Enter your assignment scores below to calculate your overall grade and GPA."}
+            {subtitle || t("tagline")}
           </p>
         </div>
 
@@ -139,7 +141,7 @@ export default function GradeCalculator({
             title="Configure grading cutoff scale"
           >
             <Sliders className="w-3.5 h-3.5" />
-            <span>Grading Scale</span>
+            <span>{t("gradingScale")}</span>
           </button>
           <button
             type="button"
@@ -148,7 +150,7 @@ export default function GradeCalculator({
             title="Reset calculator inputs"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            <span>Reset</span>
+            <span>{t("reset")}</span>
           </button>
         </div>
       </div>
@@ -159,32 +161,32 @@ export default function GradeCalculator({
         <div className="lg:col-span-7 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
-              Assignments ({items.length})
+              {t("assignment")} ({items.length})
             </span>
             <div className="flex items-center gap-1.5 text-xs">
-              <span className="text-slate-600 font-semibold">Quick Samples:</span>
+              <span className="text-slate-600 font-semibold">{t("quickSamples")}</span>
               <button
                 type="button"
                 onClick={() => loadSample("college")}
                 className="px-2 py-0.5 bg-slate-100 hover:bg-indigo-50 text-indigo-700 font-bold rounded text-xs transition-colors active:scale-95 touch-manipulation"
               >
-                College
+                {t("college")}
               </button>
               <button
                 type="button"
                 onClick={() => loadSample("highschool")}
                 className="px-2 py-0.5 bg-slate-100 hover:bg-indigo-50 text-indigo-700 font-bold rounded text-xs transition-colors active:scale-95 touch-manipulation"
               >
-                High School
+                {t("highSchool")}
               </button>
             </div>
           </div>
 
           {/* Desktop Column Header */}
           <div className="grid grid-cols-12 gap-2 text-xs font-bold text-slate-700 px-2 uppercase tracking-wider hidden sm:grid">
-            <div className="col-span-6">Assignment Name</div>
-            <div className="col-span-3 text-center">Score Earned</div>
-            <div className="col-span-2 text-center">Possible</div>
+            <div className="col-span-6">{t("assignmentName")}</div>
+            <div className="col-span-3 text-center">{t("scoreEarned")}</div>
+            <div className="col-span-2 text-center">{t("possiblePoints")}</div>
             <div className="col-span-1"></div>
           </div>
 
@@ -198,15 +200,15 @@ export default function GradeCalculator({
                 {/* Assignment Name */}
                 <div className="sm:col-span-6">
                   <div className="text-[11px] font-bold text-slate-600 sm:hidden mb-1">
-                    Assignment #{index + 1}
+                    {t("assignment")} #{index + 1}
                   </div>
                   <input
                     type="text"
                     value={item.name}
-                    placeholder={`Assignment ${index + 1}`}
+                    placeholder={`${t("assignment")} ${index + 1}`}
                     onChange={(e) => handleChange(item.id, "name", e.target.value)}
                     className="w-full px-3 py-2 text-base sm:text-sm font-medium text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    aria-label={`Assignment ${index + 1} name`}
+                    aria-label={`${t("assignment")} ${index + 1} name`}
                   />
                 </div>
 
@@ -214,33 +216,33 @@ export default function GradeCalculator({
                 <div className="grid grid-cols-12 gap-2 sm:contents">
                   <div className="col-span-5 sm:col-span-3">
                     <div className="text-[10px] font-bold text-slate-600 sm:hidden mb-0.5 text-center">
-                      Score
+                      {t("scoreEarned")}
                     </div>
                     <input
                       type="number"
                       inputMode="decimal"
                       step="any"
                       value={item.earned}
-                      placeholder="Earned"
+                      placeholder={t("scoreEarned")}
                       onChange={(e) => handleChange(item.id, "earned", e.target.value)}
                       className="w-full px-3 py-2 text-base sm:text-sm text-center font-bold text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      aria-label={`Assignment ${index + 1} score earned`}
+                      aria-label={`${t("assignment")} ${index + 1} score earned`}
                     />
                   </div>
 
                   <div className="col-span-5 sm:col-span-2">
                     <div className="text-[10px] font-bold text-slate-600 sm:hidden mb-0.5 text-center">
-                      Out of
+                      {t("totalPossible")}
                     </div>
                     <input
                       type="number"
                       inputMode="decimal"
                       step="any"
                       value={item.total}
-                      placeholder="Total"
+                      placeholder={t("totalPossible")}
                       onChange={(e) => handleChange(item.id, "total", e.target.value)}
                       className="w-full px-3 py-2 text-base sm:text-sm text-center font-bold text-slate-900 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      aria-label={`Assignment ${index + 1} total possible points`}
+                      aria-label={`${t("assignment")} ${index + 1} total possible points`}
                     />
                   </div>
 
@@ -267,7 +269,7 @@ export default function GradeCalculator({
             className="w-full py-3 sm:py-2.5 px-4 bg-indigo-50 hover:bg-indigo-100 active:scale-[0.99] text-indigo-700 font-bold text-sm rounded-xl border border-indigo-200 flex items-center justify-center gap-2 transition-all shadow-sm touch-manipulation min-h-[44px]"
           >
             <Plus className="w-4 h-4" />
-            <span>+ Add Another Assignment</span>
+            <span>+ {t("addRow")}</span>
           </button>
         </div>
 
@@ -276,7 +278,7 @@ export default function GradeCalculator({
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
-                Calculation Results
+                {t("overallGrade")}
               </span>
               <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" /> Live
@@ -286,7 +288,7 @@ export default function GradeCalculator({
             {/* Overall Percentage Card */}
             <div className="text-center py-6 px-4 bg-white rounded-2xl border border-slate-200/90 shadow-sm mb-4">
               <div className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">
-                Overall Course Grade
+                {t("overallGrade")}
               </div>
               <div className="text-5xl sm:text-6xl font-black text-slate-900 tracking-tight transition-all">
                 {result.validItemCount > 0 ? `${result.percentage}%` : "--"}
@@ -313,7 +315,7 @@ export default function GradeCalculator({
                       : "bg-slate-200 text-slate-700"
                   }`}
                 >
-                  Grade: {result.letter}
+                  {t("letterGrade")}: {result.letter}
                 </span>
                 <span className="px-3 py-1.5 rounded-full text-sm font-bold bg-slate-100 text-slate-800 border border-slate-200">
                   {result.gpaPoint.toFixed(1)} GPA
@@ -325,7 +327,7 @@ export default function GradeCalculator({
             <div className="grid grid-cols-2 gap-3 mb-4">
               <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
                 <div className="text-[11px] font-semibold text-slate-600 uppercase">
-                  Points Earned
+                  {t("gradeEarned")}
                 </div>
                 <div className="text-xl font-bold text-slate-900 mt-0.5">
                   {result.totalEarned.toLocaleString()}
@@ -333,7 +335,7 @@ export default function GradeCalculator({
               </div>
               <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
                 <div className="text-[11px] font-semibold text-slate-600 uppercase">
-                  Total Points
+                  {t("totalPossible")}
                 </div>
                 <div className="text-xl font-bold text-slate-900 mt-0.5">
                   {result.totalPossible.toLocaleString()}
@@ -345,17 +347,15 @@ export default function GradeCalculator({
             <div className="p-3.5 bg-indigo-50/70 border border-indigo-100 rounded-xl text-xs text-indigo-950 flex items-start gap-2.5">
               <TrendingUp className="w-4 h-4 text-indigo-700 shrink-0 mt-0.5" />
               <div>
-                <span className="font-bold">Academic Standing: </span>
+                <span className="font-bold">{t("academicStanding")}: </span>
                 {result.validItemCount === 0 ? (
-                  <span>Enter assignment points to view your standing.</span>
+                  <span>{t("scoreNeededDesc")}</span>
                 ) : result.percentage >= 90 ? (
-                  <span>Outstanding performance! Currently tracking for Honors / A Grade.</span>
-                ) : result.percentage >= 80 ? (
-                  <span>Solid performance (B Grade). Within reach of an A with upcoming tests!</span>
+                  <span>{t("statusHonors")}</span>
                 ) : result.percentage >= 70 ? (
-                  <span>Passing (C Grade). Focus on high-value assignments to boost your standing.</span>
+                  <span>{t("statusPassing")}</span>
                 ) : (
-                  <span>Needs improvement. Use our Final Grade Calculator to map passing targets.</span>
+                  <span>{t("statusNeedsWork")}</span>
                 )}
               </div>
             </div>
@@ -377,14 +377,14 @@ export default function GradeCalculator({
           <GradeSocialCardStudio
             data={{
               type: "grade",
-              title: title || "Course Grade",
+              title: title || t("brand"),
               scoreDisplay: `${result.percentage}%`,
-              scoreLabel: "Overall Course Grade",
+              scoreLabel: t("overallGrade"),
               letterGrade: result.letter,
               gpaPoint: result.gpaPoint,
               additionalMetrics: [
-                { label: "Points Earned", value: `${result.totalEarned} / ${result.totalPossible}` },
-                { label: "Assignments", value: `${result.validItemCount} Graded Items` },
+                { label: t("gradeEarned"), value: `${result.totalEarned} / ${result.totalPossible}` },
+                { label: t("assignment"), value: `${result.validItemCount}` },
               ],
             }}
           />

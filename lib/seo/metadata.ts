@@ -29,22 +29,22 @@ export function constructMetadata({
   if (pathSegments.length > 0 && ALL_LOCALE_CODES.includes(pathSegments[0])) {
     cleanSegments = pathSegments.slice(1);
   }
-  const basePath = cleanSegments.length > 0 ? `/${cleanSegments.join("/")}` : "";
+  const basePath = cleanSegments.length > 0 ? `/${cleanSegments.join("/")}/` : "/";
 
   // Canonical URL for this specific page
   const canonicalUrl =
     locale === DEFAULT_LOCALE || !locale
-      ? `${SITE_URL}${basePath || "/"}`
-      : `${SITE_URL}/${locale}${basePath}`;
+      ? `${SITE_URL}${basePath}`
+      : `${SITE_URL}/${locale}${basePath === "/" ? "/" : basePath}`;
 
   // Generate hreflang alternates for all 39 languages + x-default
   const languageAlternates: Record<string, string> = {
-    "x-default": `${SITE_URL}${basePath || "/"}`,
-    en: `${SITE_URL}${basePath || "/"}`,
+    "x-default": `${SITE_URL}${basePath}`,
+    en: `${SITE_URL}${basePath}`,
   };
 
   for (const code of NON_DEFAULT_LOCALES) {
-    languageAlternates[code] = `${SITE_URL}/${code}${basePath}`;
+    languageAlternates[code] = `${SITE_URL}/${code}${basePath === "/" ? "/" : basePath}`;
   }
 
   // Ensure title contains the main keyword "Grade Calculator" cleanly without redundant repetition

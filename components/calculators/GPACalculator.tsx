@@ -14,6 +14,7 @@ import {
 import { calculateGPA, GPACourseItem } from "@/lib/calculations/gpa";
 import GradeSocialCardStudio from "../GradeSocialCardStudio";
 import { trackEvent } from "@/lib/analytics";
+import { useI18n } from "@/lib/i18n/context";
 
 interface GPACalculatorProps {
   type?: "standard" | "college" | "semester" | "highschool";
@@ -26,6 +27,7 @@ export default function GPACalculator({
   title,
   subtitle,
 }: GPACalculatorProps) {
+  const { t } = useI18n();
   const [courses, setCourses] = useState<GPACourseItem[]>([
     { id: "1", name: "Calculus I", grade: "A", credits: 4, level: type === "highschool" ? "ap_ib" : "regular" },
     { id: "2", name: "English Composition", grade: "B+", credits: 3, level: "regular" },
@@ -90,7 +92,7 @@ export default function GPACalculator({
                   ? "High School GPA Calculator"
                   : type === "semester"
                   ? "Semester GPA Calculator"
-                  : "4.0 GPA Calculator")}
+                  : t("gpaCalculator"))}
             </span>
             {result.validCourseCount > 0 && result.gpa >= 3.5 && (
               <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 animate-pulse">
@@ -108,7 +110,7 @@ export default function GPACalculator({
           className="self-end sm:self-auto flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 active:scale-95 text-white rounded-lg transition-all border border-white/15 touch-manipulation min-h-[36px]"
         >
           <RotateCcw className="w-3.5 h-3.5" />
-          <span>Reset</span>
+          <span>{t("reset")}</span>
         </button>
       </div>
 
@@ -118,17 +120,17 @@ export default function GPACalculator({
         <div className="lg:col-span-7 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
-              Current Courses ({courses.length})
+              {t("courseName")} ({courses.length})
             </span>
-            <span className="text-xs text-slate-600 font-semibold">Standard 4.0 Scale</span>
+            <span className="text-xs text-slate-600 font-semibold">{t("gpaScale")}</span>
           </div>
 
           {/* Desktop Table Header */}
           <div className="grid grid-cols-12 gap-2 text-xs font-bold text-slate-700 px-2 uppercase tracking-wider hidden sm:grid">
-            <div className="col-span-5">Course Name</div>
-            <div className="col-span-2 text-center">Grade</div>
-            <div className="col-span-2 text-center">Credits</div>
-            <div className="col-span-2 text-center">{type === "highschool" ? "Weight" : "Level"}</div>
+            <div className="col-span-5">{t("courseName")}</div>
+            <div className="col-span-2 text-center">{t("letterGrade")}</div>
+            <div className="col-span-2 text-center">{t("credits")}</div>
+            <div className="col-span-2 text-center">{type === "highschool" ? t("weight") : "Level"}</div>
             <div className="col-span-1"></div>
           </div>
 
@@ -225,13 +227,13 @@ export default function GPACalculator({
             className="w-full py-3 sm:py-2.5 px-4 bg-indigo-50 hover:bg-indigo-100 active:scale-[0.99] text-indigo-700 font-bold text-sm rounded-xl border border-indigo-200 flex items-center justify-center gap-2 transition-all shadow-sm touch-manipulation min-h-[44px]"
           >
             <Plus className="w-4 h-4" />
-            <span>+ Add Another Course</span>
+            <span>+ {t("addRow")}</span>
           </button>
 
           {/* Cumulative GPA Accumulator */}
           <div className="mt-6 pt-4 border-t border-slate-200 bg-slate-50/90 p-4 rounded-xl">
             <span className="text-xs font-bold text-slate-800 uppercase tracking-wider block mb-2">
-              Optional: Calculate Cumulative GPA
+              {t("cumulativeGpa")}
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div>
@@ -270,7 +272,7 @@ export default function GPACalculator({
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
-                GPA Calculation
+                {t("gpa")}
               </span>
               <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" /> Live
@@ -280,7 +282,7 @@ export default function GPACalculator({
             {/* GPA Big Score */}
             <div className="text-center py-6 px-4 bg-white rounded-2xl border border-slate-200 shadow-sm mb-4">
               <div className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">
-                Term Grade Point Average
+                {t("gpa")}
               </div>
               <div className="text-5xl sm:text-6xl font-black text-slate-900 tracking-tight">
                 {result.validCourseCount > 0 ? result.gpa.toFixed(2) : "--"}
@@ -289,7 +291,7 @@ export default function GPACalculator({
               {result.validCourseCount > 0 && (
                 <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
                   <span className="text-xs font-bold px-3 py-1 rounded-full bg-indigo-600 text-white shadow-sm">
-                    {result.totalCredits} Credits Attempted
+                    {result.totalCredits} {t("credits")}
                   </span>
                   {type === "highschool" && result.gpa !== result.unweightedGpa && (
                     <span className="text-xs font-bold px-3 py-1 rounded-full bg-purple-600 text-white shadow-sm">
@@ -312,7 +314,7 @@ export default function GPACalculator({
               </div>
               <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
                 <div className="text-[11px] font-semibold text-slate-600 uppercase">
-                  Total Credits
+                  {t("totalCredits")}
                 </div>
                 <div className="text-xl font-bold text-slate-900 mt-0.5">
                   {result.totalCredits}

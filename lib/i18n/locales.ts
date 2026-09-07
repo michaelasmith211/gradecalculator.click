@@ -88,11 +88,11 @@ export function getLocalizedPath(pathname: string, targetLocale: string): string
     cleanSegments = segments.slice(1);
   }
 
-  const cleanPath = cleanSegments.length > 0 ? `/${cleanSegments.join("/")}` : "";
+  const cleanPath = cleanSegments.length > 0 ? `/${cleanSegments.join("/")}/` : "/";
 
   if (targetLocale === DEFAULT_LOCALE) {
-    return cleanPath || "/";
+    return cleanPath;
   }
 
-  return `/${targetLocale}${cleanPath}`;
+  return cleanPath === "/" ? `/${targetLocale}/` : `/${targetLocale}${cleanPath}`;
 }

@@ -1,6 +1,10 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { Calculator, ArrowRight, Percent, Award, BookOpen, Target, CheckCircle2 } from "lucide-react";
+import { useI18n } from "@/lib/i18n/context";
+import { getLocalizedPath } from "@/lib/i18n/locales";
 
 export interface CalculatorLinkItem {
   name: string;
@@ -118,9 +122,14 @@ interface RelatedCalculatorsProps {
 export default function RelatedCalculators({
   currentKey,
   recommendedKeys,
-  title = "Related Grade Calculation Tools",
-  subtitle = "Explore our suite of specialized student calculators to plan and track your academic success.",
+  title,
+  subtitle,
 }: RelatedCalculatorsProps) {
+  const { locale, t } = useI18n();
+
+  const resolvedTitle = title || t("popularToolsTitle");
+  const resolvedSubtitle = subtitle || t("popularToolsSubtitle");
+
   // Default recommendations if none provided
   const defaultList = [
     "final-grade-calculator",
@@ -137,15 +146,15 @@ export default function RelatedCalculators({
   return (
     <section className="my-12 pt-8 border-t border-slate-200">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-slate-900 tracking-tight">{title}</h2>
-        {subtitle && <p className="text-sm text-slate-600 mt-1">{subtitle}</p>}
+        <h2 className="text-2xl font-bold text-slate-900 tracking-tight">{resolvedTitle}</h2>
+        {resolvedSubtitle && <p className="text-sm text-slate-600 mt-1">{resolvedSubtitle}</p>}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {tools.map((tool) => (
           <Link
             key={tool.href}
-            href={tool.href}
+            href={getLocalizedPath(tool.href, locale)}
             className="group relative p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between"
           >
             <div>

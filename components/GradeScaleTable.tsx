@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import { DEFAULT_GRADE_SCALE, GradeCutoff } from "@/lib/calculations/scales";
+import { useI18n } from "@/lib/i18n/context";
 
 interface GradeScaleTableProps {
   scale?: GradeCutoff[];
@@ -10,22 +13,24 @@ export default function GradeScaleTable({
   scale = DEFAULT_GRADE_SCALE,
   highlightPercentage,
 }: GradeScaleTableProps) {
+  const { t } = useI18n();
+
   return (
     <div className="w-full overflow-hidden border border-slate-200 rounded-xl bg-white shadow-sm">
       <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
         <h3 className="text-sm font-bold text-slate-800">
-          Standard Grading Scale Reference
+          {t("gradeScaleTitle")}
         </h3>
-        <span className="text-xs text-slate-500 font-medium">Standard 4.0 Point System</span>
+        <span className="text-xs text-slate-500 font-medium">{t("gradingScale")}</span>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-left text-xs sm:text-sm">
           <thead className="bg-slate-100/70 text-slate-700 uppercase tracking-wider text-[11px] font-bold">
             <tr>
-              <th scope="col" className="px-4 py-2.5">Letter Grade</th>
-              <th scope="col" className="px-4 py-2.5">Percentage Range</th>
-              <th scope="col" className="px-4 py-2.5">GPA Points (4.0)</th>
-              <th scope="col" className="px-4 py-2.5">Academic Status</th>
+              <th scope="col" className="px-4 py-2.5">{t("letterGrade")}</th>
+              <th scope="col" className="px-4 py-2.5">{t("percentageRange")}</th>
+              <th scope="col" className="px-4 py-2.5">{t("gpa")}</th>
+              <th scope="col" className="px-4 py-2.5">{t("academicStanding")}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 text-slate-700">

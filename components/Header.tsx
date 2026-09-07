@@ -75,7 +75,7 @@ export default function Header() {
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              Grade Calculator
+              {t("gradeCalculator")}
             </Link>
 
             <Link
@@ -86,7 +86,7 @@ export default function Header() {
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              Final Grade
+              {t("finalGrade")}
             </Link>
 
             <Link
@@ -97,7 +97,7 @@ export default function Header() {
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              Weighted
+              {t("weighted")}
             </Link>
 
             <Link
@@ -108,7 +108,7 @@ export default function Header() {
                   : "text-slate-700 hover:text-indigo-600 hover:bg-slate-50"
               }`}
             >
-              4.0 GPA
+              {t("gpaCalculator")}
             </Link>
 
             {/* Dropdown for More Calculators & Guides */}
@@ -120,14 +120,14 @@ export default function Header() {
                 className="flex items-center gap-1 px-2.5 lg:px-3 py-2 text-sm font-semibold text-slate-700 hover:text-indigo-600 rounded-lg hover:bg-slate-50 transition-colors focus:outline-none whitespace-nowrap"
                 aria-expanded={toolsDropdownOpen}
               >
-                <span>Calculators</span>
+                <span>{t("toolsMenu")}</span>
                 <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
               </button>
 
               {toolsDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-80 bg-white border border-slate-200 rounded-xl shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                   <div className="px-3 py-1.5 text-xs font-bold text-slate-700 uppercase tracking-wider">
-                    Calculators & Tools
+                    {t("calculatorsAndTools")}
                   </div>
                   {mainTools.slice(4).map((tool) => (
                     <Link
@@ -175,7 +175,7 @@ export default function Header() {
               href={getLocalizedPath("/final-grade-calculator", locale)}
               className="inline-flex items-center justify-center px-3.5 py-1.5 lg:px-4 lg:py-2 text-xs lg:text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm hover:shadow transition-all whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Calculate Final
+              {t("calculateFinal")}
             </Link>
           </div>
 

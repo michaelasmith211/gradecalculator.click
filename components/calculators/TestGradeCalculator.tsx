@@ -4,6 +4,7 @@ import React, { useState, useMemo } from "react";
 import { Check, X, RotateCcw, ListFilter, CheckCircle2 } from "lucide-react";
 import { generateTestGradeChart, calculateSingleScore } from "@/lib/calculations/testGrader";
 import { getLetterGrade } from "@/lib/calculations/scales";
+import { useI18n } from "@/lib/i18n/context";
 
 interface TestGradeCalculatorProps {
   title?: string;
@@ -14,6 +15,7 @@ export default function TestGradeCalculator({
   title,
   subtitle,
 }: TestGradeCalculatorProps) {
+  const { t } = useI18n();
   const [totalQuestions, setTotalQuestions] = useState<string>("50");
   const [wrongAnswers, setWrongAnswers] = useState<string>("4");
 
@@ -42,7 +44,7 @@ export default function TestGradeCalculator({
       <div className="px-4 sm:px-6 py-4 sm:py-5 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h2 className="text-lg sm:text-xl font-bold tracking-tight">
-            {title || "Test & Quiz Grade Calculator"}
+            {title || t("testGradeCalculator")}
           </h2>
           <p className="text-xs text-slate-200 mt-0.5">
             {subtitle || "Calculate single test scores and view a complete Easy Grader grading chart."}
@@ -54,7 +56,7 @@ export default function TestGradeCalculator({
           className="self-end sm:self-auto flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 active:scale-95 text-white rounded-lg transition-all border border-white/15 touch-manipulation min-h-[36px]"
         >
           <RotateCcw className="w-3.5 h-3.5" />
-          <span>Reset</span>
+          <span>{t("reset")}</span>
         </button>
       </div>
 
@@ -64,7 +66,7 @@ export default function TestGradeCalculator({
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label htmlFor="totalQuestions" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                Total Questions
+                {t("totalPossible")}
               </label>
               <input
                 id="totalQuestions"
@@ -104,14 +106,14 @@ export default function TestGradeCalculator({
         <div className="lg:col-span-6 flex items-center justify-center">
           <div className="w-full bg-slate-50 rounded-2xl p-5 sm:p-6 border border-slate-200 text-center flex flex-col items-center justify-center">
             <div className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">
-              Score Earned
+              {t("scoreEarned")}
             </div>
             <div className="text-5xl sm:text-6xl font-black text-slate-900 tracking-tight">
               {singleScore.percentage}%
             </div>
             <div className="mt-3 flex items-center gap-2">
               <span className="px-4 py-1.5 rounded-full text-sm font-extrabold bg-indigo-600 text-white shadow-sm">
-                Grade: {singleScore.letter}
+                {t("letterGrade")}: {singleScore.letter}
               </span>
               <span className="px-3 py-1.5 rounded-full text-xs font-bold bg-white text-slate-800 border border-slate-200">
                 {gpaVal.toFixed(1)} GPA
@@ -138,9 +140,9 @@ export default function TestGradeCalculator({
               <tr>
                 <th scope="col" className="px-4 py-2.5">Wrong Answers</th>
                 <th scope="col" className="px-4 py-2.5">Score Fraction</th>
-                <th scope="col" className="px-4 py-2.5">Percentage</th>
-                <th scope="col" className="px-4 py-2.5">Letter Grade</th>
-                <th scope="col" className="px-4 py-2.5">GPA</th>
+                <th scope="col" className="px-4 py-2.5">{t("percentageRange")}</th>
+                <th scope="col" className="px-4 py-2.5">{t("letterGrade")}</th>
+                <th scope="col" className="px-4 py-2.5">{t("gpa")}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">

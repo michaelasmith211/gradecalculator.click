@@ -15,6 +15,7 @@ import {
 import { calculateFinalExamNeeded, FinalExamInput } from "@/lib/calculations/finalExam";
 import GradeSocialCardStudio from "../GradeSocialCardStudio";
 import { trackEvent } from "@/lib/analytics";
+import { useI18n } from "@/lib/i18n/context";
 
 interface FinalGradeCalculatorProps {
   title?: string;
@@ -25,6 +26,7 @@ export default function FinalGradeCalculator({
   title,
   subtitle,
 }: FinalGradeCalculatorProps) {
+  const { t } = useI18n();
   const [currentGrade, setCurrentGrade] = useState<string>("85");
   const [desiredGrade, setDesiredGrade] = useState<string>("90");
   const [examWeight, setExamWeight] = useState<string>("20");
@@ -85,15 +87,15 @@ export default function FinalGradeCalculator({
       <div className="px-4 sm:px-6 py-4 sm:py-5 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h2 className="text-lg sm:text-xl font-bold tracking-tight flex items-center gap-2">
-            <span>{title || "Final Grade Calculator"}</span>
+            <span>{title || t("finalGradeCalculator")}</span>
             {result && result.requiredScore <= 100 && (
               <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/30">
-                Target Planner
+                {t("statusPassing")}
               </span>
             )}
           </h2>
           <p className="text-xs text-slate-200 mt-0.5">
-            {subtitle || "Calculate the exact minimum score you need on your final exam to reach your goal grade."}
+            {subtitle || t("scoreNeededDesc")}
           </p>
         </div>
         <button
@@ -102,7 +104,7 @@ export default function FinalGradeCalculator({
           className="self-end sm:self-auto flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 active:scale-95 text-white rounded-lg transition-all border border-white/15 touch-manipulation min-h-[36px]"
         >
           <RotateCcw className="w-3.5 h-3.5" />
-          <span>Reset</span>
+          <span>{t("reset")}</span>
         </button>
       </div>
 
@@ -114,11 +116,8 @@ export default function FinalGradeCalculator({
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <label htmlFor="currentGrade" className="text-sm font-bold text-slate-800">
-                1. Your Current Grade (%)
+                1. {t("currentGrade")}
               </label>
-              <span className="text-xs font-semibold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">
-                Before Final
-              </span>
             </div>
             <div className="relative">
               <input
@@ -130,7 +129,7 @@ export default function FinalGradeCalculator({
                 max="200"
                 value={currentGrade}
                 onChange={(e) => setCurrentGrade(e.target.value)}
-                placeholder="e.g. 85.5"
+                placeholder="85"
                 className="w-full px-4 py-3 text-base sm:text-lg font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
               <span className="absolute right-4 top-3 text-slate-500 font-bold text-base sm:text-lg">%</span>
@@ -149,11 +148,8 @@ export default function FinalGradeCalculator({
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <label htmlFor="desiredGrade" className="text-sm font-bold text-slate-800">
-                2. Your Desired Overall Grade (%)
+                2. {t("desiredGrade")}
               </label>
-              <span className="text-xs font-semibold text-slate-600">
-                Target Letter Cutoff
-              </span>
             </div>
             <div className="relative">
               <input
@@ -165,7 +161,7 @@ export default function FinalGradeCalculator({
                 max="100"
                 value={desiredGrade}
                 onChange={(e) => setDesiredGrade(e.target.value)}
-                placeholder="e.g. 90"
+                placeholder="90"
                 className="w-full px-4 py-3 text-base sm:text-lg font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
               <span className="absolute right-4 top-3 text-slate-500 font-bold text-base sm:text-lg">%</span>
@@ -173,7 +169,7 @@ export default function FinalGradeCalculator({
 
             {/* Quick Desired Grade Targets - Swipeable on mobile */}
             <div className="flex items-center gap-1.5 pt-1 text-xs overflow-x-auto pb-1">
-              <span className="text-slate-700 font-bold shrink-0">Quick:</span>
+              <span className="text-slate-700 font-bold shrink-0">{t("quickSamples")}</span>
               <button
                 type="button"
                 onClick={() => handleQuickDesired(93)}
@@ -216,11 +212,8 @@ export default function FinalGradeCalculator({
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <label htmlFor="examWeight" className="text-sm font-bold text-slate-800">
-                3. Final Exam Weight (%)
+                3. {t("examWeight")}
               </label>
-              <span className="text-xs font-semibold text-slate-600">
-                Syllabus Weight
-              </span>
             </div>
             <div className="relative">
               <input
@@ -232,7 +225,7 @@ export default function FinalGradeCalculator({
                 max="100"
                 value={examWeight}
                 onChange={(e) => setExamWeight(e.target.value)}
-                placeholder="e.g. 20 or 30"
+                placeholder="20"
                 className="w-full px-4 py-3 text-base sm:text-lg font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
               <span className="absolute right-4 top-3 text-slate-500 font-bold text-base sm:text-lg">%</span>
@@ -252,9 +245,9 @@ export default function FinalGradeCalculator({
         <div className="lg:col-span-6 flex flex-col justify-between bg-gradient-to-b from-indigo-50/50 via-slate-50 to-slate-100/80 rounded-2xl p-5 sm:p-6 border border-indigo-100">
           <div>
             <div className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3 flex items-center justify-between">
-              <span>Required Exam Score</span>
+              <span>{t("scoreNeeded")}</span>
               <span className="text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded text-[11px] font-semibold flex items-center gap-1">
-                <CheckCircle2 className="w-3 h-3" /> Instant
+                <CheckCircle2 className="w-3 h-3" /> Live
               </span>
             </div>
 
@@ -262,7 +255,7 @@ export default function FinalGradeCalculator({
             {result ? (
               <div className="bg-white rounded-2xl p-5 sm:p-6 border border-indigo-100 shadow-sm text-center mb-4">
                 <div className="text-xs font-bold text-slate-600 uppercase tracking-wider mb-1">
-                  You Need on Final Exam
+                  {t("scoreNeeded")}
                 </div>
                 <div
                   className={`text-5xl sm:text-6xl font-black tracking-tight ${

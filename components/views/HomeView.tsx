@@ -84,12 +84,12 @@ export default function HomeView({ locale: propLocale }: HomeViewProps) {
 
   const tocItems = [
     { id: "calculator", label: `${localizedBrandName} (Interactive)` },
-    { id: "how-it-works", label: "How GradeCalculator.dev Works" },
-    { id: "popular-tools", label: "Specialized Grade Tools" },
+    { id: "how-it-works", label: t("howItWorksTitle") },
+    { id: "popular-tools", label: t("popularToolsTitle") },
     { id: "grade-formulas", label: "Grade Calculation Formulas" },
-    { id: "grading-scale", label: "Standard Grading Scale" },
+    { id: "grading-scale", label: t("gradeScaleTitle") },
     { id: "benefits", label: "Why Students Trust Our Tool" },
-    { id: "faqs", label: "Frequently Asked Questions" },
+    { id: "faqs", label: t("faqTitle") },
   ];
 
   return (
@@ -146,10 +146,10 @@ export default function HomeView({ locale: propLocale }: HomeViewProps) {
               <span>Visual Workflow Guide</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-              How GradeCalculator.dev Works
+              {t("howItWorksTitle")}
             </h2>
             <p className="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
-              Calculate your grades, percentages, weighted averages, GPA, and final exam scores in just a few clicks.
+              {t("howItWorksSubtitle")}
             </p>
           </div>
 
@@ -178,9 +178,9 @@ export default function HomeView({ locale: propLocale }: HomeViewProps) {
               <div className="w-10 h-10 bg-indigo-600 text-white font-black rounded-xl flex items-center justify-center mb-3.5 text-base shadow-sm shadow-indigo-200">
                 1
               </div>
-              <h3 className="font-bold text-slate-900 text-base mb-1.5">1. Enter Your Assignments</h3>
+              <h3 className="font-bold text-slate-900 text-base mb-1.5">{t("step1Title")}</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Add your homework, quizzes, tests, and labs with points earned and total points possible.
+                {t("step1Desc")}
               </p>
             </div>
 
@@ -188,9 +188,9 @@ export default function HomeView({ locale: propLocale }: HomeViewProps) {
               <div className="w-10 h-10 bg-indigo-600 text-white font-black rounded-xl flex items-center justify-center mb-3.5 text-base shadow-sm shadow-indigo-200">
                 2
               </div>
-              <h3 className="font-bold text-slate-900 text-base mb-1.5">2. Choose Your Grading Scale</h3>
+              <h3 className="font-bold text-slate-900 text-base mb-1.5">{t("step2Title")}</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Choose standard plus/minus, 10-point, or custom percentage cutoffs matching your syllabus.
+                {t("step2Desc")}
               </p>
             </div>
 
@@ -198,9 +198,9 @@ export default function HomeView({ locale: propLocale }: HomeViewProps) {
               <div className="w-10 h-10 bg-indigo-600 text-white font-black rounded-xl flex items-center justify-center mb-3.5 text-base shadow-sm shadow-indigo-200">
                 3
               </div>
-              <h3 className="font-bold text-slate-900 text-base mb-1.5">3. Add Category Weights</h3>
+              <h3 className="font-bold text-slate-900 text-base mb-1.5">{t("step3Title")}</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Easily toggle weighted categories (e.g., Homework 20%, Exams 80%) for syllabus calculations.
+                {t("step3Desc")}
               </p>
             </div>
 
@@ -208,9 +208,9 @@ export default function HomeView({ locale: propLocale }: HomeViewProps) {
               <div className="w-10 h-10 bg-indigo-600 text-white font-black rounded-xl flex items-center justify-center mb-3.5 text-base shadow-sm shadow-indigo-200">
                 4
               </div>
-              <h3 className="font-bold text-slate-900 text-base mb-1.5">4. See Instant Results</h3>
+              <h3 className="font-bold text-slate-900 text-base mb-1.5">{t("step4Title")}</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                View real-time course percentage, letter grade, and 4.0 quality points calculated dynamically.
+                {t("step4Desc")}
               </p>
             </div>
 
@@ -218,9 +218,9 @@ export default function HomeView({ locale: propLocale }: HomeViewProps) {
               <div className="w-10 h-10 bg-indigo-600 text-white font-black rounded-xl flex items-center justify-center mb-3.5 text-base shadow-sm shadow-indigo-200">
                 5
               </div>
-              <h3 className="font-bold text-slate-900 text-base mb-1.5">5. Simulate Final Exam Needs</h3>
+              <h3 className="font-bold text-slate-900 text-base mb-1.5">{t("step5Title")}</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Find out the exact exam score required to pass or achieve your target final letter grade.
+                {t("step5Desc")}
               </p>
             </div>
 
@@ -228,9 +228,9 @@ export default function HomeView({ locale: propLocale }: HomeViewProps) {
               <div className="w-10 h-10 bg-indigo-600 text-white font-black rounded-xl flex items-center justify-center mb-3.5 text-base shadow-sm shadow-indigo-200">
                 6
               </div>
-              <h3 className="font-bold text-slate-900 text-base mb-1.5">6. Celebrate & Share Milestones</h3>
+              <h3 className="font-bold text-slate-900 text-base mb-1.5">{t("step6Title")}</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Generate an unofficial academic achievement certificate card to share your study milestones.
+                {t("step6Desc")}
               </p>
             </div>
           </div>
@@ -245,10 +245,10 @@ export default function HomeView({ locale: propLocale }: HomeViewProps) {
         <section id="grading-scale" className="space-y-6">
           <div className="text-center max-w-2xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-              Standard Academic Grading Scale
+              {t("gradeScaleTitle")}
             </h2>
             <p className="text-slate-600 text-sm mt-1">
-              Conversion table between percentage scores, letter grades, and 4.0 GPA quality points.
+              {t("gradeScaleSubtitle")}
             </p>
           </div>
           <GradeScaleTable />
@@ -264,7 +264,7 @@ export default function HomeView({ locale: propLocale }: HomeViewProps) {
 
         {/* FAQ Section */}
         <section id="faqs">
-          <FAQAccordion faqs={defaultHomeFaqs} title="Frequently Asked Questions" />
+          <FAQAccordion faqs={defaultHomeFaqs} title={t("faqTitle")} />
         </section>
       </div>
     </div>

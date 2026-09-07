@@ -148,6 +148,8 @@ export const TOOL_NAMES: Record<string, Record<string, string>> = {
   },
 };
 
+import { getTranslation } from "./translations";
+
 /**
  * Returns localized SEO metadata for any route slug and locale.
  */
@@ -186,10 +188,12 @@ export function getPageSeo(slug: string, locale: string): PageSeoConfig {
 
   // Localized Home
   if (slug === "home" || !slug) {
-    const nativeGradeCalc = TOOL_NAMES["grade-calculator"][locale] || "Grade Calculator";
+    const nativeGradeCalc = TOOL_NAMES["grade-calculator"][locale] || getTranslation(locale, "brand") || "Grade Calculator";
+    const tagline = getTranslation(locale, "tagline");
+    const footerDesc = getTranslation(locale, "footerDesc");
     return {
-      title: `${nativeGradeCalc} – ${langName}`,
-      description: `Calculadora y herramienta gratuita para calcular notas, porcentajes y GPA 4.0 al instante (${langName}). 100% privado y rápido.`,
+      title: `${nativeGradeCalc} – GradeCalculator.dev (${langName})`,
+      description: `${nativeGradeCalc}: ${tagline} ${footerDesc}`,
       keywords: [
         nativeGradeCalc.toLowerCase(),
         `${nativeGradeCalc.toLowerCase()} online`,
@@ -199,9 +203,10 @@ export function getPageSeo(slug: string, locale: string): PageSeoConfig {
   }
 
   // Localized Tool / Guide
+  const footerDesc = getTranslation(locale, "footerDesc");
   return {
     title: `${toolName} – GradeCalculator.dev (${langName})`,
-    description: `Utiliza nuestra herramienta gratuita ${toolName} para calcular tus resultados académicos al instante en ${langName}. Rápido, preciso y privado.`,
+    description: `${toolName} (${langName}) – ${footerDesc}`,
     keywords: [toolName.toLowerCase(), `${toolName.toLowerCase()} online`, "grade calculator"],
   };
 }
