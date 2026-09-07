@@ -37,29 +37,44 @@ export function I18nProvider({
   const router = useRouter();
 
   // Detect locale from URL path segment (e.g. /es/...) or fallback to initialLocale / default
-  const activeLocale = useMemo(() => {
-    if (!pathname) return initialLocale || DEFAULT_LOCALE;
-    const firstSegment = pathname.split("/").filter(Boolean)[0];
-    if (firstSegment && isValidLocale(firstSegment)) {
-      return firstSegment;
+  const detectedLocale = useMemo(() => {
+    if (typeof window !== "undefined" && window.location.pathname) {
+      const firstSegment = window.location.pathname.split("/").filter(Boolean)[0];
+      if (firstSegment && isValidLocale(firstSegment)) {
+        return firstSegment;
+      }
+    }
+    if (pathname) {
+      const firstSegment = pathname.split("/").filter(Boolean)[0];
+      if (firstSegment && isValidLocale(firstSegment)) {
+        return firstSegment;
+      }
     }
     return initialLocale || DEFAULT_LOCALE;
   }, [pathname, initialLocale]);
 
+  const [currentLocale, setCurrentLocale] = useState<string>(detectedLocale);
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const localeConfig = LOCALES[activeLocale] || LOCALES[DEFAULT_LOCALE];
-  const isRTL = checkIsRTL(activeLocale);
+  // Sync state if pathname or detectedLocale changes
+  useEffect(() => {
+    if (detectedLocale && detectedLocale !== currentLocale) {
+      setCurrentLocale(detectedLocale);
+    }
+  }, [detectedLocale]);
+
+  const localeConfig = LOCALES[currentLocale] || LOCALES[DEFAULT_LOCALE];
+  const isRTL = checkIsRTL(currentLocale);
   const dir = isRTL ? "rtl" : "ltr";
-  const translations = useMemo(() => getTranslations(activeLocale), [activeLocale]);
+  const translations = useMemo(() => getTranslations(currentLocale), [currentLocale]);
 
   // Synchronize document dir and lang attributes
   useEffect(() => {
     if (typeof document !== "undefined") {
-      document.documentElement.lang = activeLocale;
+      document.documentElement.lang = currentLocale;
       document.documentElement.dir = dir;
     }
-  }, [activeLocale, dir]);
+  }, [currentLocale, dir]);
 
   const t = (key: keyof Translations): string => {
     return translations[key] || "";
@@ -73,15 +88,27 @@ export function I18nProvider({
     } catch {
       // Ignore storage errors
     }
-    const targetPath = getLocalizedPath(pathname || "/", targetLocale);
-    router.push(targetPath);
+
+    // 1. Immediately update client-side React state so all UI strings re-render in targetLocale
+    setCurrentLocale(targetLocale);
     setModalOpen(false);
+
+    // 2. Compute the exact destination URL
+    const currentPath = (typeof window !== "undefined" ? window.location.pathname : pathname) || "/";
+    const targetPath = getLocalizedPath(currentPath, targetLocale);
+
+    // 3. Navigate to the localized page URL
+    if (typeof window !== "undefined") {
+      window.location.href = targetPath;
+    } else {
+      router.push(targetPath);
+    }
   };
 
   return (
     <I18nContext.Provider
       value={{
-        locale: activeLocale,
+        locale: currentLocale,
         localeConfig,
         t,
         translations,

@@ -9,6 +9,11 @@ import {
   generateFAQSchema,
   generateBreadcrumbSchema,
 } from "@/lib/seo/schema";
+import { getTranslations } from "@/lib/i18n/translations";
+import {
+  getLocalizedSubpageFaqs,
+  getLocalizedHomeSummary,
+} from "@/lib/i18n/localizedContent";
 
 // Calculator components
 import GradeCalculator from "@/components/calculators/GradeCalculator";
@@ -18,7 +23,7 @@ import GPACalculator from "@/components/calculators/GPACalculator";
 import TestGradeCalculator from "@/components/calculators/TestGradeCalculator";
 import GradeScaleTable from "@/components/GradeScaleTable";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import FAQAccordion, { FAQItem } from "@/components/FAQAccordion";
+import FAQAccordion from "@/components/FAQAccordion";
 import RelatedCalculators from "@/components/RelatedCalculators";
 import SocialShare from "@/components/SocialShare";
 import SeoSummaryBox from "@/components/SeoSummaryBox";
@@ -93,6 +98,7 @@ export default async function LocalizedSubPage({
   }
 
   const currentLocale = isValidLocale(locale) ? locale : DEFAULT_LOCALE;
+  const t = getTranslations(currentLocale);
   const seo = getPageSeo(slug, currentLocale);
   const toolTitle = seo.title.split("–")[0].trim();
 
@@ -104,44 +110,29 @@ export default async function LocalizedSubPage({
   });
 
   const breadcrumbs = [
-    { name: "Home", url: `/${currentLocale}/` },
+    { name: t.brand, url: `/${currentLocale}/` },
     { name: toolTitle, url: `/${currentLocale}/${slug}/` },
   ];
 
-  const defaultFaqs: FAQItem[] = [
-    {
-      question: `How does the ${toolTitle} work?`,
-      answer:
-        "Enter your assignment grades, point values, or category weights. The calculator computes percentages, letter grades, and 4.0 GPA points in real time directly within your browser.",
-    },
-    {
-      question: "Is my academic data stored or shared?",
-      answer:
-        "No. All mathematical calculations run 100% client-side in your device's browser. We do not store, track, or share your academic grades or personal course data.",
-    },
-    {
-      question: "Can I customize the grading scale?",
-      answer:
-        "Yes. You can switch between standard plus/minus scales, 10-point scales, or custom percentage cutoffs matching your school syllabus.",
-    },
-  ];
+  const subFaqs = getLocalizedSubpageFaqs(slug, currentLocale, toolTitle);
+  const summary = getLocalizedHomeSummary(currentLocale, toolTitle);
 
   // Render matching interactive calculator component
   const renderCalculatorComponent = () => {
     switch (slug) {
       case "final-grade-calculator":
       case "grade-needed-calculator":
-        return <FinalGradeCalculator />;
+        return <FinalGradeCalculator title={toolTitle} subtitle={seo.description} />;
 
       case "weighted-grade-calculator":
       case "weighted-average-calculator":
-        return <WeightedGradeCalculator />;
+        return <WeightedGradeCalculator title={toolTitle} subtitle={seo.description} />;
 
       case "gpa-calculator":
       case "college-gpa-calculator":
       case "semester-gpa-calculator":
       case "high-school-gpa-calculator":
-        return <GPACalculator />;
+        return <GPACalculator title={toolTitle} subtitle={seo.description} />;
 
       case "test-grade-calculator":
         return <TestGradeCalculator />;
@@ -170,7 +161,7 @@ export default async function LocalizedSubPage({
                 href={`/${currentLocale}/grade-calculator/`}
                 className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm transition-colors shadow-sm"
               >
-                Open Grade Calculator
+                {t.gradeCalculator}
               </a>
             </div>
           </div>
@@ -182,7 +173,7 @@ export default async function LocalizedSubPage({
       case "average-grade-calculator":
       case "exam-grade-calculator":
       default:
-        return <GradeCalculator />;
+        return <GradeCalculator title={toolTitle} subtitle={seo.description} />;
     }
   };
 
@@ -198,7 +189,7 @@ export default async function LocalizedSubPage({
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(generateFAQSchema(defaultFaqs)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(generateFAQSchema(subFaqs)) }}
       />
 
       {/* Hero Header */}
@@ -225,20 +216,16 @@ export default async function LocalizedSubPage({
         <AdPlaceholder format="horizontal" slotId={`${slug}-banner`} />
 
         <SeoSummaryBox
-          title={`${toolTitle} Overview`}
+          title={`${toolTitle} – ${t.brand}`}
           quickAnswer={seo.description}
-          formula="Grade (%) = (Total Points Earned ÷ Total Points Possible) × 100"
-          keyTakeaways={[
-            "100% private, instant client-side calculation",
-            "Multi-language support across 39 languages",
-            "Custom grading scales and GPA quality point conversion",
-            "Mobile-friendly interface for phones, tablets, and desktops",
-          ]}
+          formula={summary.formula}
+          keyTakeaways={summary.keyTakeaways}
         />
 
         <section className="space-y-6">
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold text-slate-900">Standard Academic Grading Scale</h2>
+            <h2 className="text-2xl font-bold text-slate-900">{t.gradeScaleTitle}</h2>
+            <p className="text-slate-600 text-sm mt-1">{t.gradeScaleSubtitle}</p>
           </div>
           <GradeScaleTable />
         </section>
@@ -255,7 +242,7 @@ export default async function LocalizedSubPage({
         </div>
 
         <section>
-          <FAQAccordion faqs={defaultFaqs} title="Frequently Asked Questions" />
+          <FAQAccordion faqs={subFaqs} title={t.faqTitle} />
         </section>
       </div>
     </div>

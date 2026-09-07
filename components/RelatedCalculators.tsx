@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Calculator, ArrowRight, Percent, Award, BookOpen, Target, CheckCircle2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n/context";
 import { getLocalizedPath } from "@/lib/i18n/locales";
+import { TOOL_NAMES } from "@/lib/i18n/pageSeo";
 
 export interface CalculatorLinkItem {
   name: string;
@@ -151,32 +152,48 @@ export default function RelatedCalculators({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {tools.map((tool) => (
-          <Link
-            key={tool.href}
-            href={getLocalizedPath(tool.href, locale)}
-            className="group relative p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between"
-          >
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-bold text-indigo-900 uppercase tracking-wider bg-indigo-100/90 px-2 py-0.5 rounded">
-                  {tool.category || "Calculator"}
-                </span>
-                <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
+        {keysToUse.map((key) => {
+          const tool = ALL_TOOLS[key];
+          if (!tool) return null;
+          const localizedName = (TOOL_NAMES[key] && TOOL_NAMES[key][locale]) || tool.name;
+          const categoryLabel =
+            tool.category === "GPA"
+              ? t("gpa")
+              : tool.category === "Exams"
+              ? t("finalGrade")
+              : tool.category === "Weighted"
+              ? t("weighted")
+              : tool.category === "Guide"
+              ? t("howToCalculate")
+              : t("calculatorsMenu");
+
+          return (
+            <Link
+              key={tool.href}
+              href={getLocalizedPath(tool.href, locale)}
+              className="group relative p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-bold text-indigo-900 uppercase tracking-wider bg-indigo-100/90 px-2 py-0.5 rounded">
+                    {categoryLabel}
+                  </span>
+                  <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
+                </div>
+                <h3 className="font-bold text-slate-900 group-hover:text-indigo-600 text-base mb-1.5 transition-colors">
+                  {localizedName}
+                </h3>
+                <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                  {tool.description}
+                </p>
               </div>
-              <h3 className="font-bold text-slate-900 group-hover:text-indigo-600 text-base mb-1.5 transition-colors">
-                {tool.name}
-              </h3>
-              <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                {tool.description}
-              </p>
-            </div>
-            <div className="mt-4 text-xs font-bold text-indigo-700 flex items-center gap-1">
-              <span>Open Tool</span>
-              <span>&rarr;</span>
-            </div>
-          </Link>
-        ))}
+              <div className="mt-4 text-xs font-bold text-indigo-700 flex items-center gap-1">
+                <span>{t("calculateGrade") || t("calculate")}</span>
+                <span>&rarr;</span>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );
