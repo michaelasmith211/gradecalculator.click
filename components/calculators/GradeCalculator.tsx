@@ -13,10 +13,12 @@ import {
 } from "lucide-react";
 import { calculatePointsGrade, AssignmentItem } from "@/lib/calculations/grades";
 import { DEFAULT_GRADE_SCALE, GradeCutoff } from "@/lib/calculations/scales";
-import ScaleSettingsModal from "./ScaleSettingsModal";
-import GradeSocialCardStudio from "../GradeSocialCardStudio";
+import dynamic from "next/dynamic";
 import { trackEvent } from "@/lib/analytics";
 import { useI18n } from "@/lib/i18n/context";
+
+const ScaleSettingsModal = dynamic(() => import("./ScaleSettingsModal"), { ssr: false });
+const GradeSocialCardStudio = dynamic(() => import("../GradeSocialCardStudio"), { ssr: false });
 
 interface GradeCalculatorProps {
   initialAssignments?: AssignmentItem[];

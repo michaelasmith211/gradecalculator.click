@@ -4,6 +4,12 @@ import {
   generateWebApplicationSchema,
 } from "@/lib/seo/schema";
 import HomeView from "@/components/views/HomeView";
+import HeroHeader from "@/components/HeroHeader";
+import {
+  getLocalizedHomeSummary,
+  getLocalizedFigureCaption,
+  getLocalizedHomeFaqs,
+} from "@/lib/i18n/localizedContent";
 
 export const metadata = constructMetadata({
   title: "Grade Calculator – Calculate Your Grade & GPA Instantly",
@@ -32,13 +38,28 @@ export default function HomePage() {
     path: "/",
   });
 
+  const homeSummary = getLocalizedHomeSummary("en", "Grade Calculator");
+  const figureCaption = getLocalizedFigureCaption("en");
+  const homeFaqs = getLocalizedHomeFaqs("en");
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
       />
-      <HomeView />
+      <HomeView
+        locale="en"
+        homeSummary={homeSummary}
+        figureCaption={figureCaption}
+        homeFaqs={homeFaqs}
+        heroHeaderSlot={
+          <HeroHeader
+            title="Grade Calculator"
+            tagline="Calculate your grade, percentage, and 4.0 GPA instantly."
+          />
+        }
+      />
     </>
   );
 }

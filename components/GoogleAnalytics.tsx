@@ -1,42 +1,51 @@
 "use client";
 
-import React, { useEffect, Suspense } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import Script from "next/script";
 
 interface GoogleAnalyticsProps {
   measurementId: string;
 }
 
-function AnalyticsTracker({ measurementId }: GoogleAnalyticsProps) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+export default function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps) {
+  const [loadGa, setLoadGa] = useState(false);
 
   useEffect(() => {
-    if (!pathname || typeof window === "undefined" || !(window as any).gtag) return;
+    // Defer Google Analytics loading until browser is truly idle or user interacts
+    const enableGa = () => {
+      setLoadGa(true);
+      window.removeEventListener("scroll", enableGa);
+      window.removeEventListener("pointerdown", enableGa);
+      window.removeEventListener("keydown", enableGa);
+    };
 
-    const query = searchParams ? searchParams.toString() : "";
-    const url = query ? `${pathname}?${query}` : pathname;
+    window.addEventListener("scroll", enableGa, { passive: true });
+    window.addEventListener("pointerdown", enableGa, { passive: true });
+    window.addEventListener("keydown", enableGa, { passive: true });
 
-    // Send page_view event on every SPA route transition across all pages
-    (window as any).gtag("config", measurementId, {
-      page_path: url,
-      page_title: document.title,
-    });
-  }, [pathname, searchParams, measurementId]);
+    // Fallback: load after 4 seconds if completely idle
+    const timer = setTimeout(() => {
+      enableGa();
+    }, 4000);
 
-  return null;
-}
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", enableGa);
+      window.removeEventListener("pointerdown", enableGa);
+      window.removeEventListener("keydown", enableGa);
+    };
+  }, []);
 
-export default function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps) {
+  if (!loadGa) return null;
+
   return (
     <>
       {/* Official Google Analytics 4 (gtag.js) Script */}
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
-      <Script id="google-analytics-init" strategy="afterInteractive">
+      <Script id="google-analytics-init" strategy="lazyOnload">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
@@ -48,9 +57,6 @@ export default function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps)
           });
         `}
       </Script>
-      <Suspense fallback={null}>
-        <AnalyticsTracker measurementId={measurementId} />
-      </Suspense>
     </>
   );
 }

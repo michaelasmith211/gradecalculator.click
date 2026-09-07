@@ -15,9 +15,11 @@ import {
   Award,
   Globe,
 } from "lucide-react";
+import dynamic from "next/dynamic";
 import { useI18n } from "@/lib/i18n/context";
 import { getLocalizedPath } from "@/lib/i18n/locales";
-import LanguageSwitcherModal from "./LanguageSwitcherModal";
+
+const LanguageSwitcherModal = dynamic(() => import("./LanguageSwitcherModal"), { ssr: false });
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -185,7 +187,7 @@ export default function Header() {
               type="button"
               onClick={() => setLangModalOpen(true)}
               className="p-2 text-xs font-bold text-slate-700 bg-slate-100 rounded-lg flex items-center gap-1"
-              aria-label="Change Language"
+              aria-label={`${localeConfig.name} – ${t("selectLanguage")}`}
             >
               <Globe className="w-4 h-4 text-indigo-600" />
               <span className="max-w-[80px] truncate">{localeConfig.name}</span>

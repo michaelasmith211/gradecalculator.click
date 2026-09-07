@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { ShieldCheck, Cpu, Globe } from "lucide-react";
 import CookiePreferencesButton from "./CookiePreferencesButton";
+import dynamic from "next/dynamic";
 import { useI18n } from "@/lib/i18n/context";
 import { getLocalizedPath } from "@/lib/i18n/locales";
-import LanguageSwitcherModal from "./LanguageSwitcherModal";
+
+const LanguageSwitcherModal = dynamic(() => import("./LanguageSwitcherModal"), { ssr: false });
 
 // Official Social Media Channels
 export const SOCIAL_LINKS = [

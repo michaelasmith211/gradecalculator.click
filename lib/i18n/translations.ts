@@ -1,6 +1,3 @@
-import { column1Translations } from "./messages/column1";
-import { column2Translations } from "./messages/column2";
-import { column3Translations } from "./messages/column3";
 
 export interface Translations {
   // Brand & Header
@@ -223,13 +220,18 @@ export const enTranslations: Translations = {
   disclaimerText: "Disclaimer: Grade Calculator is designed for educational estimation purposes. Grading policies vary across individual schools, colleges, and professors.",
 };
 
-// Comprehensive 39-Language Dictionary Mapping
+// Client-side translation registry. Defaults to English ('en') for lightweight bundles.
 export const TRANSLATIONS: Record<string, Partial<Translations>> = {
   en: enTranslations,
-  ...column1Translations,
-  ...column2Translations,
-  ...column3Translations,
 };
+
+export function registerTranslations(locale: string, translations: Partial<Translations>) {
+  if (!TRANSLATIONS[locale]) {
+    TRANSLATIONS[locale] = translations;
+  } else {
+    Object.assign(TRANSLATIONS[locale]!, translations);
+  }
+}
 
 /**
  * Returns translation for a key in a given locale, falling back to English.
@@ -252,3 +254,4 @@ export function getTranslations(locale: string): Translations {
     ...locDict,
   };
 }
+

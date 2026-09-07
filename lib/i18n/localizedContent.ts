@@ -1,6 +1,7 @@
 import { FAQItem } from "@/components/FAQAccordion";
 import { TOOL_NAMES } from "./pageSeo";
-import { getTranslations, Translations } from "./translations";
+import { getServerTranslations } from "./translationsServer";
+import { Translations } from "./translations";
 
 export interface LocalizedSummary {
   quickAnswer: string;
@@ -12,7 +13,7 @@ export interface LocalizedSummary {
  * Returns localized SEO Summary Box content for the homepage in any language.
  */
 export function getLocalizedHomeSummary(locale: string, localizedBrandName: string): LocalizedSummary {
-  const t = getTranslations(locale);
+  const t = getServerTranslations(locale);
 
   const summaries: Record<string, LocalizedSummary> = {
     es: {
@@ -224,7 +225,7 @@ export function getLocalizedFigureCaption(locale: string): string {
  * Returns localized FAQs for the homepage.
  */
 export function getLocalizedHomeFaqs(locale: string): FAQItem[] {
-  const t = getTranslations(locale);
+  const t = getServerTranslations(locale);
 
   const localizedFaqSets: Record<string, FAQItem[]> = {
     es: [
@@ -644,7 +645,7 @@ export function getLocalizedSubpageFaqs(
   locale: string,
   toolTitle: string
 ): FAQItem[] {
-  const t = getTranslations(locale);
+  const t = getServerTranslations(locale);
 
   const subFaqs: Record<string, FAQItem[]> = {
     es: [

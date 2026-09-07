@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import GradeCalculator from "@/components/calculators/GradeCalculator";
 import GradeScaleTable from "@/components/GradeScaleTable";
@@ -16,37 +16,106 @@ import {
 } from "lucide-react";
 import { useI18n } from "@/lib/i18n/context";
 import { TOOL_NAMES } from "@/lib/i18n/pageSeo";
-import {
-  getLocalizedHomeSummary,
-  getLocalizedFigureCaption,
-  getLocalizedHomeFaqs,
-} from "@/lib/i18n/localizedContent";
+import { registerTranslations, Translations } from "@/lib/i18n/translations";
+
+export interface LocalizedSummary {
+  quickAnswer: string;
+  formula: string;
+  keyTakeaways: string[];
+}
+
+export interface HomeFaqItem {
+  question: string;
+  answer: string;
+  category?: string;
+}
+
+const DEFAULT_ENGLISH_SUMMARY: LocalizedSummary = {
+  quickAnswer:
+    "A grade calculator calculates your overall percentage, letter grade, and 4.0 GPA by dividing total earned points by total possible points, or by multiplying weighted category scores by their percentage weights.",
+  formula: "Grade (%) = (Total Points Earned ÷ Total Points Possible) × 100",
+  keyTakeaways: [
+    "Instant browser calculations with zero latency as you type",
+    "Customizable grade scales (standard plus/minus, 10-point, and custom cutoffs)",
+    "100% private in-browser computation with no data storage or sign-up",
+    "Available in 39 languages with instant localized calculations",
+  ],
+};
+
+const DEFAULT_FIGURE_CAPTION =
+  "Figure 1: Step-by-step workflow of GradeCalculator.dev showing assignment score entry, scale selection, weight configuration, live grade calculation, final exam planning, and milestone certificate creation.";
 
 interface HomeViewProps {
   locale?: string;
+  homeSummary?: LocalizedSummary;
+  figureCaption?: string;
+  homeFaqs?: HomeFaqItem[];
+  initialTranslations?: Partial<Translations>;
+  heroHeaderSlot?: React.ReactNode;
 }
 
-export default function HomeView({ locale: propLocale }: HomeViewProps) {
+export default function HomeView({
+  locale: propLocale,
+  homeSummary: propHomeSummary,
+  figureCaption: propFigureCaption,
+  homeFaqs: propHomeFaqs,
+  initialTranslations,
+  heroHeaderSlot,
+}: HomeViewProps) {
   const { locale: contextLocale, t } = useI18n();
   // Prioritize active context locale, fallback to propLocale or default
   const currentLocale = contextLocale || propLocale || "en";
+
+  if (propLocale && initialTranslations) {
+    registerTranslations(propLocale, initialTranslations);
+  }
 
   const localizedBrandName =
     (TOOL_NAMES["grade-calculator"] && TOOL_NAMES["grade-calculator"][currentLocale]) ||
     t("brand");
 
-  const homeSummary = useMemo(
-    () => getLocalizedHomeSummary(currentLocale, localizedBrandName),
-    [currentLocale, localizedBrandName]
-  );
-  const figureCaption = useMemo(
-    () => getLocalizedFigureCaption(currentLocale),
-    [currentLocale]
-  );
-  const homeFaqs = useMemo(
-    () => getLocalizedHomeFaqs(currentLocale),
-    [currentLocale]
-  );
+  const homeSummary = propHomeSummary || DEFAULT_ENGLISH_SUMMARY;
+  const figureCaption = propFigureCaption || DEFAULT_FIGURE_CAPTION;
+  const homeFaqs = propHomeFaqs || [
+    {
+      question: `${t("brand")} – ${t("howToCalculate")}?`,
+      answer: `${t("tagline")}\n1. ${t("step1Desc")}\n2. ${t("step2Desc")}\n3. ${t("step3Desc")}\n4. ${t("step4Desc")}`,
+    },
+    {
+      question: `${t("finalGradeCalculator")} – ${t("scoreNeeded")}?`,
+      answer: t("scoreNeededDesc"),
+    },
+    {
+      question: `${t("weightedGradeCalculator")} – ${t("category")} & ${t("weight")}?`,
+      answer: t("howItWorksSubtitle"),
+    },
+    {
+      question: `${t("gpaCalculator")} – ${t("cumulativeGpa")}?`,
+      answer: t("gradeScaleSubtitle"),
+    },
+    {
+      question: `${t("gradingScale")} & ${t("percentageRange")}?`,
+      answer: `${t("gradeScaleTitle")}: A (90-100%), B (80-89%), C (70-79%), D (60-69%), F (<60%).`,
+    },
+  ];
+
+  const [showInfographic, setShowInfographic] = useState(false);
+  const infographicRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!infographicRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShowInfographic(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px" }
+    );
+    observer.observe(infographicRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const tocItems = [
     { id: "calculator", label: `${localizedBrandName} (Interactive)` },
@@ -61,18 +130,20 @@ export default function HomeView({ locale: propLocale }: HomeViewProps) {
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-indigo-50/70 via-white to-slate-50/50 pt-10 pb-6 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-6">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-100/80 text-indigo-800 text-xs font-bold uppercase tracking-wider mb-3">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>{localizedBrandName} • 100% Private</span>
+          {heroHeaderSlot || (
+            <div className="text-center max-w-3xl mx-auto mb-6">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-100/80 text-indigo-800 text-xs font-bold uppercase tracking-wider mb-3">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>{localizedBrandName} • 100% Private</span>
+              </div>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                {localizedBrandName}
+              </h1>
+              <p className="mt-3 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+                {t("tagline")}
+              </p>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              {localizedBrandName}
-            </h1>
-            <p className="mt-3 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-              {t("tagline")}
-            </p>
-          </div>
+          )}
 
           {/* Above-the-fold Interactive Grade Calculator */}
           <div id="calculator">
@@ -114,17 +185,34 @@ export default function HomeView({ locale: propLocale }: HomeViewProps) {
 
           {/* Infographic */}
           <figure className="my-6 space-y-3">
-            <div className="overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-b from-slate-50 to-slate-100/90 p-2 sm:p-4 border border-slate-200/90 shadow-xl shadow-slate-100">
-              <img
-                src="/images/how-grade-calculator-works-step-by-step.png"
-                alt="How GradeCalculator.dev Works – Step-by-Step Grade, GPA, Weighted Average, and Final Exam Calculation Infographic"
-                title="How GradeCalculator.dev Works – 6-Step Grade & GPA Calculation Workflow"
-                width={1024}
-                height={576}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-auto rounded-xl sm:rounded-2xl object-contain shadow-sm"
-              />
+            <div ref={infographicRef} className="overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-b from-slate-50 to-slate-100/90 p-2 sm:p-4 border border-slate-200/90 shadow-xl shadow-slate-100 min-h-[180px]">
+              {showInfographic ? (
+                <img
+                  src="/images/how-grade-calculator-works-step-by-step-768w.webp"
+                  srcSet="/images/how-grade-calculator-works-step-by-step-480w.webp 480w, /images/how-grade-calculator-works-step-by-step-768w.webp 768w, /images/how-grade-calculator-works-step-by-step.webp 1024w"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 85vw, 1024px"
+                  alt="How GradeCalculator.dev Works – Step-by-Step Grade, GPA, Weighted Average, and Final Exam Calculation Infographic"
+                  title="How GradeCalculator.dev Works – 6-Step Grade & GPA Calculation Workflow"
+                  width={1024}
+                  height={576}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-auto rounded-xl sm:rounded-2xl object-contain shadow-sm"
+                />
+              ) : (
+                <div className="aspect-[16/9] w-full flex items-center justify-center text-slate-400 text-xs sm:text-sm font-medium">
+                  <span>How GradeCalculator.dev Works Step-by-Step Infographic</span>
+                </div>
+              )}
+              <noscript>
+                <img
+                  src="/images/how-grade-calculator-works-step-by-step-768w.webp"
+                  alt="How GradeCalculator.dev Works – Step-by-Step Grade, GPA, Weighted Average, and Final Exam Calculation Infographic"
+                  width={1024}
+                  height={576}
+                  className="w-full h-auto rounded-xl sm:rounded-2xl object-contain shadow-sm"
+                />
+              </noscript>
             </div>
             <figcaption className="text-center text-xs sm:text-sm text-slate-600 font-medium leading-relaxed max-w-3xl mx-auto">
               {figureCaption}

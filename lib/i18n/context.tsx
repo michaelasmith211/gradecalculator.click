@@ -10,7 +10,7 @@ import {
   isValidLocale,
   LocaleConfig,
 } from "./locales";
-import { getTranslations, Translations } from "./translations";
+import { getTranslations, registerTranslations, Translations } from "./translations";
 
 interface I18nContextType {
   locale: string;
@@ -29,10 +29,15 @@ const I18nContext = createContext<I18nContextType | null>(null);
 export function I18nProvider({
   children,
   initialLocale,
+  initialTranslations,
 }: {
   children: React.ReactNode;
   initialLocale?: string;
+  initialTranslations?: Partial<Translations>;
 }) {
+  if (initialLocale && initialTranslations) {
+    registerTranslations(initialLocale, initialTranslations);
+  }
   const pathname = usePathname();
   const router = useRouter();
 

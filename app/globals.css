@@ -27,6 +27,20 @@ body {
   outline-offset: 2px;
 }
 
+/* Fast font and layout rendering */
+h1, h2, h3, p {
+  text-rendering: optimizeSpeed;
+}
+
+/* Off-screen section layout deferral for instant initial render */
+#how-it-works,
+#popular-tools,
+#grading-scale,
+#faqs {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
 /* Custom smooth scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

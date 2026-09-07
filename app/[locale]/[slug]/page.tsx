@@ -9,7 +9,7 @@ import {
   generateFAQSchema,
   generateBreadcrumbSchema,
 } from "@/lib/seo/schema";
-import { getTranslations } from "@/lib/i18n/translations";
+import { getServerTranslations } from "@/lib/i18n/translationsServer";
 import {
   getLocalizedSubpageFaqs,
   getLocalizedHomeSummary,
@@ -98,7 +98,7 @@ export default async function LocalizedSubPage({
   }
 
   const currentLocale = isValidLocale(locale) ? locale : DEFAULT_LOCALE;
-  const t = getTranslations(currentLocale);
+  const t = getServerTranslations(currentLocale);
   const seo = getPageSeo(slug, currentLocale);
   const toolTitle = seo.title.split("–")[0].trim();
 

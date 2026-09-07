@@ -30,14 +30,37 @@ export default function CookieConsent() {
   useEffect(() => {
     setMounted(true);
     const stored = getStoredCookiePreferences();
-    if (!stored) {
-      // Delay opening banner slightly for smooth page entry
-      const timer = setTimeout(() => setShowBanner(true), 800);
-      return () => clearTimeout(timer);
-    } else {
+    if (stored) {
       setAnalyticsConsent(stored.analytics);
       setMarketingConsent(stored.marketing);
+      return;
     }
+
+    // Display consent banner upon user interaction or when idle, protecting initial LCP
+    let triggered = false;
+    const triggerBanner = () => {
+      if (triggered) return;
+      triggered = true;
+      setShowBanner(true);
+      window.removeEventListener("scroll", triggerBanner);
+      window.removeEventListener("pointerdown", triggerBanner);
+      window.removeEventListener("keydown", triggerBanner);
+    };
+
+    window.addEventListener("scroll", triggerBanner, { passive: true });
+    window.addEventListener("pointerdown", triggerBanner, { passive: true });
+    window.addEventListener("keydown", triggerBanner, { passive: true });
+
+    const timer = setTimeout(() => {
+      triggerBanner();
+    }, 4500);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", triggerBanner);
+      window.removeEventListener("pointerdown", triggerBanner);
+      window.removeEventListener("keydown", triggerBanner);
+    };
   }, []);
 
   // Listen for open cookie settings custom event

@@ -12,9 +12,11 @@ import {
   Share2,
 } from "lucide-react";
 import { calculateGPA, GPACourseItem } from "@/lib/calculations/gpa";
-import GradeSocialCardStudio from "../GradeSocialCardStudio";
+import dynamic from "next/dynamic";
 import { trackEvent } from "@/lib/analytics";
 import { useI18n } from "@/lib/i18n/context";
+
+const GradeSocialCardStudio = dynamic(() => import("../GradeSocialCardStudio"), { ssr: false });
 
 interface GPACalculatorProps {
   type?: "standard" | "college" | "semester" | "highschool";

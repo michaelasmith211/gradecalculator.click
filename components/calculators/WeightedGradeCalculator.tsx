@@ -13,9 +13,11 @@ import {
   Sparkles,
 } from "lucide-react";
 import { calculateWeightedGrade, WeightedCategoryItem } from "@/lib/calculations/grades";
-import GradeSocialCardStudio from "../GradeSocialCardStudio";
+import dynamic from "next/dynamic";
 import { trackEvent } from "@/lib/analytics";
 import { useI18n } from "@/lib/i18n/context";
+
+const GradeSocialCardStudio = dynamic(() => import("../GradeSocialCardStudio"), { ssr: false });
 
 interface WeightedGradeCalculatorProps {
   title?: string;

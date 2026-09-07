@@ -171,6 +171,7 @@ export default function RelatedCalculators({
             <Link
               key={tool.href}
               href={getLocalizedPath(tool.href, locale)}
+              prefetch={false}
               className="group relative p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div>
