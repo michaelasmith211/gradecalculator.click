@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { constructMetadata } from "@/lib/seo/metadata";
 import {
   generateWebApplicationSchema,
@@ -207,6 +208,29 @@ export default function FinalGradeCalculatorPage() {
             <li><strong>Calculate multiple scenarios:</strong> Know both your stretch target (e.g. A-) and your safety floor (e.g. maintaining a solid B).</li>
             <li><strong>Check for syllabus curve policies:</strong> Some professors replace a lower midterm score with a higher final exam grade.</li>
           </ul>
+        </div>
+
+        {/* Contextual Internal Links */}
+        <div className="p-4 sm:p-5 bg-indigo-50/70 border border-indigo-100 rounded-xl space-y-2 text-xs sm:text-sm text-slate-700 leading-relaxed">
+          <h4 className="font-bold text-slate-900 text-sm sm:text-base">Related Grading Calculators</h4>
+          <p>
+            • To determine your exact overall coursework score before calculating your final exam goal, use our{" "}
+            <Link href="/grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+              Standard Grade Calculator
+            </Link>.
+          </p>
+          <p>
+            • To find the arithmetic average or mean of past tests, quizzes, and homework scores, use our{" "}
+            <Link href="/average-grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+              Average Grade Calculator
+            </Link>.
+          </p>
+          <p>
+            • Looking for an instant grading chart with percentage conversions for individual test papers? Check out our{" "}
+            <Link href="/test-grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+              Test Grade Calculator &amp; Easy Grader
+            </Link>.
+          </p>
         </div>
       </section>
 

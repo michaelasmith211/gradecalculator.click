@@ -190,6 +190,16 @@ export default function HowToCalculateGradesPage() {
             0.88947 &times; 100 = <strong>88.95%</strong> (Letter Grade: <strong className="text-indigo-600">B+</strong>).
           </li>
         </ol>
+        <p className="text-xs text-slate-600 leading-relaxed pt-2">
+          Want to run this calculation without manual math? Use our interactive{" "}
+          <Link href="/grade-calculator" className="text-indigo-600 font-bold underline">
+            Standard Grade Calculator
+          </Link>{" "}
+          or calculate the arithmetic mean of multiple assignments using our{" "}
+          <Link href="/average-grade-calculator" className="text-indigo-600 font-bold underline">
+            Average Grade Calculator
+          </Link>.
+        </p>
       </section>
 
       {/* Section 2: Weighted Grading */}
@@ -273,7 +283,7 @@ export default function HowToCalculateGradesPage() {
         </div>
 
         <p className="text-xs text-slate-600 leading-relaxed">
-          Use our interactive <Link href="/final-grade-calculator" className="text-indigo-600 font-bold underline">Final Grade Calculator</Link> to run this formula automatically with customized what-if scenarios.
+          Use our interactive <Link href="/final-grade-calculator" className="text-indigo-600 font-bold underline">Final Grade Calculator</Link> to run this formula automatically with customized what-if scenarios, or check out the <Link href="/test-grade-calculator" className="text-indigo-600 font-bold underline">Test Grade Calculator &amp; Easy Grader</Link> to view instant grading charts for any number of exam questions.
         </p>
       </section>
 

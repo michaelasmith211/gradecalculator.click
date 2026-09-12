@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { constructMetadata } from "@/lib/seo/metadata";
 import {
   generateWebApplicationSchema,
@@ -212,6 +213,30 @@ export default function WeightedGradeCalculatorPage() {
           </p>
           <p className="text-xs text-slate-600 leading-relaxed">
             Our tool automatically handles this normalization so your current grade always reflects your true classroom standing.
+          </p>
+        </div>
+
+        {/* Contextual Internal Links */}
+        <div className="p-4 sm:p-5 bg-indigo-50/70 border border-indigo-100 rounded-xl space-y-2 text-xs sm:text-sm text-slate-700 leading-relaxed">
+          <h4 className="font-bold text-slate-900 text-sm sm:text-base">Related Grading Calculators</h4>
+          <p>
+            • If your course is graded by accumulated points rather than weighted percentages, switch to the{" "}
+            <Link href="/grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+              Standard Grade Calculator
+            </Link>.
+          </p>
+          <p>
+            • To find the arithmetic average of several assignments within a single category before entering its weight, use the{" "}
+            <Link href="/average-grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+              Average Grade Calculator
+            </Link>.
+          </p>
+          <p>
+            • Grading individual quizzes or tests? Use our quick{" "}
+            <Link href="/test-grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+              Test Grade Calculator &amp; Easy Grader
+            </Link>{" "}
+            for instant score conversion charts.
           </p>
         </div>
       </section>

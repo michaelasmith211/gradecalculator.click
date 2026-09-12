@@ -15,6 +15,7 @@ import {
   BookOpen,
 } from "lucide-react";
 import { useI18n } from "@/lib/i18n/context";
+import { getLocalizedPath } from "@/lib/i18n/locales";
 import { TOOL_NAMES } from "@/lib/i18n/pageSeo";
 import { registerTranslations, Translations } from "@/lib/i18n/translations";
 
@@ -281,11 +282,85 @@ export default function HomeView({
               </p>
             </div>
           </div>
+
+          {/* Contextual In-Content Linking to Core Calculators */}
+          <div className="mt-8 p-6 sm:p-8 bg-gradient-to-br from-indigo-50/80 via-white to-slate-50 border border-indigo-100/80 rounded-2xl shadow-xs">
+            <h3 className="text-lg font-bold text-slate-900 mb-2">
+              Looking for Specialized Grading Calculators?
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 mb-5 leading-relaxed">
+              Explore our dedicated academic tools designed for specific grading methods, statistical score distributions, and quick test grading:
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <Link
+                href={getLocalizedPath("/grade-calculator", currentLocale)}
+                prefetch={false}
+                className="p-4 bg-white rounded-xl border border-slate-200 hover:border-indigo-400 hover:shadow-md transition-all group flex flex-col justify-between"
+              >
+                <div>
+                  <span className="text-[11px] font-bold text-indigo-700 uppercase tracking-wider bg-indigo-50 px-2 py-0.5 rounded">
+                    Core Tool
+                  </span>
+                  <h4 className="font-bold text-sm text-slate-900 group-hover:text-indigo-600 transition-colors mt-2">
+                    Standard Grade Calculator
+                  </h4>
+                  <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
+                    Detailed points-based grade computation for coursework, homework assignments, and lab reports.
+                  </p>
+                </div>
+                <span className="text-xs font-semibold text-indigo-600 mt-3 flex items-center gap-1">
+                  Open Calculator &rarr;
+                </span>
+              </Link>
+
+              <Link
+                href={getLocalizedPath("/average-grade-calculator", currentLocale)}
+                prefetch={false}
+                className="p-4 bg-white rounded-xl border border-slate-200 hover:border-indigo-400 hover:shadow-md transition-all group flex flex-col justify-between"
+              >
+                <div>
+                  <span className="text-[11px] font-bold text-indigo-700 uppercase tracking-wider bg-indigo-50 px-2 py-0.5 rounded">
+                    Averages &amp; Mean
+                  </span>
+                  <h4 className="font-bold text-sm text-slate-900 group-hover:text-indigo-600 transition-colors mt-2">
+                    Average Grade Calculator
+                  </h4>
+                  <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
+                    Calculate arithmetic mean, median, highest, and lowest scores with instant comma-separated paste.
+                  </p>
+                </div>
+                <span className="text-xs font-semibold text-indigo-600 mt-3 flex items-center gap-1">
+                  Open Calculator &rarr;
+                </span>
+              </Link>
+
+              <Link
+                href={getLocalizedPath("/test-grade-calculator", currentLocale)}
+                prefetch={false}
+                className="p-4 bg-white rounded-xl border border-slate-200 hover:border-indigo-400 hover:shadow-md transition-all group flex flex-col justify-between"
+              >
+                <div>
+                  <span className="text-[11px] font-bold text-indigo-700 uppercase tracking-wider bg-indigo-50 px-2 py-0.5 rounded">
+                    Test Scoring
+                  </span>
+                  <h4 className="font-bold text-sm text-slate-900 group-hover:text-indigo-600 transition-colors mt-2">
+                    Test Grade Calculator
+                  </h4>
+                  <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
+                    Easy Grader scoring chart and instant test percentage conversions for teachers and students.
+                  </p>
+                </div>
+                <span className="text-xs font-semibold text-indigo-600 mt-3 flex items-center gap-1">
+                  Open Calculator &rarr;
+                </span>
+              </Link>
+            </div>
+          </div>
         </section>
 
         {/* Specialized Tools Grid */}
         <section id="popular-tools" className="space-y-6">
-          <RelatedCalculators currentKey="grade-calculator" />
+          <RelatedCalculators currentKey="home" />
         </section>
 
         {/* Grade Scale Reference */}

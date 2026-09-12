@@ -224,6 +224,29 @@ export default function GPACalculatorPage() {
             Cumulative GPA = (Prior Quality Points + Term Quality Points) &divide; (Prior Credits + Term Credits)
           </div>
         </div>
+
+        {/* Contextual Internal Links */}
+        <div className="p-4 sm:p-5 bg-indigo-50/70 border border-indigo-100 rounded-xl space-y-2 text-xs sm:text-sm text-slate-700 leading-relaxed">
+          <h4 className="font-bold text-slate-900 text-sm sm:text-base">Related Academic Grading Calculators</h4>
+          <p>
+            • Need to calculate individual course grades and letter benchmarks before calculating your GPA? Use our{" "}
+            <Link href="/grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+              Standard Grade Calculator
+            </Link>.
+          </p>
+          <p>
+            • To determine the arithmetic mean or average of multiple class grades, try our{" "}
+            <Link href="/average-grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+              Average Grade Calculator
+            </Link>.
+          </p>
+          <p>
+            • For quick quiz or test paper scoring and letter grade cutoffs, visit our{" "}
+            <Link href="/test-grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+              Test Grade Calculator &amp; Easy Grader
+            </Link>.
+          </p>
+        </div>
       </section>
 
       {/* FAQs */}

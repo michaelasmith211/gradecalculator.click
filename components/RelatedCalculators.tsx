@@ -131,14 +131,15 @@ export default function RelatedCalculators({
   const resolvedTitle = title || t("popularToolsTitle");
   const resolvedSubtitle = subtitle || t("popularToolsSubtitle");
 
-  // Default recommendations if none provided
+  // Default recommendations if none provided (prioritizing high-traffic core tools)
   const defaultList = [
+    "grade-calculator",
     "final-grade-calculator",
     "weighted-grade-calculator",
     "gpa-calculator",
-    "grade-needed-calculator",
-    "test-grade-calculator",
     "average-grade-calculator",
+    "test-grade-calculator",
+    "grade-needed-calculator",
   ].filter((key) => key !== currentKey);
 
   const keysToUse = (recommendedKeys || defaultList).filter((k) => k !== currentKey).slice(0, 6);

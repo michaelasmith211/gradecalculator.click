@@ -8,21 +8,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
   const routes = [
-    // Core Tools (Priority 1.0 - 0.9)
+    // High-Priority Core Tools (Priority 1.0 - 0.9)
     { path: "", priority: 1.0, changeFrequency: "daily" as const },
-    { path: "/grade-calculator", priority: 0.95, changeFrequency: "daily" as const },
-    { path: "/final-grade-calculator", priority: 0.95, changeFrequency: "daily" as const },
-    { path: "/weighted-grade-calculator", priority: 0.95, changeFrequency: "daily" as const },
-    { path: "/gpa-calculator", priority: 0.95, changeFrequency: "daily" as const },
+    { path: "/grade-calculator", priority: 0.9, changeFrequency: "daily" as const },
+    { path: "/average-grade-calculator", priority: 0.9, changeFrequency: "daily" as const },
+    { path: "/test-grade-calculator", priority: 0.9, changeFrequency: "daily" as const },
+    { path: "/final-grade-calculator", priority: 0.9, changeFrequency: "daily" as const },
+    { path: "/weighted-grade-calculator", priority: 0.9, changeFrequency: "daily" as const },
+    { path: "/gpa-calculator", priority: 0.9, changeFrequency: "daily" as const },
 
     // Sub-Calculators (Priority 0.85 - 0.8)
     { path: "/semester-gpa-calculator", priority: 0.85, changeFrequency: "weekly" as const },
     { path: "/college-gpa-calculator", priority: 0.85, changeFrequency: "weekly" as const },
     { path: "/high-school-gpa-calculator", priority: 0.85, changeFrequency: "weekly" as const },
-    { path: "/average-grade-calculator", priority: 0.85, changeFrequency: "weekly" as const },
     { path: "/percentage-grade-calculator", priority: 0.85, changeFrequency: "weekly" as const },
     { path: "/grade-needed-calculator", priority: 0.85, changeFrequency: "weekly" as const },
-    { path: "/test-grade-calculator", priority: 0.85, changeFrequency: "weekly" as const },
     { path: "/exam-grade-calculator", priority: 0.85, changeFrequency: "weekly" as const },
     { path: "/weighted-average-calculator", priority: 0.85, changeFrequency: "weekly" as const },
     { path: "/points-grade-calculator", priority: 0.85, changeFrequency: "weekly" as const },
