@@ -78,17 +78,18 @@ export function generateWebApplicationSchema({
   reviewCount?: string;
   features?: string[];
 }) {
-  const url = `${SITE_URL}${path === "/" ? "" : path}`;
+  const formattedPath = path === "/" ? "/" : (path.endsWith("/") ? path : `${path}/`);
+  const url = `${SITE_URL}${formattedPath}`;
 
   return {
     "@context": "https://schema.org",
-    "@type": ["WebApplication", "SoftwareApplication"],
-    "@id": `${url}#app`,
+    "@type": "WebApplication",
+    "@id": `${url}#webapp`,
     name: `${name} - ${SITE_NAME}`,
     url: url,
     description: description,
     applicationCategory: applicationCategory,
-    operatingSystem: "All (Web Browser, iOS, Android, macOS, Windows, Linux, ChromeOS)",
+    operatingSystem: "All (Web Browser)",
     browserRequirements: "Requires JavaScript. Requires HTML5.",
     softwareVersion: "2.0.0",
     offers: {

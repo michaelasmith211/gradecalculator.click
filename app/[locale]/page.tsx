@@ -62,6 +62,7 @@ export default async function LocalizedHomePage({
   const homeSummary = getLocalizedHomeSummary(currentLocale, localizedBrandName);
   const figureCaption = getLocalizedFigureCaption(currentLocale);
   const homeFaqs = getLocalizedHomeFaqs(currentLocale);
+  const faqSchema = generateFAQSchema(homeFaqs);
   const localeTranslations = getServerTranslations(currentLocale);
 
   return (
@@ -69,6 +70,10 @@ export default async function LocalizedHomePage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <HomeView
         locale={currentLocale}

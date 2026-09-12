@@ -2,6 +2,7 @@ import React from "react";
 import { constructMetadata } from "@/lib/seo/metadata";
 import {
   generateWebApplicationSchema,
+  generateFAQSchema,
 } from "@/lib/seo/schema";
 import HomeView from "@/components/views/HomeView";
 import HeroHeader from "@/components/HeroHeader";
@@ -41,12 +42,17 @@ export default function HomePage() {
   const homeSummary = getLocalizedHomeSummary("en", "Grade Calculator");
   const figureCaption = getLocalizedFigureCaption("en");
   const homeFaqs = getLocalizedHomeFaqs("en");
+  const faqSchema = generateFAQSchema(homeFaqs);
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <HomeView
         locale="en"
