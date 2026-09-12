@@ -55,6 +55,7 @@ export function constructMetadata({
   const currentOgLocale = (LOCALES[locale] && LOCALES[locale].ogLocale) || "en_US";
 
   return {
+    metadataBase: new URL(SITE_URL),
     title: formattedTitle,
     description,
     keywords: [

@@ -45,6 +45,14 @@ jobs:
           publish_dir: ./out
           cname: gradecalculator.dev
 
+      - name: Enforce HTTPS on GitHub Pages
+        run: |
+          curl -s -X PUT \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/${{ github.repository }}/pages \
+            -d '{"cname":"gradecalculator.dev","https_enforced":true}' || true
+
       - name: Upload artifact for GitHub Actions Pages
         uses: actions/upload-pages-artifact@v3
         with:

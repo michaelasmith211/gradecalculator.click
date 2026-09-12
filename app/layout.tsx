@@ -67,6 +67,22 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        {/* Strict HTTP-to-HTTPS Redirection & Insecure Request Upgrade */}
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  if (typeof window !== 'undefined' && window.location.protocol === 'http:' && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')) {
+                    window.location.replace('https://' + window.location.hostname + window.location.pathname + window.location.search + window.location.hash);
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
+
         {/* Immediate client-side HTML lang & dir configuration */}
         <script
           dangerouslySetInnerHTML={{
