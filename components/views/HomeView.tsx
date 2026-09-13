@@ -119,7 +119,7 @@ export default function HomeView({
   }, []);
 
   const tocItems = [
-    { id: "calculator", label: `${localizedBrandName} (Interactive)` },
+    { id: "calculator", label: localizedBrandName },
     { id: "how-it-works", label: t("howItWorksTitle") },
     { id: "popular-tools", label: t("popularToolsTitle") },
     { id: "grading-scale", label: t("gradeScaleTitle") },
@@ -157,14 +157,14 @@ export default function HomeView({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
         {/* On-Page SEO Summary Box */}
         <SeoSummaryBox
-          title={`${localizedBrandName} Key Takeaways`}
+          title={`${localizedBrandName} – ${t("howItWorksTitle")}`}
           quickAnswer={homeSummary.quickAnswer}
           formula={homeSummary.formula}
           keyTakeaways={homeSummary.keyTakeaways}
         />
 
         {/* Quick Jump Navigation */}
-        <TableOfContents items={tocItems} title="On This Page" />
+        <TableOfContents items={tocItems} title={t("toolsMenu")} />
 
         {/* Ad Placeholder 1 */}
         <AdPlaceholder format="horizontal" slotId="home-top-banner" />
@@ -286,10 +286,10 @@ export default function HomeView({
           {/* Contextual In-Content Linking to Core Calculators */}
           <div className="mt-8 p-6 sm:p-8 bg-gradient-to-br from-indigo-50/80 via-white to-slate-50 border border-indigo-100/80 rounded-2xl shadow-xs">
             <h3 className="text-lg font-bold text-slate-900 mb-2">
-              Looking for Specialized Grading Calculators?
+              {t("popularToolsTitle")}
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 mb-5 leading-relaxed">
-              Explore our dedicated academic tools designed for specific grading methods, statistical score distributions, and quick test grading:
+              {t("popularToolsSubtitle")}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <Link
@@ -299,17 +299,17 @@ export default function HomeView({
               >
                 <div>
                   <span className="text-[11px] font-bold text-indigo-700 uppercase tracking-wider bg-indigo-50 px-2 py-0.5 rounded">
-                    Core Tool
+                    {t("gradeCalculator")}
                   </span>
                   <h4 className="font-bold text-sm text-slate-900 group-hover:text-indigo-600 transition-colors mt-2">
-                    Standard Grade Calculator
+                    {(TOOL_NAMES["grade-calculator"] && TOOL_NAMES["grade-calculator"][currentLocale]) || t("gradeCalculator")}
                   </h4>
                   <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
-                    Detailed points-based grade computation for coursework, homework assignments, and lab reports.
+                    {t("step1Desc")}
                   </p>
                 </div>
                 <span className="text-xs font-semibold text-indigo-600 mt-3 flex items-center gap-1">
-                  Open Calculator &rarr;
+                  {t("calculateGrade") || t("calculate")} &rarr;
                 </span>
               </Link>
 
@@ -320,17 +320,17 @@ export default function HomeView({
               >
                 <div>
                   <span className="text-[11px] font-bold text-indigo-700 uppercase tracking-wider bg-indigo-50 px-2 py-0.5 rounded">
-                    Averages &amp; Mean
+                    {t("averageGradeCalculator")}
                   </span>
                   <h4 className="font-bold text-sm text-slate-900 group-hover:text-indigo-600 transition-colors mt-2">
-                    Average Grade Calculator
+                    {(TOOL_NAMES["average-grade-calculator"] && TOOL_NAMES["average-grade-calculator"][currentLocale]) || t("averageGradeCalculator")}
                   </h4>
                   <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
-                    Calculate arithmetic mean, median, highest, and lowest scores with instant comma-separated paste.
+                    {t("step4Desc")}
                   </p>
                 </div>
                 <span className="text-xs font-semibold text-indigo-600 mt-3 flex items-center gap-1">
-                  Open Calculator &rarr;
+                  {t("calculateGrade") || t("calculate")} &rarr;
                 </span>
               </Link>
 
@@ -341,17 +341,17 @@ export default function HomeView({
               >
                 <div>
                   <span className="text-[11px] font-bold text-indigo-700 uppercase tracking-wider bg-indigo-50 px-2 py-0.5 rounded">
-                    Test Scoring
+                    {t("testGradeCalculator")}
                   </span>
                   <h4 className="font-bold text-sm text-slate-900 group-hover:text-indigo-600 transition-colors mt-2">
-                    Test Grade Calculator
+                    {(TOOL_NAMES["test-grade-calculator"] && TOOL_NAMES["test-grade-calculator"][currentLocale]) || t("testGradeCalculator")}
                   </h4>
                   <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
-                    Easy Grader scoring chart and instant test percentage conversions for teachers and students.
+                    {t("step5Desc")}
                   </p>
                 </div>
                 <span className="text-xs font-semibold text-indigo-600 mt-3 flex items-center gap-1">
-                  Open Calculator &rarr;
+                  {t("calculateGrade") || t("calculate")} &rarr;
                 </span>
               </Link>
             </div>

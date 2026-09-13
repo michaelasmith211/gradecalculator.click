@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { X, Search, Globe, Check, ArrowRight } from "lucide-react";
 import { LOCALES, LocaleConfig, isRTL, DEFAULT_LOCALE } from "@/lib/i18n/locales";
 import { useI18n } from "@/lib/i18n/context";
@@ -16,6 +17,11 @@ export default function LanguageSwitcherModal({
 }: LanguageSwitcherModalProps) {
   const { locale, switchLanguage, t } = useI18n();
   const [searchQuery, setSearchQuery] = useState("");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Close on Escape key
   useEffect(() => {
@@ -52,7 +58,7 @@ export default function LanguageSwitcherModal({
   const column2 = useMemo(() => filteredLocales.filter((l) => l.column === 2), [filteredLocales]);
   const column3 = useMemo(() => filteredLocales.filter((l) => l.column === 3), [filteredLocales]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
   const renderLocaleItem = (l: LocaleConfig) => {
     const isSelected = l.code === locale;
@@ -103,13 +109,13 @@ export default function LanguageSwitcherModal({
     );
   };
 
-  return (
+  return createPortal(
     <div
       onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto"
     >
       <div
-        className="bg-white w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in zoom-in-95 duration-200"
+        className="bg-white w-full max-w-4xl max-h-[85vh] sm:max-h-[90vh] my-auto rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -207,6 +213,7 @@ export default function LanguageSwitcherModal({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

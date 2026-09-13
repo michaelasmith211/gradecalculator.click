@@ -10,7 +10,13 @@ import {
   isValidLocale,
   LocaleConfig,
 } from "./locales";
-import { getTranslations, registerTranslations, Translations } from "./translations";
+import {
+  getTranslations,
+  registerTranslations,
+  loadLocaleTranslations,
+  TRANSLATIONS,
+  Translations,
+} from "./translations";
 
 interface I18nContextType {
   locale: string;
@@ -59,6 +65,7 @@ export function I18nProvider({
   }, [pathname, initialLocale]);
 
   const [currentLocale, setCurrentLocale] = useState<string>(detectedLocale);
+  const [translationVersion, setTranslationVersion] = useState(0);
   const [isModalOpen, setModalOpen] = useState(false);
 
   // Sync state if pathname or detectedLocale changes
@@ -68,10 +75,26 @@ export function I18nProvider({
     }
   }, [detectedLocale]);
 
+  // Dynamically load translation chunk if active locale translations are not yet registered
+  useEffect(() => {
+    if (
+      currentLocale &&
+      currentLocale !== "en" &&
+      (!TRANSLATIONS[currentLocale] || Object.keys(TRANSLATIONS[currentLocale]!).length <= 5)
+    ) {
+      loadLocaleTranslations(currentLocale).then(() => {
+        setTranslationVersion((v) => v + 1);
+      });
+    }
+  }, [currentLocale]);
+
   const localeConfig = LOCALES[currentLocale] || LOCALES[DEFAULT_LOCALE];
   const isRTL = checkIsRTL(currentLocale);
   const dir = isRTL ? "rtl" : "ltr";
-  const translations = useMemo(() => getTranslations(currentLocale), [currentLocale]);
+  const translations = useMemo(
+    () => getTranslations(currentLocale),
+    [currentLocale, translationVersion]
+  );
 
   // Synchronize document dir and lang attributes
   useEffect(() => {
@@ -98,11 +121,14 @@ export function I18nProvider({
     setCurrentLocale(targetLocale);
     setModalOpen(false);
 
-    // 2. Compute the exact destination URL
+    // 2. Trigger on-demand chunk load
+    loadLocaleTranslations(targetLocale);
+
+    // 3. Compute the exact destination URL
     const currentPath = (typeof window !== "undefined" ? window.location.pathname : pathname) || "/";
     const targetPath = getLocalizedPath(currentPath, targetLocale);
 
-    // 3. Navigate to the localized page URL
+    // 4. Navigate to the localized page URL
     if (typeof window !== "undefined") {
       window.location.href = targetPath;
     } else {

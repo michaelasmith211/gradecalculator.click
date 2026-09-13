@@ -255,3 +255,38 @@ export function getTranslations(locale: string): Translations {
   };
 }
 
+/**
+ * Asynchronously loads translations for a given locale on-demand via dynamic chunk loading.
+ */
+export async function loadLocaleTranslations(locale: string): Promise<Translations> {
+  if (locale === "en" || !locale) return enTranslations;
+  if (TRANSLATIONS[locale] && Object.keys(TRANSLATIONS[locale]!).length > 5) {
+    return getTranslations(locale);
+  }
+
+  try {
+    const { LOCALES } = await import("./locales");
+    const conf = LOCALES[locale];
+    if (conf?.column === 1) {
+      const { column1Translations } = await import("./messages/column1");
+      if (column1Translations[locale]) {
+        registerTranslations(locale, column1Translations[locale]);
+      }
+    } else if (conf?.column === 2) {
+      const { column2Translations } = await import("./messages/column2");
+      if (column2Translations[locale]) {
+        registerTranslations(locale, column2Translations[locale]);
+      }
+    } else if (conf?.column === 3) {
+      const { column3Translations } = await import("./messages/column3");
+      if (column3Translations[locale]) {
+        registerTranslations(locale, column3Translations[locale]);
+      }
+    }
+  } catch (err) {
+    // Dynamic import fallback
+  }
+
+  return getTranslations(locale);
+}
+

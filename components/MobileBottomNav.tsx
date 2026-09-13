@@ -13,10 +13,13 @@ import {
   Menu,
 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
+import { useI18n } from "@/lib/i18n/context";
+import { getLocalizedPath } from "@/lib/i18n/locales";
 
 export default function MobileBottomNav() {
   const pathname = usePathname();
   const [copied, setCopied] = useState(false);
+  const { locale, t } = useI18n();
 
   const isActive = (path: string) => {
     if (path === "/" && (pathname === "/" || pathname === "/grade-calculator")) return true;
@@ -51,30 +54,36 @@ export default function MobileBottomNav() {
     } catch (err) {}
   };
 
+  const gradePath = getLocalizedPath("/grade-calculator", locale);
+  const homePath = getLocalizedPath("/", locale);
+  const finalPath = getLocalizedPath("/final-grade-calculator", locale);
+  const weightedPath = getLocalizedPath("/weighted-grade-calculator", locale);
+  const gpaPath = getLocalizedPath("/gpa-calculator", locale);
+
   const navItems = [
     {
-      name: "Grade",
-      href: "/grade-calculator",
+      name: t("gradeCalculator") || "Grade",
+      href: gradePath,
       icon: Calculator,
-      active: isActive("/"),
+      active: pathname === gradePath || pathname === homePath,
     },
     {
-      name: "Final Exam",
-      href: "/final-grade-calculator",
+      name: t("finalGrade") || "Final Exam",
+      href: finalPath,
       icon: Target,
-      active: isActive("/final-grade-calculator"),
+      active: pathname === finalPath,
     },
     {
-      name: "Weighted",
-      href: "/weighted-grade-calculator",
+      name: t("weighted") || "Weighted",
+      href: weightedPath,
       icon: Percent,
-      active: isActive("/weighted-grade-calculator"),
+      active: pathname === weightedPath,
     },
     {
-      name: "4.0 GPA",
-      href: "/gpa-calculator",
+      name: t("gpaCalculator") || "4.0 GPA",
+      href: gpaPath,
       icon: GraduationCap,
-      active: isActive("/gpa-calculator"),
+      active: pathname === gpaPath,
     },
   ];
 

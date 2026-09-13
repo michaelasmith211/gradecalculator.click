@@ -1,9 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import MobileBottomNav from "@/components/MobileBottomNav";
-import CookieConsent from "@/components/CookieConsent";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { generateWebSiteSchema, generateOrganizationSchema } from "@/lib/seo/schema";
 
@@ -53,8 +49,6 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
-
-import { I18nProvider } from "@/lib/i18n/context";
 
 export default function RootLayout({
   children,
@@ -117,13 +111,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased text-slate-900 bg-slate-50/40 flex flex-col min-h-screen selection:bg-indigo-500 selection:text-white">
-        <I18nProvider>
-          <Header />
-          <main className="flex-grow pb-16 md:pb-0">{children}</main>
-          <Footer />
-          <MobileBottomNav />
-          <CookieConsent />
-        </I18nProvider>
+        {children}
       </body>
     </html>
   );

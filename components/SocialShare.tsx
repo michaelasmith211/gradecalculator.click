@@ -12,6 +12,7 @@ import {
   Mail,
 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
+import { useI18n } from "@/lib/i18n/context";
 
 interface SocialShareProps {
   title?: string;
@@ -28,6 +29,7 @@ export default function SocialShare({
   className = "",
   compact = false,
 }: SocialShareProps) {
+  const { t } = useI18n();
   const [copied, setCopied] = useState(false);
   const [currentUrl, setCurrentUrl] = useState(url || "https://gradecalculator.dev");
 
@@ -135,7 +137,7 @@ export default function SocialShare({
           title="Copy page link"
         >
           {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-          <span>{copied ? "Copied!" : "Copy Link"}</span>
+          <span>{copied ? (t("imageCopied") || "Copied!") : (t("copyImage") || "Copy Link")}</span>
         </button>
       </div>
     );
@@ -147,10 +149,10 @@ export default function SocialShare({
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 flex items-center gap-1.5 mb-0.5">
             <Share2 className="w-3.5 h-3.5" />
-            <span>Share This Tool</span>
+            <span>{t("brand")}</span>
           </span>
           <p className="text-sm font-bold text-slate-900">
-            Help classmates and study groups calculate their grades easily!
+            {t("tagline")}
           </p>
         </div>
 
@@ -163,7 +165,7 @@ export default function SocialShare({
             className="flex items-center gap-1.5 px-3 py-2 text-xs font-bold rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             <Share2 className="w-3.5 h-3.5" />
-            <span>Share</span>
+            <span>{copied ? (t("imageCopied") || "Copied!") : (t("copyImage") || "Share")}</span>
           </button>
 
           {/* Social Icons */}
@@ -198,12 +200,12 @@ export default function SocialShare({
             {copied ? (
               <>
                 <Check className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Link Copied!</span>
+                <span>{t("imageCopied") || "Link Copied!"}</span>
               </>
             ) : (
               <>
                 <Copy className="w-3.5 h-3.5" />
-                <span>Copy Link</span>
+                <span>{t("copyImage") || "Copy Link"}</span>
               </>
             )}
           </button>

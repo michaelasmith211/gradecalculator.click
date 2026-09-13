@@ -47,6 +47,13 @@ export default function GradeScaleTable({
                 highlightPercentage >= cutoff.minPercent &&
                 (nextCutoff === undefined || highlightPercentage < nextCutoff.minPercent);
 
+              const getStandingLabel = (letter: string) => {
+                if (letter.startsWith("A")) return t("statusHonors") || "Honors Tier";
+                if (letter.startsWith("B") || letter.startsWith("C")) return t("statusPassing") || "Passing";
+                if (letter.startsWith("D")) return t("statusNeedsWork") || "Passing";
+                return t("statusNeedsWork") || "Failing";
+              };
+
               return (
                 <tr
                   key={cutoff.letter}
@@ -77,7 +84,7 @@ export default function GradeScaleTable({
                   <td className="px-4 py-2.5 font-semibold text-slate-900">
                     {cutoff.gpaPoint.toFixed(1)}
                   </td>
-                  <td className="px-4 py-2.5 text-slate-600">{cutoff.description}</td>
+                  <td className="px-4 py-2.5 text-slate-600">{getStandingLabel(cutoff.letter)}</td>
                 </tr>
               );
             })}

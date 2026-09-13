@@ -7,6 +7,7 @@ import CookiePreferencesButton from "./CookiePreferencesButton";
 import dynamic from "next/dynamic";
 import { useI18n } from "@/lib/i18n/context";
 import { getLocalizedPath } from "@/lib/i18n/locales";
+import { TOOL_NAMES } from "@/lib/i18n/pageSeo";
 
 const LanguageSwitcherModal = dynamic(() => import("./LanguageSwitcherModal"), { ssr: false });
 
@@ -69,6 +70,9 @@ export default function Footer() {
   const [langModalOpen, setLangModalOpen] = useState(false);
   const { locale, localeConfig, t } = useI18n();
 
+  const getToolName = (slug: string, fallback: string) =>
+    (TOOL_NAMES[slug] && TOOL_NAMES[slug][locale]) || fallback;
+
   return (
     <footer className="bg-slate-900 text-slate-300 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
@@ -95,7 +99,7 @@ export default function Footer() {
             {/* Official Social Media Channels */}
             <div className="pt-2 space-y-2">
               <div className="text-xs font-bold text-white uppercase tracking-wider">
-                Follow & Connect With Us
+                Follow &amp; Connect With Us
               </div>
               <div className="flex items-center gap-2 flex-wrap">
                 {SOCIAL_LINKS.map((soc) => (
@@ -149,7 +153,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href={getLocalizedPath("/points-grade-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
-                  Points-Based Calculator
+                  {getToolName("points-grade-calculator", "Points-Based Calculator")}
                 </Link>
               </li>
               <li>
@@ -164,7 +168,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href={getLocalizedPath("/exam-grade-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
-                  Exam Grade Calculator
+                  {getToolName("exam-grade-calculator", "Exam Grade Calculator")}
                 </Link>
               </li>
             </ul>
@@ -173,7 +177,7 @@ export default function Footer() {
           {/* Col 3: GPA & Averages */}
           <div>
             <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-3">
-              GPA & Averages
+              {t("gpaCalculator")} &amp; {t("averageGradeCalculator")}
             </h3>
             <ul className="space-y-2 text-sm text-slate-300">
               <li>
@@ -183,17 +187,17 @@ export default function Footer() {
               </li>
               <li>
                 <Link href={getLocalizedPath("/college-gpa-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
-                  College GPA Calculator
+                  {getToolName("college-gpa-calculator", "College GPA Calculator")}
                 </Link>
               </li>
               <li>
                 <Link href={getLocalizedPath("/semester-gpa-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
-                  Semester GPA Calculator
+                  {getToolName("semester-gpa-calculator", "Semester GPA Calculator")}
                 </Link>
               </li>
               <li>
                 <Link href={getLocalizedPath("/high-school-gpa-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
-                  High School GPA Calculator
+                  {getToolName("high-school-gpa-calculator", "High School GPA Calculator")}
                 </Link>
               </li>
               <li>
@@ -208,7 +212,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href={getLocalizedPath("/weighted-average-calculator", locale)} className="text-slate-300 hover:text-white transition-colors">
-                  Weighted Average Calculator
+                  {getToolName("weighted-average-calculator", "Weighted Average Calculator")}
                 </Link>
               </li>
             </ul>
