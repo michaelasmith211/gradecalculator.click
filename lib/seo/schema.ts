@@ -276,3 +276,62 @@ export function generateArticleSchema({
     inLanguage: "en-US",
   };
 }
+
+export function generateVideoSchema(locale: string = "en") {
+  const pageUrl = locale === "en" ? `${SITE_URL}/` : `${SITE_URL}/${locale}/`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "@id": `${pageUrl}#how-it-works-video`,
+    name: "How GradeCalculator.dev Works – Step-by-Step Grade & GPA Calculation Tutorial",
+    description:
+      "Watch how to easily calculate assignment grades, weighted category scores, final exam target scores, and 4.0 GPA step-by-step using GradeCalculator.dev.",
+    thumbnailUrl: [
+      `${SITE_URL}/images/how-grade-calculator-works-video-poster.webp`,
+      `${SITE_URL}/images/how-grade-calculator-works-step-by-step.webp`,
+    ],
+    uploadDate: "2026-09-18T00:00:00Z",
+    duration: "PT35S",
+    contentUrl: `${SITE_URL}/videos/how-grade-calculator-works.mp4`,
+    embedUrl: `${pageUrl}#how-it-works`,
+    inLanguage: locale,
+    hasPart: [
+      {
+        "@type": "Clip",
+        name: "Step 1: Enter Assignment Scores & Total Points",
+        startOffset: 4,
+        endOffset: 11,
+        url: `${pageUrl}#clip-step1`,
+      },
+      {
+        "@type": "Clip",
+        name: "Step 2: Weighted Categories Grade Calculation",
+        startOffset: 11,
+        endOffset: 18,
+        url: `${pageUrl}#clip-step2`,
+      },
+      {
+        "@type": "Clip",
+        name: "Step 3: Final Exam Target Score Needed",
+        startOffset: 18,
+        endOffset: 25,
+        url: `${pageUrl}#clip-step3`,
+      },
+      {
+        "@type": "Clip",
+        name: "Step 4: Cumulative & Semester 4.0 GPA Conversion",
+        startOffset: 25,
+        endOffset: 31,
+        url: `${pageUrl}#clip-step4`,
+      },
+      {
+        "@type": "Clip",
+        name: "Step 5: Share, Print, and Save Results",
+        startOffset: 31,
+        endOffset: 35,
+        url: `${pageUrl}#clip-step5`,
+      },
+    ],
+  };
+}

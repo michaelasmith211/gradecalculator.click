@@ -7,6 +7,7 @@ import {
   generateWebApplicationSchema,
   generateFAQSchema,
   generateHowToSchema,
+  generateVideoSchema,
 } from "@/lib/seo/schema";
 import HomeView from "@/components/views/HomeView";
 import HeroHeader from "@/components/HeroHeader";
@@ -63,6 +64,7 @@ export default async function LocalizedHomePage({
   const figureCaption = getLocalizedFigureCaption(currentLocale);
   const homeFaqs = getLocalizedHomeFaqs(currentLocale);
   const faqSchema = generateFAQSchema(homeFaqs);
+  const videoSchema = generateVideoSchema(currentLocale);
   const localeTranslations = getServerTranslations(currentLocale);
 
   return (
@@ -74,6 +76,10 @@ export default async function LocalizedHomePage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }}
       />
       <HomeView
         locale={currentLocale}

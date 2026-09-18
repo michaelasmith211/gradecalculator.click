@@ -3,6 +3,7 @@ import { constructMetadata } from "@/lib/seo/metadata";
 import {
   generateWebApplicationSchema,
   generateFAQSchema,
+  generateVideoSchema,
 } from "@/lib/seo/schema";
 import HomeView from "@/components/views/HomeView";
 import HeroHeader from "@/components/HeroHeader";
@@ -43,6 +44,7 @@ export default function HomePage() {
   const figureCaption = getLocalizedFigureCaption("en");
   const homeFaqs = getLocalizedHomeFaqs("en");
   const faqSchema = generateFAQSchema(homeFaqs);
+  const videoSchema = generateVideoSchema("en");
 
   return (
     <>
@@ -53,6 +55,10 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }}
       />
       <HomeView
         locale="en"

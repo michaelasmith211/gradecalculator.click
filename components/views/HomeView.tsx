@@ -10,6 +10,7 @@ import SocialShare from "@/components/SocialShare";
 import SeoSummaryBox from "@/components/SeoSummaryBox";
 import TableOfContents from "@/components/TableOfContents";
 import AdPlaceholder from "@/components/AdPlaceholder";
+import VideoTutorial from "@/components/VideoTutorial";
 import {
   Sparkles,
   BookOpen,
@@ -100,24 +101,6 @@ export default function HomeView({
     },
   ];
 
-  const [showInfographic, setShowInfographic] = useState(false);
-  const infographicRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!infographicRef.current) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setShowInfographic(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "300px" }
-    );
-    observer.observe(infographicRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   const tocItems = [
     { id: "calculator", label: localizedBrandName },
     { id: "how-it-works", label: t("howItWorksTitle") },
@@ -184,41 +167,8 @@ export default function HomeView({
             </p>
           </div>
 
-          {/* Infographic */}
-          <figure className="my-6 space-y-3">
-            <div ref={infographicRef} className="overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-b from-slate-50 to-slate-100/90 p-2 sm:p-4 border border-slate-200/90 shadow-xl shadow-slate-100 min-h-[180px]">
-              {showInfographic ? (
-                <img
-                  src="/images/how-grade-calculator-works-step-by-step-768w.webp"
-                  srcSet="/images/how-grade-calculator-works-step-by-step-480w.webp 480w, /images/how-grade-calculator-works-step-by-step-768w.webp 768w, /images/how-grade-calculator-works-step-by-step.webp 1024w"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 85vw, 1024px"
-                  alt="How GradeCalculator.dev Works – Step-by-Step Grade, GPA, Weighted Average, and Final Exam Calculation Infographic"
-                  title="How GradeCalculator.dev Works – 6-Step Grade & GPA Calculation Workflow"
-                  width={1024}
-                  height={576}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-auto rounded-xl sm:rounded-2xl object-contain shadow-sm"
-                />
-              ) : (
-                <div className="aspect-[16/9] w-full flex items-center justify-center text-slate-400 text-xs sm:text-sm font-medium">
-                  <span>How GradeCalculator.dev Works Step-by-Step Infographic</span>
-                </div>
-              )}
-              <noscript>
-                <img
-                  src="/images/how-grade-calculator-works-step-by-step-768w.webp"
-                  alt="How GradeCalculator.dev Works – Step-by-Step Grade, GPA, Weighted Average, and Final Exam Calculation Infographic"
-                  width={1024}
-                  height={576}
-                  className="w-full h-auto rounded-xl sm:rounded-2xl object-contain shadow-sm"
-                />
-              </noscript>
-            </div>
-            <figcaption className="text-center text-xs sm:text-sm text-slate-600 font-medium leading-relaxed max-w-3xl mx-auto">
-              {figureCaption}
-            </figcaption>
-          </figure>
+          {/* Video & Infographic Interactive Media Showcase */}
+          <VideoTutorial figureCaption={figureCaption} />
 
           {/* 6 Step Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
