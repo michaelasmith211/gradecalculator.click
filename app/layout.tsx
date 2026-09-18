@@ -62,7 +62,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         {/* Strict HTTP-to-HTTPS Redirection & Insecure Request Upgrade */}
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
