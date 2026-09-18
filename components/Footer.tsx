@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import { useI18n } from "@/lib/i18n/context";
 import { getLocalizedPath } from "@/lib/i18n/locales";
 import { TOOL_NAMES } from "@/lib/i18n/pageSeo";
+import BrandLogo from "@/components/BrandLogo";
 
 const LanguageSwitcherModal = dynamic(() => import("./LanguageSwitcherModal"), { ssr: false });
 
@@ -83,11 +84,7 @@ export default function Footer() {
               href={getLocalizedPath("/", locale)}
               className="flex items-center gap-2.5 font-bold text-xl text-white hover:text-indigo-400 transition-colors"
             >
-              <img
-                src="/favicon.png"
-                alt="Grade Calculator Icon"
-                className="w-9 h-9 rounded-xl shadow object-contain"
-              />
+              <BrandLogo size="md" />
               <span className="tracking-tight text-xl font-black">
                 Grade<span className="text-indigo-400">Calculator</span>
               </span>
