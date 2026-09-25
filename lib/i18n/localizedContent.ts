@@ -181,6 +181,28 @@ export function getLocalizedHomeSummary(locale: string, localizedBrandName: stri
         "Anında yerelleştirilmiş hesaplamalarla 39 dilde kullanılabilir",
       ],
     },
+    fi: {
+      quickAnswer:
+        "Arvosanalaskuri laskee akateemisen kokonaisprosenttisi ja kirjainarvosanasi jakamalla saadut kokonaispisteet mahdollisilla enimmäispisteillä tai kertomalla painotetut luokat opetussuunnitelman painoarvoilla.",
+      formula: "Arvosana (%) = (Saadut Pisteet ÷ Mahdolliset Pisteet) × 100",
+      keyTakeaways: [
+        "Välitön laskenta selaimessa ilman viiveitä arvosanoja syötettäessä",
+        "Mukautettavat arvosana-asteikot (standardi, 10 pisteen asteikko, prosentit)",
+        "100 % yksityisyys selaimessa (ei rekisteröintiä tai tietojen keräämistä)",
+        "Saatavilla 39 kielellä välittömillä paikallisilla laskutoimituksilla",
+      ],
+    },
+    he: {
+      quickAnswer:
+        "מחשבון ציונים מחשב את אחוז הציונים המצטבר והציон הסופי שלך על ידי חלוקת סך הנקודות שנצברו בסך הנקודות האפשריות, או הכפלת קטגוריות משוקללות באחוזי הסילבוס.",
+      formula: "ציון (%) = (נקודות שהושגו ÷ נקודות אפשריות) × 100",
+      keyTakeaways: [
+        "חישוב מיידי בדפדפן ללא עיכובים בעת הזנת ציונים",
+        "סולמות ציונים הניתנים להתאמה אישית (אותיות, סולם 10 נקודות ועוד)",
+        "100% פרטיות בדפדפן (ללא צורך בהרשמה וללא איסוף נתונים)",
+        "זמין ב-39 שפות עם חישובים מותאמים אישית בזמן אמת",
+      ],
+    },
   };
 
   if (summaries[locale]) {
@@ -216,6 +238,9 @@ export function getLocalizedFigureCaption(locale: string): string {
     zh: "图 1：GradeCalculator.dev 上的完整 6 步计算流程 — 输入作业、自定义评分标准、应用权重并计算期末考试所需分数。",
     ja: "図 1：GradeCalculator.dev の完全な 6 ステップ計算ワークフロー — 課題の入力、評価尺度の設定、加重の適用、期末試験の目標スコア計算。",
     ko: "그림 1: GradeCalculator.dev의 완전한 6단계 계산 워크플로 — 과제 입력, 성적 척도 맞춤 설정, 가중치 적용 및 기말고사 목표 점수 시뮬레이션.",
+    pl: "Rysunek 1: Kompletny 6-etapowy proces obliczeniowy na GradeCalculator.dev — wprowadzaj oceny, dostosuj skalę ocen, stosuj wagi kategorii i obliczaj wymagania egzaminu końcowego.",
+    fi: "Kuva 1: Täydellinen 6-vaiheinen laskentatyönkulku GradeCalculator.devissä — syötä tehtävät, mukauta arvosana-asteikko, aseta painoarvot ja laske kokeen tavoitearvosanat.",
+    he: "תרשים 1: תהליך החישוב המלא ב-6 שלבים ב-GradeCalculator.dev — הזן מטלות, התאם את סולם הציונים, החל משקלים וחשב את דרישות הבחינה הסופית.",
   };
 
   return captions[locale] || "Figure 1: The complete 6-step calculation workflow on GradeCalculator.dev — enter assignments, customize your grading scale, apply category weights, get live scores, compute target final exam requirements, and track academic standing.";
@@ -744,6 +769,62 @@ export function getLocalizedSubpageFaqs(
       {
         question: "我可以自定义评分标准吗？",
         answer: "可以。您可以在标准评分制、10分制或自定义分数分界之间自由切换。",
+      },
+    ],
+    it: [
+      {
+        question: `Come funziona ${toolTitle}?`,
+        answer: `Inserisci i tuoi voti, i coefficienti di ponderazione o i crediti. Lo strumento calcola percentuali, voti in lettere e GPA in tempo reale direttamente nel tuo browser.`,
+      },
+      {
+        question: "I miei dati scolastici vengono salvati o condivisi?",
+        answer: "No. Tutti i calcoli vengono eseguiti al 100% in locale nel browser del tuo dispositivo. Non memorizziamo né condividiamo alcun voto o informazione personale.",
+      },
+      {
+        question: "Posso personalizzare la scala di valutazione?",
+        answer: "Sì. Puoi passare dalle scale accademiche standard a quelle su base 10 o a soglie percentuali personalizzate.",
+      },
+    ],
+    pl: [
+      {
+        question: `Jak działa ${toolTitle}?`,
+        answer: `Wprowadź swoje oceny, punkty lub wagi kategorii. Narzędzie oblicza wartości procentowe, oceny literowe i GPA w czasie rzeczywistym bezpośrednio w Twojej przeglądarce.`,
+      },
+      {
+        question: "Czy moje oceny są zapisywane lub udostępniane?",
+        answer: "Nie. Wszystkie obliczenia są wykonywane w 100% lokalnie w przeglądarce na Twoim urządzeniu. Nie przechowujemy ani nie udostępniamy Twoich danych.",
+      },
+      {
+        question: "Czy mogę dostosować skalę oceniania?",
+        answer: "Tak. Możesz łatwo przełączać się między standardową skalą ocen, skalą 10-punktową lub własnymi progami procentowymi.",
+      },
+    ],
+    fi: [
+      {
+        question: `Miten ${toolTitle} toimii?`,
+        answer: `Syötä arvosanasi, pisteesi tai kurssipainotuksesi. Työkalu laskee prosenttiosuudet, kirjainarvosanat ja GPA-pisteet reaaliajassa suoraan selaimessasi.`,
+      },
+      {
+        question: "Tallennetaanko tai jaetaanko opiskelutietojani?",
+        answer: "Ei. Kaikki laskelmat suoritetaan 100 % paikallisesti laitteesi selaimessa. Emme tallenna tai jaa arvosanojasi tai henkilötietojasi.",
+      },
+      {
+        question: "Voinko mukauttaa arvosana-asteikkoa?",
+        answer: "Kyllä. Voit vaihtaa standardiasteikon, 10 pisteen asteikon tai mukautettujen prosenttirajojen välillä opetussuunnitelmasi mukaan.",
+      },
+    ],
+    he: [
+      {
+        question: `כיצד פועל ${toolTitle}?`,
+        answer: `הזן את הציונים, הנקודות או משקלי הקורסים שלך. הכלי מחשב אחוזים, ציונים וממוצע GPA בזמן אמת ישירות בדפדפן שלך.`,
+      },
+      {
+        question: "האם המידע הלימודי שלי נשמר או משותף?",
+        answer: "לא. כל החישובים מבוצעים ב-100% מקומית בדפדפן של המכשיר שלך. איננו שומרים או משתפים ציונים או מידע אישי כלל.",
+      },
+      {
+        question: "האם ניתן להתאים אישית את סולם הציונים?",
+        answer: "כן. ניתן לעבור בין סולמות ציונים סטנדרטיים, סולמות של 10 נקודות או אחוזים מותאמים אישית לפי דרישות המוסד שלך.",
       },
     ],
   };
