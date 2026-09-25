@@ -1,2 +1,2 @@
 :HL["/_next/static/chunks/1uly63k06jgaf.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"(en)","param":null,"prefetchHints":4096,"slots":{"children":{"name":"semester-gpa-calculator","param":null,"prefetchHints":4160,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"kAi6KF2HOvGqYenA29GXa"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"(en)","param":null,"prefetchHints":4096,"slots":{"children":{"name":"semester-gpa-calculator","param":null,"prefetchHints":4160,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"jwovTPBfX969PMWF5hyB-"}
