@@ -104,12 +104,24 @@ export default async function LocalizedSubPage({
   const seo = getPageSeo(slug, currentLocale);
   const toolTitle = seo.title.split("–")[0].trim();
 
-  // App Schema
-  const appSchema = generateWebApplicationSchema({
-    name: toolTitle,
-    description: seo.description,
-    path: `/${currentLocale}/${slug}/`,
-  });
+  // App Schema (only for interactive calculator tools, not policy or guide pages)
+  const nonAppSlugs = [
+    "about",
+    "contact",
+    "privacy-policy",
+    "terms-of-use",
+    "cookie-policy",
+    "how-to-calculate-grades",
+    "grade-calculator-faq",
+  ];
+  const isTool = !nonAppSlugs.includes(slug);
+  const appSchema = isTool
+    ? generateWebApplicationSchema({
+        name: toolTitle,
+        description: seo.description,
+        path: `/${currentLocale}/${slug}/`,
+      })
+    : null;
 
   const breadcrumbs = [
     { name: t.brand, url: `/${currentLocale}/` },
@@ -378,10 +390,12 @@ export default async function LocalizedSubPage({
 
   return (
     <div className="min-h-screen">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
-      />
+      {appSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
+        />
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(generateBreadcrumbSchema(breadcrumbs)) }}

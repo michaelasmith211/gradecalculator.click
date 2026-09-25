@@ -75,8 +75,6 @@ export function generateWebApplicationSchema({
   description,
   path,
   applicationCategory = "EducationalApplication",
-  ratingValue = "4.9",
-  reviewCount = "4850",
   features = [
     "Instant real-time calculation in browser",
     "Support for customizable letter grading scales (Plus/Minus, 10-Point, 7-Point)",
@@ -91,8 +89,6 @@ export function generateWebApplicationSchema({
   description: string;
   path: string;
   applicationCategory?: string;
-  ratingValue?: string;
-  reviewCount?: string;
   features?: string[];
 }) {
   const url = normalizeSchemaUrl(path);
@@ -113,13 +109,6 @@ export function generateWebApplicationSchema({
       price: "0",
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: ratingValue,
-      bestRating: "5",
-      worstRating: "1",
-      ratingCount: reviewCount,
     },
     author: {
       "@type": "Organization",
