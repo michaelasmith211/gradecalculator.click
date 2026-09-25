@@ -55,20 +55,20 @@ const faqs: FAQItem[] = [
 
 export default function ExamGradeCalculatorPage() {
   const breadcrumbs = [
-    { name: "Test Grade Calculator", url: "/test-grade-calculator" },
-    { name: "Exam Grade", url: "/exam-grade-calculator" },
+    { name: "Test Grade Calculator", url: "/test-grade-calculator/" },
+    { name: "Exam Grade", url: "/exam-grade-calculator/" },
   ];
 
   const appSchema = generateWebApplicationSchema({
     name: "Exam Grade Calculator",
     description: "Calculate scores and generate charts for midterm and final examinations.",
-    path: "/exam-grade-calculator",
+    path: "/exam-grade-calculator/",
   });
 
   const howToSchema = generateHowToSchema({
     name: "How to Calculate Midterm and Exam Grades",
     description: "Step-by-step method to compute exam percentages and letter grades.",
-    path: "/exam-grade-calculator",
+    path: "/exam-grade-calculator/",
     steps: [
       {
         name: "Enter Exam Questions or Points",
@@ -88,7 +88,7 @@ export default function ExamGradeCalculatorPage() {
   const articleSchema = generateArticleSchema({
     headline: "How to Calculate Exam & Midterm Grades: Formulas & Curved Grading",
     description: "In-depth guide to exam scoring, question point weightings, curved tests, and final grade contributions.",
-    path: "/exam-grade-calculator",
+    path: "/exam-grade-calculator/",
   });
 
   const faqSchema = generateFAQSchema(faqs);

@@ -25,15 +25,15 @@ export const metadata = constructMetadata({
 
 export default function CookiePolicyPage() {
   const breadcrumbs = [
-    { name: "Legal", url: "/privacy-policy" },
-    { name: "Cookie Policy", url: "/cookie-policy" },
+    { name: "Legal", url: "/privacy-policy/" },
+    { name: "Cookie Policy", url: "/cookie-policy/" },
   ];
 
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
   const articleSchema = generateArticleSchema({
     headline: "GradeCalculator.dev Cookie Policy & Data Privacy Notice",
     description: "Detailed overview of cookies, storage mechanisms, third-party analytics, and consent management.",
-    path: "/cookie-policy",
+    path: "/cookie-policy/",
   });
 
   const tocItems = [
@@ -252,7 +252,7 @@ export default function CookiePolicyPage() {
           <a href="mailto:support@gradecalculator.dev" className="text-indigo-600 font-bold underline">
             support@gradecalculator.dev
           </a>{" "}
-          or visit our <Link href="/contact" className="text-indigo-600 font-bold underline">Contact Page</Link>.
+          or visit our <Link href="/contact/" className="text-indigo-600 font-bold underline">Contact Page</Link>.
         </p>
       </section>
     </div>

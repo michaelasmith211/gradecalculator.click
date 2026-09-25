@@ -55,18 +55,18 @@ const faqs: FAQItem[] = [
 ];
 
 export default function AverageGradeCalculatorPage() {
-  const breadcrumbs = [{ name: "Average Grade Calculator", url: "/average-grade-calculator" }];
+  const breadcrumbs = [{ name: "Average Grade Calculator", url: "/average-grade-calculator/" }];
 
   const appSchema = generateWebApplicationSchema({
     name: "Average Grade Calculator",
     description: "Calculate statistical mean, median, and range across grades and exam scores.",
-    path: "/average-grade-calculator",
+    path: "/average-grade-calculator/",
   });
 
   const howToSchema = generateHowToSchema({
     name: "How to Calculate the Average of Your Grades",
     description: "Step-by-step instructions for computing the mean and median of multiple coursework scores.",
-    path: "/average-grade-calculator",
+    path: "/average-grade-calculator/",
     steps: [
       {
         name: "List Your Scores",
@@ -90,7 +90,7 @@ export default function AverageGradeCalculatorPage() {
   const articleSchema = generateArticleSchema({
     headline: "How to Calculate Grade Averages: Mean, Median & Outlier Analysis",
     description: "Complete educational guide on arithmetic averages, finding medians, dropping lowest quiz scores, and interpreting grade distributions.",
-    path: "/average-grade-calculator",
+    path: "/average-grade-calculator/",
   });
 
   const faqSchema = generateFAQSchema(faqs);

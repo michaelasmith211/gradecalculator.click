@@ -56,20 +56,20 @@ const faqs: FAQItem[] = [
 
 export default function HighSchoolGPACalculatorPage() {
   const breadcrumbs = [
-    { name: "GPA Calculator", url: "/gpa-calculator" },
-    { name: "High School GPA", url: "/high-school-gpa-calculator" },
+    { name: "GPA Calculator", url: "/gpa-calculator/" },
+    { name: "High School GPA", url: "/high-school-gpa-calculator/" },
   ];
 
   const appSchema = generateWebApplicationSchema({
     name: "High School GPA Calculator",
     description: "Calculate high school weighted 5.0 and unweighted 4.0 GPA with AP/IB and Honors weight boosts.",
-    path: "/high-school-gpa-calculator",
+    path: "/high-school-gpa-calculator/",
   });
 
   const howToSchema = generateHowToSchema({
     name: "How to Calculate High School Weighted and Unweighted GPA",
     description: "Step-by-step instructions to calculate weighted 5.0 GPA with Honors and AP bonuses.",
-    path: "/high-school-gpa-calculator",
+    path: "/high-school-gpa-calculator/",
     steps: [
       {
         name: "List High School Classes",
@@ -93,7 +93,7 @@ export default function HighSchoolGPACalculatorPage() {
   const articleSchema = generateArticleSchema({
     headline: "High School GPA Calculation: Weighted 5.0 vs Unweighted 4.0 Scales Explained",
     description: "Complete guide to AP, IB, and Honors grade point weighting, transcript GPA calculations, and college admissions evaluations.",
-    path: "/high-school-gpa-calculator",
+    path: "/high-school-gpa-calculator/",
   });
 
   const faqSchema = generateFAQSchema(faqs);

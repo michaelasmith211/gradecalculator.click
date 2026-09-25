@@ -13,7 +13,7 @@ export const metadata = constructMetadata({
 });
 
 export default function ContactPage() {
-  const breadcrumbs = [{ name: "Contact", url: "/contact" }];
+  const breadcrumbs = [{ name: "Contact", url: "/contact/" }];
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
 
   return (

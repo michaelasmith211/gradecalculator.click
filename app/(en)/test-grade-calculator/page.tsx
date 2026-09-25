@@ -56,18 +56,18 @@ const faqs: FAQItem[] = [
 ];
 
 export default function TestGradeCalculatorPage() {
-  const breadcrumbs = [{ name: "Test Grade Calculator", url: "/test-grade-calculator" }];
+  const breadcrumbs = [{ name: "Test Grade Calculator", url: "/test-grade-calculator/" }];
 
   const appSchema = generateWebApplicationSchema({
     name: "Test Grade Calculator",
     description: "Generate Easy Grader charts and calculate scores for quizzes and tests.",
-    path: "/test-grade-calculator",
+    path: "/test-grade-calculator/",
   });
 
   const howToSchema = generateHowToSchema({
     name: "How to Grade a Test with an Easy Grader Chart",
     description: "Step-by-step instructions for calculating test scores from wrong answers.",
-    path: "/test-grade-calculator",
+    path: "/test-grade-calculator/",
     steps: [
       {
         name: "Count Total Questions",
@@ -87,7 +87,7 @@ export default function TestGradeCalculatorPage() {
   const articleSchema = generateArticleSchema({
     headline: "Test Grading Guide: Easy Grader Quick Reference Charts & Scoring Math",
     description: "Learn how to use Easy Grader score matrices, compute test percentages from missed questions, and calculate grade scales.",
-    path: "/test-grade-calculator",
+    path: "/test-grade-calculator/",
   });
 
   const faqSchema = generateFAQSchema(faqs);

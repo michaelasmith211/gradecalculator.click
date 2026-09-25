@@ -53,8 +53,8 @@ const faqs: FAQItem[] = [
 
 export default function GradeScalePage() {
   const breadcrumbs = [
-    { name: "Guides", url: "/grade-scale" },
-    { name: "Grade Scale Guide", url: "/grade-scale" },
+    { name: "Guides", url: "/grade-scale/" },
+    { name: "Grade Scale Guide", url: "/grade-scale/" },
   ];
 
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
@@ -63,7 +63,7 @@ export default function GradeScalePage() {
   const articleSchema = generateArticleSchema({
     headline: "Standard Grading Scales: Percentages, Letter Grades, and GPA Equivalents",
     description: "Detailed comparison and reference tables for standard plus/minus, 10-point, and 7-point academic grading scales.",
-    path: "/grade-scale",
+    path: "/grade-scale/",
   });
 
   const tocItems = [

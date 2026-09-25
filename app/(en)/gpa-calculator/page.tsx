@@ -59,12 +59,12 @@ const faqs: FAQItem[] = [
 ];
 
 export default function GPACalculatorPage() {
-  const breadcrumbs = [{ name: "GPA Calculator", url: "/gpa-calculator" }];
+  const breadcrumbs = [{ name: "GPA Calculator", url: "/gpa-calculator/" }];
 
   const appSchema = generateWebApplicationSchema({
     name: "GPA Calculator",
     description: "Calculate high school and college GPA, quality points, and cumulative grade point average.",
-    path: "/gpa-calculator",
+    path: "/gpa-calculator/",
   });
 
   const faqSchema = generateFAQSchema(faqs);
@@ -155,7 +155,7 @@ export default function GPACalculatorPage() {
       {/* GPA Types Navigation Cards */}
       <section id="specialized-tools" className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Link
-          href="/semester-gpa-calculator"
+          href="/semester-gpa-calculator/"
           className="p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 hover:shadow-md transition-all block"
         >
           <h3 className="font-bold text-slate-900 text-base mb-1">Semester GPA</h3>
@@ -165,7 +165,7 @@ export default function GPACalculatorPage() {
           </span>
         </Link>
         <Link
-          href="/college-gpa-calculator"
+          href="/college-gpa-calculator/"
           className="p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 hover:shadow-md transition-all block"
         >
           <h3 className="font-bold text-slate-900 text-base mb-1">College GPA</h3>
@@ -175,7 +175,7 @@ export default function GPACalculatorPage() {
           </span>
         </Link>
         <Link
-          href="/high-school-gpa-calculator"
+          href="/high-school-gpa-calculator/"
           className="p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 hover:shadow-md transition-all block"
         >
           <h3 className="font-bold text-slate-900 text-base mb-1">High School GPA</h3>
@@ -230,19 +230,19 @@ export default function GPACalculatorPage() {
           <h4 className="font-bold text-slate-900 text-sm sm:text-base">Related Academic Grading Calculators</h4>
           <p>
             • Need to calculate individual course grades and letter benchmarks before calculating your GPA? Use our{" "}
-            <Link href="/grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+            <Link href="/grade-calculator/" className="text-indigo-600 font-semibold hover:underline">
               Standard Grade Calculator
             </Link>.
           </p>
           <p>
             • To determine the arithmetic mean or average of multiple class grades, try our{" "}
-            <Link href="/average-grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+            <Link href="/average-grade-calculator/" className="text-indigo-600 font-semibold hover:underline">
               Average Grade Calculator
             </Link>.
           </p>
           <p>
             • For quick quiz or test paper scoring and letter grade cutoffs, visit our{" "}
-            <Link href="/test-grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+            <Link href="/test-grade-calculator/" className="text-indigo-600 font-semibold hover:underline">
               Test Grade Calculator &amp; Easy Grader
             </Link>.
           </p>

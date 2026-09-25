@@ -59,8 +59,8 @@ const faqs: FAQItem[] = [
 
 export default function HowToCalculateGradesPage() {
   const breadcrumbs = [
-    { name: "Guides", url: "/how-to-calculate-grades" },
-    { name: "How to Calculate Grades", url: "/how-to-calculate-grades" },
+    { name: "Guides", url: "/how-to-calculate-grades/" },
+    { name: "How to Calculate Grades", url: "/how-to-calculate-grades/" },
   ];
 
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
@@ -70,7 +70,7 @@ export default function HowToCalculateGradesPage() {
     headline: "How to Calculate Your Class Grade: Complete Mathematical Guide",
     description:
       "A comprehensive educational guide covering points systems, weighted syllabus categories, final exam target calculations, and GPA math.",
-    path: "/how-to-calculate-grades",
+    path: "/how-to-calculate-grades/",
   });
 
   const howToSchema = generateHowToSchema({
@@ -154,7 +154,7 @@ export default function HowToCalculateGradesPage() {
           <p className="text-xs text-slate-300 mt-0.5">Use our free online grade calculators to get instant, accurate results.</p>
         </div>
         <Link
-          href="/grade-calculator"
+          href="/grade-calculator/"
           className="px-5 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-bold rounded-xl transition-colors shadow-sm whitespace-nowrap"
         >
           Open Grade Calculator &rarr;
@@ -192,11 +192,11 @@ export default function HowToCalculateGradesPage() {
         </ol>
         <p className="text-xs text-slate-600 leading-relaxed pt-2">
           Want to run this calculation without manual math? Use our interactive{" "}
-          <Link href="/grade-calculator" className="text-indigo-600 font-bold underline">
+          <Link href="/grade-calculator/" className="text-indigo-600 font-bold underline">
             Standard Grade Calculator
           </Link>{" "}
           or calculate the arithmetic mean of multiple assignments using our{" "}
-          <Link href="/average-grade-calculator" className="text-indigo-600 font-bold underline">
+          <Link href="/average-grade-calculator/" className="text-indigo-600 font-bold underline">
             Average Grade Calculator
           </Link>.
         </p>
@@ -283,7 +283,7 @@ export default function HowToCalculateGradesPage() {
         </div>
 
         <p className="text-xs text-slate-600 leading-relaxed">
-          Use our interactive <Link href="/final-grade-calculator" className="text-indigo-600 font-bold underline">Final Grade Calculator</Link> to run this formula automatically with customized what-if scenarios, or check out the <Link href="/test-grade-calculator" className="text-indigo-600 font-bold underline">Test Grade Calculator &amp; Easy Grader</Link> to view instant grading charts for any number of exam questions.
+          Use our interactive <Link href="/final-grade-calculator/" className="text-indigo-600 font-bold underline">Final Grade Calculator</Link> to run this formula automatically with customized what-if scenarios, or check out the <Link href="/test-grade-calculator/" className="text-indigo-600 font-bold underline">Test Grade Calculator &amp; Easy Grader</Link> to view instant grading charts for any number of exam questions.
         </p>
       </section>
 

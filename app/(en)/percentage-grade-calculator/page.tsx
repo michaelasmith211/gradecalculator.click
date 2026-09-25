@@ -55,18 +55,18 @@ const faqs: FAQItem[] = [
 ];
 
 export default function PercentageGradeCalculatorPage() {
-  const breadcrumbs = [{ name: "Percentage Grade Calculator", url: "/percentage-grade-calculator" }];
+  const breadcrumbs = [{ name: "Percentage Grade Calculator", url: "/percentage-grade-calculator/" }];
 
   const appSchema = generateWebApplicationSchema({
     name: "Percentage Grade Calculator",
     description: "Convert test fractions, assignment points, and percentages into letter grades.",
-    path: "/percentage-grade-calculator",
+    path: "/percentage-grade-calculator/",
   });
 
   const howToSchema = generateHowToSchema({
     name: "How to Convert Scores into Percentage Grades",
     description: "Step-by-step method to convert fraction scores to percentages.",
-    path: "/percentage-grade-calculator",
+    path: "/percentage-grade-calculator/",
     steps: [
       {
         name: "Enter Score Earned",
@@ -86,7 +86,7 @@ export default function PercentageGradeCalculatorPage() {
   const articleSchema = generateArticleSchema({
     headline: "Score-to-Percentage Grade Conversion Guide: Formulas & Practical Examples",
     description: "Learn how to convert raw scores into percentages, calculate required point targets, and determine grade letter equivalents.",
-    path: "/percentage-grade-calculator",
+    path: "/percentage-grade-calculator/",
   });
 
   const faqSchema = generateFAQSchema(faqs);

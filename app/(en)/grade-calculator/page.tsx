@@ -60,18 +60,18 @@ const faqs: FAQItem[] = [
 ];
 
 export default function GradeCalculatorPage() {
-  const breadcrumbs = [{ name: "Grade Calculator", url: "/grade-calculator" }];
+  const breadcrumbs = [{ name: "Grade Calculator", url: "/grade-calculator/" }];
 
   const appSchema = generateWebApplicationSchema({
     name: "Standard Grade Calculator",
     description: "Calculate overall course grade, points earned, percentage, and letter grade.",
-    path: "/grade-calculator",
+    path: "/grade-calculator/",
   });
 
   const howToSchema = generateHowToSchema({
     name: "How to Calculate Your Class Grade",
     description: "Step-by-step instructions to calculate your total points and percentage grade.",
-    path: "/grade-calculator",
+    path: "/grade-calculator/",
     steps: [
       {
         name: "List Your Graded Coursework",
@@ -95,7 +95,7 @@ export default function GradeCalculatorPage() {
   const articleSchema = generateArticleSchema({
     headline: "Complete Guide to Calculating Points-Based Course Grades",
     description: "Learn how points-based grading systems work with mathematical formulas, worked examples, and scale cutoffs.",
-    path: "/grade-calculator",
+    path: "/grade-calculator/",
   });
 
   const faqSchema = generateFAQSchema(faqs);

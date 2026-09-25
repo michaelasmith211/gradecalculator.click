@@ -11,7 +11,7 @@ export const metadata = constructMetadata({
 });
 
 export default function TermsOfUsePage() {
-  const breadcrumbs = [{ name: "Terms of Use", url: "/terms-of-use" }];
+  const breadcrumbs = [{ name: "Terms of Use", url: "/terms-of-use/" }];
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
 
   return (

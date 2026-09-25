@@ -15,7 +15,7 @@ export const metadata = constructMetadata({
 });
 
 export default function AboutPage() {
-  const breadcrumbs = [{ name: "About Us", url: "/about" }];
+  const breadcrumbs = [{ name: "About Us", url: "/about/" }];
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
 
   return (

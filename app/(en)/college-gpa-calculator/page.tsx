@@ -56,20 +56,20 @@ const faqs: FAQItem[] = [
 
 export default function CollegeGPACalculatorPage() {
   const breadcrumbs = [
-    { name: "GPA Calculator", url: "/gpa-calculator" },
-    { name: "College GPA", url: "/college-gpa-calculator" },
+    { name: "GPA Calculator", url: "/gpa-calculator/" },
+    { name: "College GPA", url: "/college-gpa-calculator/" },
   ];
 
   const appSchema = generateWebApplicationSchema({
     name: "College GPA Calculator",
     description: "Calculate college and university GPA, quality points, and honors standing.",
-    path: "/college-gpa-calculator",
+    path: "/college-gpa-calculator/",
   });
 
   const howToSchema = generateHowToSchema({
     name: "How to Calculate College GPA and Quality Points",
     description: "Step-by-step instructions for computing undergraduate and graduate grade point averages.",
-    path: "/college-gpa-calculator",
+    path: "/college-gpa-calculator/",
     steps: [
       {
         name: "List University Courses",
@@ -89,7 +89,7 @@ export default function CollegeGPACalculatorPage() {
   const articleSchema = generateArticleSchema({
     headline: "Undergraduate College GPA Calculation: Formulas, Quality Points & Honors",
     description: "Comprehensive guide to university GPA computation, credit hour weighting, academic standing, and Latin Honors requirements.",
-    path: "/college-gpa-calculator",
+    path: "/college-gpa-calculator/",
   });
 
   const faqSchema = generateFAQSchema(faqs);

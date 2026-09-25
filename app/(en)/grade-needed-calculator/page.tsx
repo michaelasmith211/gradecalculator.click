@@ -55,18 +55,18 @@ const faqs: FAQItem[] = [
 ];
 
 export default function GradeNeededCalculatorPage() {
-  const breadcrumbs = [{ name: "Grade Needed Calculator", url: "/grade-needed-calculator" }];
+  const breadcrumbs = [{ name: "Grade Needed Calculator", url: "/grade-needed-calculator/" }];
 
   const appSchema = generateWebApplicationSchema({
     name: "Grade Needed Calculator",
     description: "Determine target score required on remaining coursework to achieve goal grade.",
-    path: "/grade-needed-calculator",
+    path: "/grade-needed-calculator/",
   });
 
   const howToSchema = generateHowToSchema({
     name: "How to Calculate the Grade Needed on Remaining Coursework",
     description: "Step-by-step instructions to find your target percentage on upcoming work.",
-    path: "/grade-needed-calculator",
+    path: "/grade-needed-calculator/",
     steps: [
       {
         name: "Enter Current Grade",
@@ -90,7 +90,7 @@ export default function GradeNeededCalculatorPage() {
   const articleSchema = generateArticleSchema({
     headline: "How to Calculate the Grade Needed on Remaining Coursework to Pass or Get an A",
     description: "Complete mathematical formula breakdown for calculating required scores on remaining assignments, midterms, and finals.",
-    path: "/grade-needed-calculator",
+    path: "/grade-needed-calculator/",
   });
 
   const faqSchema = generateFAQSchema(faqs);

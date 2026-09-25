@@ -56,20 +56,20 @@ const faqs: FAQItem[] = [
 
 export default function SemesterGPACalculatorPage() {
   const breadcrumbs = [
-    { name: "GPA Calculator", url: "/gpa-calculator" },
-    { name: "Semester GPA", url: "/semester-gpa-calculator" },
+    { name: "GPA Calculator", url: "/gpa-calculator/" },
+    { name: "Semester GPA", url: "/semester-gpa-calculator/" },
   ];
 
   const appSchema = generateWebApplicationSchema({
     name: "Semester GPA Calculator",
     description: "Calculate semester and term grade point averages with credit hour weighting.",
-    path: "/semester-gpa-calculator",
+    path: "/semester-gpa-calculator/",
   });
 
   const howToSchema = generateHowToSchema({
     name: "How to Calculate Your Semester GPA",
     description: "Step-by-step instructions for computing semester grade point averages with credit hours.",
-    path: "/semester-gpa-calculator",
+    path: "/semester-gpa-calculator/",
     steps: [
       {
         name: "Enter Term Courses",
@@ -89,7 +89,7 @@ export default function SemesterGPACalculatorPage() {
   const articleSchema = generateArticleSchema({
     headline: "How to Calculate Semester GPA: Credit Hours, Quality Points & Formulas",
     description: "In-depth guide on calculating single-term grade point averages, credit weighting, and cumulative GPA accumulation.",
-    path: "/semester-gpa-calculator",
+    path: "/semester-gpa-calculator/",
   });
 
   const faqSchema = generateFAQSchema(faqs);

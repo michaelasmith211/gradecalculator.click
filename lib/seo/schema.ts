@@ -1,12 +1,29 @@
 import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE } from "./metadata";
 
+export function normalizeSchemaUrl(pathOrUrl: string): string {
+  if (!pathOrUrl) return `${SITE_URL}/`;
+  if (pathOrUrl.startsWith("http://") || pathOrUrl.startsWith("https://")) {
+    try {
+      const urlObj = new URL(pathOrUrl);
+      if (!urlObj.pathname.endsWith("/")) {
+        urlObj.pathname = `${urlObj.pathname}/`;
+      }
+      return urlObj.toString();
+    } catch {
+      return pathOrUrl.endsWith("/") ? pathOrUrl : `${pathOrUrl}/`;
+    }
+  }
+  const clean = pathOrUrl.startsWith("/") ? pathOrUrl : `/${pathOrUrl}`;
+  return clean === "/" ? `${SITE_URL}/` : `${SITE_URL}${clean.endsWith("/") ? clean : `${clean}/`}`;
+}
+
 export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
-    url: SITE_URL,
+    url: normalizeSchemaUrl("/"),
     logo: {
       "@type": "ImageObject",
       url: `${SITE_URL}/icon.png`,
@@ -24,7 +41,7 @@ export function generateOrganizationSchema() {
       "@type": "ContactPoint",
       contactType: "Customer Support",
       email: "support@gradecalculator.dev",
-      url: `${SITE_URL}/contact`,
+      url: normalizeSchemaUrl("/contact/"),
     },
   };
 }
@@ -35,7 +52,7 @@ export function generateWebSiteSchema() {
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
     name: SITE_NAME,
-    url: SITE_URL,
+    url: normalizeSchemaUrl("/"),
     description:
       "Free online grade calculator suite to calculate course grades, weighted averages, final exam scores, and GPA on a 4.0 scale instantly.",
     publisher: {
@@ -45,7 +62,7 @@ export function generateWebSiteSchema() {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/grade-calculator?q={search_term_string}`,
+        urlTemplate: `${SITE_URL}/grade-calculator/?q={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     },
@@ -78,8 +95,7 @@ export function generateWebApplicationSchema({
   reviewCount?: string;
   features?: string[];
 }) {
-  const formattedPath = path === "/" ? "/" : (path.endsWith("/") ? path : `${path}/`);
-  const url = `${SITE_URL}${formattedPath}`;
+  const url = normalizeSchemaUrl(path);
 
   return {
     "@context": "https://schema.org",
@@ -109,13 +125,13 @@ export function generateWebApplicationSchema({
       "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
       name: SITE_NAME,
-      url: SITE_URL,
+      url: normalizeSchemaUrl("/"),
     },
     publisher: {
       "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
       name: SITE_NAME,
-      url: SITE_URL,
+      url: normalizeSchemaUrl("/"),
     },
     screenshot: `${SITE_URL}/opengraph-image`,
     featureList: features,
@@ -132,13 +148,13 @@ export function generateBreadcrumbSchema(items: { name: string; url: string }[])
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: SITE_URL,
+        item: normalizeSchemaUrl("/"),
       },
       ...items.map((item, index) => ({
         "@type": "ListItem",
         position: index + 2,
         name: item.name,
-        item: item.url.startsWith("http") ? item.url : `${SITE_URL}${item.url}`,
+        item: normalizeSchemaUrl(item.url),
       })),
     ],
   };
@@ -199,7 +215,7 @@ export function generateHowToSchema({
   image?: string;
   totalTime?: string;
 }) {
-  const url = `${SITE_URL}${path === "/" ? "" : path}`;
+  const url = normalizeSchemaUrl(path);
 
   return {
     "@context": "https://schema.org",
@@ -219,7 +235,7 @@ export function generateHowToSchema({
       position: index + 1,
       name: s.name,
       text: s.text,
-      url: s.url ? (s.url.startsWith("http") ? s.url : `${SITE_URL}${s.url}`) : `${url}#step-${index + 1}`,
+      url: s.url ? normalizeSchemaUrl(s.url) : `${url}#step-${index + 1}`,
     })),
     tool: [
       {
@@ -243,7 +259,7 @@ export function generateArticleSchema({
   datePublished?: string;
   dateModified?: string;
 }) {
-  const url = `${SITE_URL}${path === "/" ? "" : path}`;
+  const url = normalizeSchemaUrl(path);
 
   return {
     "@context": "https://schema.org",
@@ -261,13 +277,13 @@ export function generateArticleSchema({
       "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
       name: SITE_NAME,
-      url: SITE_URL,
+      url: normalizeSchemaUrl("/"),
     },
     publisher: {
       "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
       name: SITE_NAME,
-      url: SITE_URL,
+      url: normalizeSchemaUrl("/"),
       logo: {
         "@type": "ImageObject",
         url: `${SITE_URL}/icon.png`,

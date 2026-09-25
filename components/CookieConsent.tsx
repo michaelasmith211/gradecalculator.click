@@ -126,14 +126,14 @@ export default function CookieConsent() {
               <p className="text-xs text-slate-600 leading-relaxed">
                 We use cookies and local storage to personalize your experience, remember your grading scale settings, and analyze anonymous calculator traffic in accordance with our{" "}
                 <Link
-                  href="/cookie-policy"
+                  href="/cookie-policy/"
                   className="text-indigo-600 font-semibold underline hover:text-indigo-800"
                 >
                   Cookie Policy
                 </Link>{" "}
                 and{" "}
                 <Link
-                  href="/privacy-policy"
+                  href="/privacy-policy/"
                   className="text-indigo-600 font-semibold underline hover:text-indigo-800"
                 >
                   Privacy Policy

@@ -52,8 +52,8 @@ const faqs: FAQItem[] = [
 
 export default function GPAScalePage() {
   const breadcrumbs = [
-    { name: "Guides", url: "/grade-scale" },
-    { name: "GPA Scale Reference", url: "/gpa-scale" },
+    { name: "Guides", url: "/grade-scale/" },
+    { name: "GPA Scale Reference", url: "/gpa-scale/" },
   ];
 
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
@@ -63,7 +63,7 @@ export default function GPAScalePage() {
     headline: "GPA Scale Guide: 4.0 Unweighted vs 5.0 Weighted Quality Points",
     description:
       "Comprehensive breakdown of GPA scales, letter grade point conversions, honors weights, and Latin Honors tiers.",
-    path: "/gpa-scale",
+    path: "/gpa-scale/",
   });
 
   const tocItems = [

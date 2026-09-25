@@ -84,8 +84,8 @@ const allFaqs: FAQItem[] = [
 
 export default function FAQPage() {
   const breadcrumbs = [
-    { name: "Guides", url: "/how-to-calculate-grades" },
-    { name: "FAQ", url: "/grade-calculator-faq" },
+    { name: "Guides", url: "/how-to-calculate-grades/" },
+    { name: "FAQ", url: "/grade-calculator-faq/" },
   ];
 
   const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
@@ -94,7 +94,7 @@ export default function FAQPage() {
   const articleSchema = generateArticleSchema({
     headline: "Academic Grading & Grade Calculator Frequently Asked Questions",
     description: "Authoritative answers to popular questions on grading formulas, GPA points, exam weights, and curves.",
-    path: "/grade-calculator-faq",
+    path: "/grade-calculator-faq/",
   });
 
   const tocItems = [
@@ -140,28 +140,28 @@ export default function FAQPage() {
       {/* Quick Navigation Cards */}
       <section id="quick-tools" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Link
-          href="/grade-calculator"
+          href="/grade-calculator/"
           className="p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 hover:shadow-sm transition-all"
         >
           <div className="font-bold text-slate-900 text-sm mb-1">Standard Grade</div>
           <div className="text-xs text-slate-500">Calculate points and percentages</div>
         </Link>
         <Link
-          href="/final-grade-calculator"
+          href="/final-grade-calculator/"
           className="p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 hover:shadow-sm transition-all"
         >
           <div className="font-bold text-slate-900 text-sm mb-1">Final Exam Grade</div>
           <div className="text-xs text-slate-500">Find score needed on final</div>
         </Link>
         <Link
-          href="/weighted-grade-calculator"
+          href="/weighted-grade-calculator/"
           className="p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 hover:shadow-sm transition-all"
         >
           <div className="font-bold text-slate-900 text-sm mb-1">Weighted Grade</div>
           <div className="text-xs text-slate-500">Category percentage weights</div>
         </Link>
         <Link
-          href="/gpa-calculator"
+          href="/gpa-calculator/"
           className="p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 hover:shadow-sm transition-all"
         >
           <div className="font-bold text-slate-900 text-sm mb-1">4.0 GPA Calculator</div>

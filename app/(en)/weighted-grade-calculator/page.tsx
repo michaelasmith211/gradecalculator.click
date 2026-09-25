@@ -56,12 +56,12 @@ const faqs: FAQItem[] = [
 ];
 
 export default function WeightedGradeCalculatorPage() {
-  const breadcrumbs = [{ name: "Weighted Grade Calculator", url: "/weighted-grade-calculator" }];
+  const breadcrumbs = [{ name: "Weighted Grade Calculator", url: "/weighted-grade-calculator/" }];
 
   const appSchema = generateWebApplicationSchema({
     name: "Weighted Grade Calculator",
     description: "Calculate course grades when categories carry different percentage weights.",
-    path: "/weighted-grade-calculator",
+    path: "/weighted-grade-calculator/",
   });
 
   const faqSchema = generateFAQSchema(faqs);
@@ -71,7 +71,7 @@ export default function WeightedGradeCalculatorPage() {
     name: "How to Calculate a Weighted Grade",
     description:
       "Step-by-step mathematical instructions for calculating overall course scores with syllabus category percentage weights.",
-    path: "/weighted-grade-calculator",
+    path: "/weighted-grade-calculator/",
     steps: [
       {
         name: "List Course Categories",
@@ -221,19 +221,19 @@ export default function WeightedGradeCalculatorPage() {
           <h4 className="font-bold text-slate-900 text-sm sm:text-base">Related Grading Calculators</h4>
           <p>
             • If your course is graded by accumulated points rather than weighted percentages, switch to the{" "}
-            <Link href="/grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+            <Link href="/grade-calculator/" className="text-indigo-600 font-semibold hover:underline">
               Standard Grade Calculator
             </Link>.
           </p>
           <p>
             • To find the arithmetic average of several assignments within a single category before entering its weight, use the{" "}
-            <Link href="/average-grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+            <Link href="/average-grade-calculator/" className="text-indigo-600 font-semibold hover:underline">
               Average Grade Calculator
             </Link>.
           </p>
           <p>
             • Grading individual quizzes or tests? Use our quick{" "}
-            <Link href="/test-grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+            <Link href="/test-grade-calculator/" className="text-indigo-600 font-semibold hover:underline">
               Test Grade Calculator &amp; Easy Grader
             </Link>{" "}
             for instant score conversion charts.

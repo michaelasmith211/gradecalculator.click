@@ -62,12 +62,12 @@ const faqs: FAQItem[] = [
 ];
 
 export default function FinalGradeCalculatorPage() {
-  const breadcrumbs = [{ name: "Final Grade Calculator", url: "/final-grade-calculator" }];
+  const breadcrumbs = [{ name: "Final Grade Calculator", url: "/final-grade-calculator/" }];
 
   const appSchema = generateWebApplicationSchema({
     name: "Final Grade Calculator",
     description: "Calculate what score you need on your final exam to earn your desired course grade.",
-    path: "/final-grade-calculator",
+    path: "/final-grade-calculator/",
   });
 
   const faqSchema = generateFAQSchema(faqs);
@@ -215,19 +215,19 @@ export default function FinalGradeCalculatorPage() {
           <h4 className="font-bold text-slate-900 text-sm sm:text-base">Related Grading Calculators</h4>
           <p>
             • To determine your exact overall coursework score before calculating your final exam goal, use our{" "}
-            <Link href="/grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+            <Link href="/grade-calculator/" className="text-indigo-600 font-semibold hover:underline">
               Standard Grade Calculator
             </Link>.
           </p>
           <p>
             • To find the arithmetic average or mean of past tests, quizzes, and homework scores, use our{" "}
-            <Link href="/average-grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+            <Link href="/average-grade-calculator/" className="text-indigo-600 font-semibold hover:underline">
               Average Grade Calculator
             </Link>.
           </p>
           <p>
             • Looking for an instant grading chart with percentage conversions for individual test papers? Check out our{" "}
-            <Link href="/test-grade-calculator" className="text-indigo-600 font-semibold hover:underline">
+            <Link href="/test-grade-calculator/" className="text-indigo-600 font-semibold hover:underline">
               Test Grade Calculator &amp; Easy Grader
             </Link>.
           </p>

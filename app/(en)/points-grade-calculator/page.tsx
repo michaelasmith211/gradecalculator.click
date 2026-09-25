@@ -55,20 +55,20 @@ const faqs: FAQItem[] = [
 
 export default function PointsGradeCalculatorPage() {
   const breadcrumbs = [
-    { name: "Grade Calculator", url: "/grade-calculator" },
-    { name: "Points-Based Grade", url: "/points-grade-calculator" },
+    { name: "Grade Calculator", url: "/grade-calculator/" },
+    { name: "Points-Based Grade", url: "/points-grade-calculator/" },
   ];
 
   const appSchema = generateWebApplicationSchema({
     name: "Points-Based Grade Calculator",
     description: "Calculate class grade based on total points earned vs total points possible.",
-    path: "/points-grade-calculator",
+    path: "/points-grade-calculator/",
   });
 
   const howToSchema = generateHowToSchema({
     name: "How to Calculate a Points-Based Class Grade",
     description: "Step-by-step instructions to sum points and calculate percentage.",
-    path: "/points-grade-calculator",
+    path: "/points-grade-calculator/",
     steps: [
       {
         name: "Sum Points Earned",
@@ -88,7 +88,7 @@ export default function PointsGradeCalculatorPage() {
   const articleSchema = generateArticleSchema({
     headline: "Points-Based Grading System Explained: Formulas, Examples & Calculations",
     description: "Comprehensive guide to point accumulation grading systems, assignment values, and grade calculations.",
-    path: "/points-grade-calculator",
+    path: "/points-grade-calculator/",
   });
 
   const faqSchema = generateFAQSchema(faqs);

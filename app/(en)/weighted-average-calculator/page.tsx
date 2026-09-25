@@ -55,20 +55,20 @@ const faqs: FAQItem[] = [
 
 export default function WeightedAverageCalculatorPage() {
   const breadcrumbs = [
-    { name: "Weighted Grade Calculator", url: "/weighted-grade-calculator" },
-    { name: "Weighted Average Calculator", url: "/weighted-average-calculator" },
+    { name: "Weighted Grade Calculator", url: "/weighted-grade-calculator/" },
+    { name: "Weighted Average Calculator", url: "/weighted-average-calculator/" },
   ];
 
   const appSchema = generateWebApplicationSchema({
     name: "Weighted Average Calculator",
     description: "Calculate weighted averages and relative value contributions for grades and statistics.",
-    path: "/weighted-average-calculator",
+    path: "/weighted-average-calculator/",
   });
 
   const howToSchema = generateHowToSchema({
     name: "How to Calculate a Weighted Average",
     description: "Step-by-step mathematical guide to calculating weighted averages.",
-    path: "/weighted-average-calculator",
+    path: "/weighted-average-calculator/",
     steps: [
       {
         name: "Multiply Each Score by its Weight",
@@ -92,7 +92,7 @@ export default function WeightedAverageCalculatorPage() {
   const articleSchema = generateArticleSchema({
     headline: "How to Calculate Weighted Averages: Formulas & Worked Examples",
     description: "Comprehensive tutorial on weighted means, percentage weighting formulas, and academic grade applications.",
-    path: "/weighted-average-calculator",
+    path: "/weighted-average-calculator/",
   });
 
   const faqSchema = generateFAQSchema(faqs);
